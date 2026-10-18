@@ -5,7 +5,7 @@
   margin-inline-start: var(--post-gutter);
   margin-block-end: 2rem;
   color: var(--color-text-muted);
-  font-size: 0.8125rem;
+  font-size: var(--font-size-sm);
   font-weight: 400;
   text-decoration: none;
 }
@@ -31,7 +31,7 @@
   grid-row: 1;
   margin: 0;
   padding-inline-end: 1.75rem;
-  font-size: clamp(1.75rem, 3.8vw, 2.75rem);
+  font-size: var(--font-size-post-title);
   font-weight: 600;
   letter-spacing: -0.035em;
   line-height: 1.2;
@@ -44,7 +44,7 @@
   grid-row: 1;
   padding-block-start: 0.625rem;
   color: var(--color-text-muted);
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   font-weight: 400;
   letter-spacing: 0.045em;
   font-variant-numeric: tabular-nums;
@@ -60,7 +60,7 @@
   grid-column: 2 / -1;
   margin: -0.75rem 0 0;
   color: var(--color-text-muted);
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
 }
 
 .post__author {
@@ -73,7 +73,7 @@
 .post__content {
   margin-inline-start: var(--post-gutter);
   padding-block-start: 1.75rem;
-  font-size: 0.875rem;
+  font-size: var(--font-size-md);
   font-weight: 400;
   line-height: 1.7;
   overflow-wrap: anywhere;
@@ -95,7 +95,7 @@
 .post__content h5,
 .post__content h6 {
   margin-block: 1.75rem 0.75rem;
-  font-size: 1em;
+  font-size: inherit;
   font-weight: 600;
   line-height: 1.4;
   letter-spacing: -0.025em;
@@ -103,11 +103,11 @@
 }
 
 .post__content h2 {
-  font-size: 1.125rem;
+  font-size: var(--font-size-lg);
 }
 
 .post__content h3 {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
 }
 
 .post__content li + li {
@@ -131,7 +131,7 @@
   padding: 1rem;
   border: 1px solid var(--color-border);
   border-radius: 0.375rem;
-  font-size: 0.8125rem;
+  font-size: var(--font-size-sm);
   line-height: 1.8;
   overflow-x: auto;
   overflow-wrap: normal;
@@ -141,7 +141,7 @@
   padding: 0.125em 0.35em;
   border-radius: 0.2rem;
   background: var(--color-surface);
-  font-size: 0.9em;
+  font-size: var(--font-size-inline-code);
 }
 
 .post__content img {
@@ -160,7 +160,7 @@
   border-collapse: separate;
   border-spacing: 0;
   background: var(--color-background);
-  font-size: 0.875rem;
+  font-size: var(--font-size-md);
   overflow-x: auto;
   overflow-wrap: normal;
   word-break: normal;
@@ -209,7 +209,7 @@
 .post__content figcaption {
   margin-block-start: 0.5rem;
   color: var(--color-text-muted);
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
 }
 
 @media (max-width: 47.999rem) {

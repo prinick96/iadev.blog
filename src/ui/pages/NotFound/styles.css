@@ -1,4 +1,4 @@
 .not-found {
-    text-align: center;
-    font-size: 0.8125rem;
+  text-align: center;
+  font-size: var(--font-size-sm);
 }

@@ -6,7 +6,7 @@
   gap: 0.5rem 1rem;
   padding-block: 1.5rem;
   border-block-start: 1px solid var(--color-border);
-  font-size: 0.875rem;
+  font-size: var(--font-size-md);
 }
 
 .pagination__current {

@@ -2,7 +2,7 @@
   padding-block: clamp(3.5rem, 8vw, 5rem) 2.5rem;
   color: var(--color-text-muted);
   text-align: center;
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   font-weight: 400;
 }
 

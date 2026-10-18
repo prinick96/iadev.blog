@@ -30,7 +30,7 @@
 .home__date {
   padding-block-start: 0.3125rem;
   color: var(--color-text-muted);
-  font-size: 0.75rem;
+  font-size: var(--font-size-xs);
   font-weight: 400;
   letter-spacing: 0.045em;
   white-space: nowrap;
@@ -43,7 +43,7 @@
 
 .home__title {
   margin: 0;
-  font-size: clamp(1rem, 1.7vw, 1.25rem);
+  font-size: var(--font-size-post-preview-title);
   font-weight: 600;
   letter-spacing: -0.025em;
   line-height: 1.5;
@@ -54,7 +54,7 @@
 .home__description {
   margin: 0.5rem 0 0;
   color: var(--color-text-muted);
-  font-size: 0.875rem;
+  font-size: var(--font-size-md);
   font-weight: 400;
   line-height: 1.6;
   overflow-wrap: anywhere;
@@ -83,7 +83,7 @@
     grid-column: 1;
     grid-row: 1;
     padding-block-start: 0;
-    font-size: 0.6875rem;
+    font-size: var(--font-size-2xs);
   }
 
   .home__summary {
