@@ -5,7 +5,7 @@ import { site } from './src/ui/config/site.ts'
 export default defineConfig({
   site: site.url,
   output: 'static',
-  trailingSlash: 'always',
+  trailingSlash: 'ignore',
   prerenderConflictBehavior: 'error',
   integrations: [sitemap()],
   markdown: {
