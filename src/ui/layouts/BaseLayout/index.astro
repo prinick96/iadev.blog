@@ -1,0 +1,39 @@
+---
+import { site } from '@/ui/config/site'
+import type { Props } from '@/ui/layouts/BaseLayout/types'
+import { paths } from '@/ui/routes/paths'
+
+const { title, description = site.description } = Astro.props
+const pageTitle = title ? `${title} | ${site.title}` : site.title
+const canonical = new URL(Astro.url.pathname, site.url).href
+---
+
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:url" content={canonical} />
+    <link rel="alternate" type="application/rss+xml" title={site.title} href={paths.rss} />
+  </head>
+  <body>
+    <header>
+      <nav aria-label="Navegación principal">
+        <ul>
+          <li><a href={paths.home}>Inicio</a></li>
+          <li><a href={paths.rss}>RSS</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main id="main-content" tabindex="-1">
+      <slot />
+    </main>
+  </body>
+</html>

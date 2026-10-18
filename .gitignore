@@ -1,0 +1,31 @@
+# Dependencias y archivos generados
+node_modules/
+dist/
+.astro/
+coverage/
+*.tsbuildinfo
+
+# Variables locales; las plantillas sí se versionan
+.env
+.env.*
+!.env.example
+!.env.*.example
+
+# Logs y archivos del sistema
+*.log
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Instrucciones y estado local de agentes (AI Context Isolation Engineer 💩)
+AGENTS.md
+AGENTS.local.md
+CLAUDE.md
+CLAUDE.local.md
+MakeNoMistake.md
+MakeNoMistakePLEASE.md
+.agents/
+.claude/
+.codex/
+.mcpreallife/

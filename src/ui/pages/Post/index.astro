@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
+import type { Props } from '@/ui/pages/Post/types'
+import { paths } from '@/ui/routes/paths'
+import { formatDate } from '@/ui/utils/formatDate'
+
+const { post } = Astro.props
+---
+
+<BaseLayout title={post.title} description={post.description}>
+  <article class="post">
+    <header>
+      <h1>{post.title}</h1>
+      <p>Publicado el <time datetime={post.published_at.toISOString()}>{formatDate(post.published_at)}</time></p>
+      {post.updated_at && (
+        <p>
+          Actualizado el <time datetime={post.updated_at.toISOString()}>{formatDate(post.updated_at)}</time>
+        </p>
+      )}
+    </header>
+    <div class="post__content">
+      <slot />
+    </div>
+    <p><a href={paths.home}>Volver al inicio</a></p>
+  </article>
+</BaseLayout>
+
+<style>
+.post__content :global(img) {
+  max-inline-size: 100%;
+  block-size: auto;
+}
+
+.post__content :global(pre) {
+  overflow-x: auto;
+}
+</style>

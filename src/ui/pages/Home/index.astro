@@ -1,0 +1,30 @@
+---
+import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
+import type { Props } from '@/ui/pages/Home/types'
+import { getPostPath } from '@/ui/routes/getPostPath'
+import { formatDate } from '@/ui/utils/formatDate'
+
+const { posts } = Astro.props
+---
+
+<BaseLayout>
+  <section class="home">
+    {posts.length === 0 ? (
+      <p>Todavía no hay artículos publicados.</p>
+    ) : (
+      <ul>
+        {posts.map((post) => (
+          <li>
+            <h2>
+              <a href={getPostPath(post.id)}>{post.title}</a>
+            </h2>
+            <p>
+              <time datetime={post.published_at.toISOString()}>{formatDate(post.published_at)}</time>
+            </p>
+            <p>{post.description}</p>
+          </li>
+        ))}
+      </ul>
+    )}
+  </section>
+</BaseLayout>
