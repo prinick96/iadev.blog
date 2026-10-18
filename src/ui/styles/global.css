@@ -1,0 +1,77 @@
+:root {
+  color-scheme: dark;
+  --color-background: #0d1016;
+  --color-surface: #1f2127;
+  --color-surface-muted: #1f2127bf;
+  --color-surface-hover: #2d2f34;
+  --color-text: #bfbdb6;
+  --color-text-muted: #8a8986;
+  --color-accent: #5ac1fe;
+  --color-border: #2d2f34;
+  --color-border-strong: #3f4043;
+  --color-selection: #5ac1fe3d;
+  --color-scrollbar-thumb: #bfbdb64c;
+  --site-gutter: clamp(1.5rem, 5vw, 3rem);
+  --post-gutter: 9rem;
+  font-family: "IBM Plex Mono", "SFMono-Regular", Consolas, monospace;
+  font-synthesis: none;
+  line-height: 1.65;
+  background: var(--color-background);
+  color: var(--color-text);
+  scrollbar-color: var(--color-scrollbar-thumb) var(--color-background);
+  scrollbar-width: thin;
+  -webkit-font-smoothing: antialiased;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}
+
+::selection {
+  background: var(--color-selection);
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-accent);
+  text-underline-offset: 0.25em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 5px;
+}
+
+img {
+  max-inline-size: 100%;
+}
+
+button,
+input,
+textarea,
+select,
+code,
+pre {
+  font: inherit;
+}
+
+strong {
+  font-weight: 700;
+}
+
+@media (max-width: 47.999rem) {
+  :root {
+    --post-gutter: 0rem;
+  }
+}

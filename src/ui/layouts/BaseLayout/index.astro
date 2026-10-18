@@ -1,10 +1,17 @@
 ---
+import regularFont from '@/ui/assets/fonts/ibm-plex-mono/ibm-plex-mono-latin-400-normal.woff2?url'
 import { site } from '@/ui/config/site'
+import Footer from '@/ui/layouts/BaseLayout/components/Footer/index.astro'
+import Topnav from '@/ui/layouts/BaseLayout/components/Topnav/index.astro'
 import type { Props } from '@/ui/layouts/BaseLayout/types'
+import '@/ui/styles/fonts.css'
+import '@/ui/styles/global.css'
 import { paths } from '@/ui/routes/paths'
+import '@/ui/layouts/BaseLayout/styles.css'
 
-const { title, description = site.description } = Astro.props
-const pageTitle = title ? `${title} | ${site.title}` : site.title
+const { title, description = site.description, showDescription = false } = Astro.props
+const siteTitle = `${site.title} - ${site.subtitle}`
+const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle
 const canonical = new URL(Astro.url.pathname, site.url).href
 ---
 
@@ -14,6 +21,9 @@ const canonical = new URL(Astro.url.pathname, site.url).href
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
+    <meta name="theme-color" content="#0d1016" />
+
+    <link rel="preload" href={regularFont} as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     <meta property="og:title" content={pageTitle} />
@@ -24,16 +34,13 @@ const canonical = new URL(Astro.url.pathname, site.url).href
     <link rel="alternate" type="application/rss+xml" title={site.title} href={paths.rss} />
   </head>
   <body>
-    <header>
-      <nav aria-label="Navegación principal">
-        <ul>
-          <li><a href={paths.home}>Inicio</a></li>
-          <li><a href={paths.rss}>RSS</a></li>
-        </ul>
-      </nav>
-    </header>
-    <main id="main-content" tabindex="-1">
-      <slot />
-    </main>
+    <a class="skip-link" href="#main-content">Saltar al contenido</a>
+    <div class="site-shell">
+      <Topnav showDescription={showDescription} />
+      <main id="main-content" class="site-shell__main" tabindex="-1">
+        <slot />
+      </main>
+      <Footer />
+    </div>
   </body>
 </html>

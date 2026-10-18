@@ -1,0 +1,27 @@
+.author-info {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  font-size: 0.8125rem;
+}
+
+.author-info__avatar {
+  display: block;
+  inline-size: 3.5rem;
+  block-size: 3.5rem;
+  flex-shrink: 0;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.author-info__name {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.author-info__bio {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}

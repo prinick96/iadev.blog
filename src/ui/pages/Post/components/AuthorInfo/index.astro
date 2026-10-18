@@ -1,0 +1,30 @@
+---
+import { getImage } from 'astro:assets'
+import type { ImageMetadata } from 'astro'
+import { AUTHORS_ASSETS_PATH } from '@/ui/constants/assets'
+import type { Props } from '@/ui/pages/Post/components/AuthorInfo/types'
+import { resolveImage } from '@/ui/utils/resolveImage'
+import '@/ui/pages/Post/components/AuthorInfo/styles.css'
+
+const { author } = Astro.props
+const images = import.meta.glob<ImageMetadata>('/src/ui/assets/authors/**/*.webp', {
+  eager: true,
+  import: 'default',
+})
+const image = await getImage({
+  src: resolveImage(images, `${AUTHORS_ASSETS_PATH}/${author.avatar}`),
+  alt: '',
+  width: 96,
+  height: 96,
+  format: 'webp',
+  loading: 'lazy',
+})
+---
+
+<div class="author-info">
+  <img class="author-info__avatar" src={image.src} srcset={image.srcSet.attribute || undefined} {...image.attributes} />
+  <div>
+    <p class="author-info__name">{author.name}</p>
+    <div class="author-info__bio" set:html={author.bio}></div>
+  </div>
+</div>

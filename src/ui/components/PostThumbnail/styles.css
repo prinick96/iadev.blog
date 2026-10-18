@@ -1,0 +1,8 @@
+.post-thumbnail {
+  display: block;
+  inline-size: var(--thumbnail-size, 5.25rem);
+  block-size: var(--thumbnail-size, 5.25rem);
+  flex-shrink: 0;
+  border-radius: 0.625rem;
+  object-fit: cover;
+}

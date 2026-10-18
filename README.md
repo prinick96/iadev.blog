@@ -4,7 +4,7 @@ Sátira, humor negro y humor friki sobre el maravilloso circo de la inteligencia
 
 Aquí el humo no se vende: se documenta. Si un artículo te parece una barbaridad, es sátira. Si te parece un plan de negocio, probablemente ya estés preparando la ronda de inversión.
 
-Blog estático con Astro y artículos en Markdown. Sin agentes autónomos para servir HTML: sabemos que eso complica levantar capital.
+Blog estático con Astro y artículos en Markdown, enfocado a un único autor. Sin agentes autónomos para servir HTML: sabemos que eso complica levantar capital.
 
 ## En local
 
@@ -18,7 +18,9 @@ bun run dev
 - Abre `http://localhost:4321`. Los artículos están en `src/content/posts/`; puedes crear `tu-primer-post.md`. 
 - Cada `.md` necesita `title`, `description` y `published_at` en el frontmatter. `updated_at` y `slug` son opcionales. 
 - No hay borradores ni filtros por fecha.
-
+- La miniatura es opcional: guarda `thumbnail.webp` en `src/ui/assets/posts/<id-del-artículo>/`, sin añadir frontmatter. Para `ejemplo.md`, la ruta es `src/ui/assets/posts/ejemplo/thumbnail.webp`; los IDs anidados conservan sus subcarpetas. Si falta, se utiliza `placehold.co`, que recibe una petición del navegador.
+- Los datos del autor se editan en `src/core/logic/author/infra/local/AuthorRepository.ts`. Su avatar se guarda en `src/ui/assets/authors/prinick/avatar.webp`; mientras falte, también se muestra un placeholder. Si queremos conectar esto a una api, crear otra implementación de la interfaz.
+- 
 ## Arquitectura
 
 Astro genera todo durante el build: páginas, artículos, RSS y sitemap. La salida es estática (`dist/`), sin SSR ni JavaScript de cliente.
@@ -44,7 +46,7 @@ La arquitectura hexagonal se organiza por dominio dentro de `core/logic/`. Cada 
 - **Casos de uso:** exponen `execute()` y coordinan la lógica de aplicación. Reciben infraestructura mediante contratos; los conversores puros usan `static execute()` y pueden reutilizarse desde UI sobre datos recibidos.
 - **Repositorios pasivos:** obtienen y devuelven datos, sin convertirlos a entidades ni decidir políticas de aplicación.
 - **`services/index.ts`:** conecta adaptadores y casos de uso; exporta instancias, no reexports de clases o tipos.
-- **Rutas e interfaz:** `src/pages/` genera las rutas y renderiza el Markdown; `src/ui/` recibe props y slots, sin consultar colecciones. La presentación usa componentes Astro y CSS nativo scoped con BEM.
+- **Rutas e interfaz:** `src/pages/` genera las rutas y renderiza el Markdown; `src/ui/` recibe props y slots, sin consultar colecciones. La presentación usa componentes Astro y CSS nativo con BEM en un `styles.css` junto a cada componente, página de UI o layout con estilos propios.
 
 Los nombres de código, archivos, clases, interfaces, tipos, funciones, métodos, parámetros, variables, constantes y tests (incluidas sus descripciones) están en inglés; los campos de dominio mantienen `snake_case`. El contenido y la UI siguen en español.
 

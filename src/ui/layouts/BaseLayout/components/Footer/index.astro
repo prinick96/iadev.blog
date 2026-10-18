@@ -1,0 +1,12 @@
+---
+import { site } from '@/ui/config/site'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/layouts/BaseLayout/components/Footer/styles.css'
+
+const year = new Date().getUTCFullYear()
+---
+
+<footer class="footer">
+  <p class="footer__copyright">{site.title} © {year}</p>
+  <a class="footer__link" target="_blank" href={paths.rss}>RSS</a>
+</footer>

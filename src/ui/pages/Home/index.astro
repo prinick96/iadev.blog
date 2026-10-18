@@ -1,27 +1,34 @@
 ---
+import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
 import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
 import type { Props } from '@/ui/pages/Home/types'
 import { getPostPath } from '@/ui/routes/getPostPath'
 import { formatDate } from '@/ui/utils/formatDate'
+import '@/ui/pages/Home/styles.css'
 
 const { posts } = Astro.props
 ---
 
-<BaseLayout>
-  <section class="home">
+<BaseLayout showDescription>
+  <section class="home" aria-label="Últimos artículos">
     {posts.length === 0 ? (
-      <p>Todavía no hay artículos publicados.</p>
+      <p class="home__empty">Todavía no hay artículos publicados. La IA sigue pensando.</p>
     ) : (
-      <ul>
-        {posts.map((post) => (
-          <li>
-            <h2>
-              <a href={getPostPath(post.id)}>{post.title}</a>
-            </h2>
-            <p>
-              <time datetime={post.published_at.toISOString()}>{formatDate(post.published_at)}</time>
-            </p>
-            <p>{post.description}</p>
+      <ul class="home__posts">
+        {posts.map((post, index) => (
+          <li class="home__item">
+            <a class="home__post" href={getPostPath(post.id)}>
+              <time class="home__date" datetime={post.published_at.toISOString()}>
+                {formatDate(post.published_at)}
+              </time>
+              <div class="home__summary">
+                <h2 class="home__title">{post.title}</h2>
+                <p class="home__description">{post.description}</p>
+              </div>
+              <span class="home__thumbnail">
+                <PostThumbnail post={post} loading={index === 0 ? 'eager' : 'lazy'} />
+              </span>
+            </a>
           </li>
         ))}
       </ul>

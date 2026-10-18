@@ -1,0 +1,18 @@
+---
+import { getImage } from 'astro:assets'
+import { POST_THUMBNAIL_IMAGE_OPTIONS, POST_THUMBNAIL_IMAGES } from '@/ui/components/PostThumbnail/constants'
+import type { Props } from '@/ui/components/PostThumbnail/types'
+import { POSTS_ASSETS_PATH } from '@/ui/constants/assets'
+import { resolveImage } from '@/ui/utils/resolveImage'
+import '@/ui/components/PostThumbnail/styles.css'
+
+const { post, loading = 'lazy' } = Astro.props
+
+const image = await getImage({
+  ...POST_THUMBNAIL_IMAGE_OPTIONS,
+  src: resolveImage(POST_THUMBNAIL_IMAGES, `${POSTS_ASSETS_PATH}/${post.id}/thumbnail.webp`),
+  loading,
+})
+---
+
+<img class="post-thumbnail" src={image.src} srcset={image.srcSet.attribute || undefined} {...image.attributes} />
