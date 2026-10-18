@@ -1,0 +1,26 @@
+---
+import PageLink from '@/ui/pages/Home/components/Pagination/components/PageLink/index.astro'
+import type { Props } from '@/ui/pages/Home/components/Pagination/types'
+import { getHomePagePath } from '@/ui/routes/getHomePagePath'
+import '@/ui/pages/Home/components/Pagination/styles.css'
+
+const { currentPage, totalPages } = Astro.props
+
+const showPagination = totalPages > 1
+const hasPreviousPage = currentPage > 1
+const hasNextPage = currentPage < totalPages
+---
+
+{showPagination && (
+  <nav class="pagination" aria-label="Paginación de artículos">
+    <PageLink isEnabled={hasPreviousPage} href={getHomePagePath(currentPage - 1)} rel="prev">
+      Anterior
+    </PageLink>
+    <span class="pagination__current" aria-current="page">
+      Página {currentPage} de {totalPages}
+    </span>
+    <PageLink isEnabled={hasNextPage} href={getHomePagePath(currentPage + 1)} rel="next">
+      Siguiente
+    </PageLink>
+  </nav>
+)}

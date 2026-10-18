@@ -1,0 +1,25 @@
+---
+import type { GetStaticPaths } from 'astro'
+import { getPostsService } from '@/core/logic/posts/services/index'
+import { POSTS_PER_PAGE } from '@/ui/pages/Home/constants'
+import Home from '@/ui/pages/Home/index.astro'
+import type { Props } from '@/ui/pages/Home/types'
+import { getHomePagePath } from '@/ui/routes/getHomePagePath'
+
+export const getStaticPaths = (async ({ paginate }) => {
+  const posts = await getPostsService.execute()
+
+  return paginate(posts, { pageSize: POSTS_PER_PAGE }).map(({ props: { page } }) => ({
+    params: { page: getHomePagePath(page.currentPage).slice(1, -1) || undefined },
+    props: {
+      posts: page.data,
+      currentPage: page.currentPage,
+      totalPages: page.lastPage,
+    },
+  }))
+}) satisfies GetStaticPaths
+
+const { posts, currentPage, totalPages } = Astro.props
+---
+
+<Home posts={posts} currentPage={currentPage} totalPages={totalPages} />

@@ -1,8 +1,0 @@
----
-import { getPostsService } from '@/core/logic/posts/services/index'
-import Home from '@/ui/pages/Home/index.astro'
-
-const posts = await getPostsService.execute()
----
-
-<Home posts={posts} />

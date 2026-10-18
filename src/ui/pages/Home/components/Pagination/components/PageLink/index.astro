@@ -1,0 +1,16 @@
+---
+import type { Props } from '@/ui/pages/Home/components/Pagination/components/PageLink/types'
+import '@/ui/pages/Home/components/Pagination/components/PageLink/styles.css'
+
+const { isEnabled, href, rel } = Astro.props
+---
+
+{isEnabled ? (
+  <a class="page-link" href={href} rel={rel}>
+    <slot />
+  </a>
+) : (
+  <span class="page-link page-link--disabled" aria-disabled="true">
+    <slot />
+  </span>
+)}

@@ -1,15 +1,17 @@
 ---
 import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
 import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
+import Pagination from '@/ui/pages/Home/components/Pagination/index.astro'
 import type { Props } from '@/ui/pages/Home/types'
 import { getPostPath } from '@/ui/routes/getPostPath'
 import { formatDate } from '@/ui/utils/formatDate'
 import '@/ui/pages/Home/styles.css'
 
-const { posts } = Astro.props
+const { posts, currentPage, totalPages } = Astro.props
+const title = currentPage > 1 ? `Página ${currentPage}` : undefined
 ---
 
-<BaseLayout showDescription>
+<BaseLayout title={title} showDescription>
   <section class="home" aria-label="Últimos artículos">
     {posts.length === 0 ? (
       <p class="home__empty">Todavía no hay artículos publicados. La IA sigue pensando.</p>
@@ -33,5 +35,6 @@ const { posts } = Astro.props
         ))}
       </ul>
     )}
+    <Pagination currentPage={currentPage} totalPages={totalPages} />
   </section>
 </BaseLayout>

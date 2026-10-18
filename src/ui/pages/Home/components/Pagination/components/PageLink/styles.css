@@ -1,0 +1,7 @@
+.page-link {
+  padding-block: 0.5rem;
+}
+
+.page-link--disabled {
+  color: var(--color-text-muted);
+}
