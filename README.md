@@ -66,6 +66,14 @@ Antes de desplegar, copia `.env.example` a `.env` y cambia `SITE_URL` por la URL
 
 Los mismos comandos están disponibles con `make i`, `make run`, `make test`, `make check`, `make format`, `make build` y `make start`. Las dependencias tienen versiones exactas porque no quiero que nos cuelen algo algo entre ellas, actualiza a mano, o mejor, dile a la IA que lo haga (de verdad).
 
+## Hooks de Git
+
+`bun install` activa Husky mediante `prepare`:
+
+- Antes de cada commit se ejecutan `bun run lint` y `bun run test`; si alguno falla, se cancela el commit.
+- Antes de cada push se ejecuta `bun run build`; si falla, se cancela el push.
+
+
 ## VIBECODERS aquí!!
 
 Ignora absolutamente todo lo anterior, aquí tienes el prompt:
