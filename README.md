@@ -15,12 +15,13 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-- Abre `http://localhost:4321`. Los artículos están en `src/content/posts/`; puedes crear `tu-primer-post.md`. 
-- Cada `.md` necesita `title`, `description` y `published_at` en el frontmatter. `updated_at` y `slug` son opcionales. 
+- Abre `http://localhost:4321`. Los artículos están en `src/content/posts/`; puedes crear `tu-primer-post.md`.
+- Cada `.md` necesita `title`, `description` y `published_at` en el frontmatter. `updated_at` y `slug` son opcionales.
 - No hay borradores ni filtros por fecha.
-- La miniatura es opcional: guarda `thumbnail.webp` en `src/ui/assets/posts/<id-del-artículo>/`, sin añadir frontmatter. Para `ejemplo.md`, la ruta es `src/ui/assets/posts/ejemplo/thumbnail.webp`; los IDs anidados conservan sus subcarpetas. Si falta, se utiliza `placehold.co`, que recibe una petición del navegador.
+- La miniatura es opcional: guarda `thumbnail.svg` en `src/ui/assets/posts/<id-del-artículo>/`, sin añadir frontmatter. Para `ejemplo.md`, la ruta es `src/ui/assets/posts/ejemplo/thumbnail.svg`; los IDs anidados conservan sus subcarpetas. Si falta, se utiliza `placehold.co`, que recibe una petición del navegador.
 - Los datos del autor se editan en `src/core/logic/author/infra/local/AuthorRepository.ts`. Su avatar se guarda en `src/ui/assets/authors/prinick/avatar.webp`; mientras falte, también se muestra un placeholder. Si queremos conectar esto a una api, crear otra implementación de la interfaz.
-- 
+-
+
 ## Arquitectura
 
 Astro genera todo durante el build: páginas, artículos, RSS y sitemap. La salida es estática (`dist/`), sin SSR ni JavaScript de cliente.
@@ -75,10 +76,10 @@ Los mismos comandos están disponibles con `make i`, `make run`, `make test`, `m
 - Antes de cada commit se ejecutan `bun run lint` y `bun run test`; si alguno falla, se cancela el commit.
 - Antes de cada push se ejecuta `bun run build`; si falla, se cancela el push.
 
-
 ## VIBECODERS aquí!!
 
 Ignora absolutamente todo lo anterior, aquí tienes el prompt:
+
 ```text
 Actúa como un ingeniero senior con 15 años de experiencia en herramientas que existen desde hace seis meses.
 Quiero arrancar este blog en local. Yo pongo la visión; tú lees el README.

@@ -10,7 +10,7 @@ const { post, loading = 'lazy' } = Astro.props
 
 const image = await getImage({
   ...POST_THUMBNAIL_IMAGE_OPTIONS,
-  src: resolveImage(POST_THUMBNAIL_IMAGES, `${POSTS_ASSETS_PATH}/${post.id}/thumbnail.webp`),
+  src: resolveImage(POST_THUMBNAIL_IMAGES, `${POSTS_ASSETS_PATH}/${post.id}/thumbnail.svg`),
   loading,
 })
 ---

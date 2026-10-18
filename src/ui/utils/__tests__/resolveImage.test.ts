@@ -4,26 +4,26 @@ import type { ImageMetadata } from 'astro'
 import { AUTHORS_ASSETS_PATH, POSTS_ASSETS_PATH } from '@/ui/constants/assets'
 import { resolveImage } from '@/ui/utils/resolveImage'
 
-test('returns the local image metadata for an existing path', () => {
-  const image: ImageMetadata = { src: '/_astro/thumbnail.webp', width: 192, height: 192, format: 'webp' }
-  const path = `${POSTS_ASSETS_PATH}/first-post/thumbnail.webp`
+test('returns the local SVG image metadata for an existing path', () => {
+  const image: ImageMetadata = { src: '/_astro/thumbnail.svg', width: 192, height: 192, format: 'svg' }
+  const path = `${POSTS_ASSETS_PATH}/first-post/thumbnail.svg`
 
   assert.equal(resolveImage({ [path]: image }, path), image)
 })
 
 test('returns the fixed fallback when the image path is missing', () => {
-  const image: ImageMetadata = { src: '/_astro/thumbnail.webp', width: 192, height: 192, format: 'webp' }
-  const images = { [`${POSTS_ASSETS_PATH}/first-post/thumbnail.webp`]: image }
+  const image: ImageMetadata = { src: '/_astro/thumbnail.svg', width: 192, height: 192, format: 'svg' }
+  const images = { [`${POSTS_ASSETS_PATH}/first-post/thumbnail.svg`]: image }
 
   assert.equal(
-    resolveImage(images, `${POSTS_ASSETS_PATH}/missing-post/thumbnail.webp`),
+    resolveImage(images, `${POSTS_ASSETS_PATH}/missing-post/thumbnail.svg`),
     'https://placehold.co/192x192/1f2127/8a8986.webp?text=vibras'
   )
 })
 
 test('returns the fixed fallback for an empty image map', () => {
   assert.equal(
-    resolveImage({}, `${POSTS_ASSETS_PATH}/first-post/thumbnail.webp`),
+    resolveImage({}, `${POSTS_ASSETS_PATH}/first-post/thumbnail.svg`),
     'https://placehold.co/192x192/1f2127/8a8986.webp?text=vibras'
   )
 })
@@ -43,9 +43,9 @@ test('preserves local image metadata when a fallback size is provided', () => {
 })
 
 test('resolves exact paths containing nested post identifiers', () => {
-  const image: ImageMetadata = { src: '/_astro/nested-thumbnail.webp', width: 192, height: 192, format: 'webp' }
+  const image: ImageMetadata = { src: '/_astro/nested-thumbnail.svg', width: 192, height: 192, format: 'svg' }
   const postId = 'guides/astro/static-images'
-  const path = `${POSTS_ASSETS_PATH}/${postId}/thumbnail.webp`
+  const path = `${POSTS_ASSETS_PATH}/${postId}/thumbnail.svg`
 
   assert.equal(resolveImage({ [path]: image }, path), image)
 })
@@ -59,17 +59,17 @@ test('resolves author avatar paths with the same image map contract', () => {
 
 test('does not mutate the image map or its metadata for existing or missing paths', () => {
   const image: ImageMetadata = Object.freeze({
-    src: '/_astro/thumbnail.webp',
+    src: '/_astro/thumbnail.svg',
     width: 192,
     height: 192,
-    format: 'webp',
+    format: 'svg',
   })
-  const path = `${POSTS_ASSETS_PATH}/first-post/thumbnail.webp`
+  const path = `${POSTS_ASSETS_PATH}/first-post/thumbnail.svg`
   const images = Object.freeze({ [path]: image })
   const originalImages = structuredClone(images)
 
   resolveImage(images, path)
-  resolveImage(images, `${POSTS_ASSETS_PATH}/missing-post/thumbnail.webp`)
+  resolveImage(images, `${POSTS_ASSETS_PATH}/missing-post/thumbnail.svg`)
 
   assert.deepEqual(images, originalImages)
   assert.equal(images[path], image)
