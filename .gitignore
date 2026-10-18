@@ -17,6 +17,7 @@ coverage/
 Thumbs.db
 *.swp
 *.swo
+.zed
 
 # Instrucciones y estado local de agentes (AI Context Isolation Engineer 💩)
 AGENTS.md

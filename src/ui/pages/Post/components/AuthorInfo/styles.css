@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   gap: 1.25rem;
-  font-size: 0.8125rem;
+  font-size: var(--font-size-sm);
 }
 
 .author-info__avatar {
@@ -16,7 +16,7 @@
 
 .author-info__name {
   margin: 0;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   font-weight: 500;
 }
 
