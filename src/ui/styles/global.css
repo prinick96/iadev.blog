@@ -33,7 +33,6 @@
   color: var(--color-text);
   scrollbar-color: var(--color-scrollbar-thumb) var(--color-background);
   scrollbar-width: thin;
-  scrollbar-gutter: stable;
   -webkit-font-smoothing: antialiased;
 }
 
