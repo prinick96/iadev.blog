@@ -17,6 +17,8 @@ test('maps repository data and category references into posts with a single repo
       published_at: new Date('2026-10-18'),
       updated_at: undefined,
       category_ids: ['typescript', 'astro'],
+      reading_time_minutes: 0,
+      token_count: 200000,
     },
   ])
   assert.deepEqual(repository.list.mock.calls, [[]])
@@ -39,6 +41,7 @@ test('sorts by publication date descending without mutating repository data or e
   const posts: PostSource[] = [
     {
       id: 'old-post',
+      body: Array(201).fill('word').join(' '),
       data: {
         title: 'Un artículo antiguo',
         description: 'La actualización no lo convierte en noticia.',
@@ -49,6 +52,7 @@ test('sorts by publication date descending without mutating repository data or e
     },
     {
       id: 'recent-post',
+      body: 'word',
       data: {
         title: 'Un artículo reciente',
         description: 'Todavía no tiene categorías.',
@@ -57,6 +61,7 @@ test('sorts by publication date descending without mutating repository data or e
     },
     {
       id: 'future-post',
+      body: Array(401).fill('word').join(' '),
       data: {
         title: 'Un artículo futuro',
         description: 'El calendario no decide qué se publica.',
@@ -82,11 +87,16 @@ test('sorts by publication date descending without mutating repository data or e
   const result = await new GetPosts(repository).execute()
 
   assert.deepEqual(
-    result.map((post) => ({ id: post.id, category_ids: post.category_ids })),
+    result.map((post) => ({
+      id: post.id,
+      category_ids: post.category_ids,
+      reading_time_minutes: post.reading_time_minutes,
+      token_count: post.token_count,
+    })),
     [
-      { id: 'future-post', category_ids: [] },
-      { id: 'recent-post', category_ids: [] },
-      { id: 'old-post', category_ids: ['typescript', 'astro'] },
+      { id: 'future-post', category_ids: [], reading_time_minutes: 3, token_count: 200000 },
+      { id: 'recent-post', category_ids: [], reading_time_minutes: 1, token_count: 200000 },
+      { id: 'old-post', category_ids: ['typescript', 'astro'], reading_time_minutes: 2, token_count: 200000 },
     ]
   )
   assert.deepEqual(result[0], {
@@ -96,6 +106,8 @@ test('sorts by publication date descending without mutating repository data or e
     published_at: new Date('2099-01-01'),
     updated_at: undefined,
     category_ids: [],
+    reading_time_minutes: 3,
+    token_count: 200000,
   })
   assert.deepEqual(posts, original)
   assert.notEqual(result, posts)

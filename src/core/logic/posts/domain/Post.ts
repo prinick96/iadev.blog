@@ -3,6 +3,8 @@ export type Post = {
   title: string
   description: string
   category_ids: string[]
+  reading_time_minutes: number
+  token_count: number
   published_at: Date
   // por si i make a mistake
   updated_at?: Date

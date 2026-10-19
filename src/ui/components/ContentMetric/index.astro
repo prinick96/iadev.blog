@@ -1,0 +1,16 @@
+---
+import type { Props } from '@/ui/components/ContentMetric/types'
+import '@/ui/components/ContentMetric/styles.css'
+
+const { tooltipId, tooltip, tooltipAlign = 'start' } = Astro.props
+---
+
+<span
+  class:list={['content-metric', { 'content-metric--tooltip-end': tooltipAlign === 'end' }]}
+  tabindex="0"
+  aria-describedby={tooltipId}
+>
+  <span class="content-metric__icon"><slot name="icon" /></span>
+  <span><slot /></span>
+  <span class="content-metric__tooltip" id={tooltipId} role="tooltip">{tooltip}</span>
+</span>

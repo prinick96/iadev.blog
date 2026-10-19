@@ -1,0 +1,14 @@
+---
+import ContentMetric from '@/ui/components/ContentMetric/index.astro'
+import OpenAIIcon from '@/ui/components/icons/OpenAIIcon/index.astro'
+import type { Props } from '@/ui/components/TokenCount/types'
+import { formatCompactNumber } from '@/ui/utils/formatCompactNumber'
+
+const { tokens, tooltipId } = Astro.props
+---
+
+<ContentMetric tooltipId={tooltipId} tooltip="Tokens necesarios para vibeleer" tooltipAlign="end">
+  <OpenAIIcon slot="icon" />
+  {formatCompactNumber(tokens)}
+  tokens
+</ContentMetric>

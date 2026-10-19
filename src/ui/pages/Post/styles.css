@@ -74,16 +74,33 @@
   font-size: var(--font-size-xs);
 }
 
+.post__metadata {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 0.5rem 1rem;
+  margin-block-start: 0.75rem;
+}
+
 .post__categories {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   max-inline-size: 100%;
-  margin: 0.75rem 0 0;
+  margin: 0;
   padding: 0;
   list-style: none;
   font-size: var(--font-size-2xs);
   overflow-wrap: anywhere;
+}
+
+.post__categories + .post-metrics::before {
+  flex-shrink: 0;
+  inline-size: 1px;
+  block-size: 0.75rem;
+  background: var(--color-border-strong);
+  transform: rotate(20deg);
+  content: "";
 }
 
 .post__category {

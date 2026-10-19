@@ -1,5 +1,6 @@
 ---
 import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import PostMetrics from '@/ui/components/PostMetrics/index.astro'
 import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
 import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
 import AuthorInfo from '@/ui/pages/Post/components/AuthorInfo/index.astro'
@@ -23,17 +24,20 @@ const { post, author, categories } = Astro.props
     <header class="post__header">
       <div class="post__heading">
         <h1 class="post__title">{post.title}</h1>
-        {categories.length > 0 && (
-          <ul class="post__categories" aria-label="Categorías del artículo">
-            {categories.map((category) => (
-              <li>
-                <a class="post__category" href={getCategoryPath(category.id)}>
-                  {category.name}
-                </a>
-              </li>
-            ))}
-          </ul>
-        )}
+        <div class="post__metadata">
+          {categories.length > 0 && (
+            <ul class="post__categories" aria-label="Categorías del artículo">
+              {categories.map((category) => (
+                <li>
+                  <a class="post__category" href={getCategoryPath(category.id)}>
+                    {category.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          )}
+          <PostMetrics post={post} />
+        </div>
       </div>
       <time class="post__date" datetime={post.published_at.toISOString()}>{formatDate(post.published_at)}</time>
       <div class="post__thumbnail"><PostThumbnail post={post} loading="eager" /></div>

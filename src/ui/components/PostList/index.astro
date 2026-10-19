@@ -1,5 +1,6 @@
 ---
 import type { Props } from '@/ui/components/PostList/types'
+import PostMetrics from '@/ui/components/PostMetrics/index.astro'
 import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
 import { getPostPath } from '@/ui/routes/getPostPath'
 import { formatDate } from '@/ui/utils/formatDate'
@@ -14,18 +15,23 @@ const { posts } = Astro.props
   <ul class="post-list">
     {posts.map((post, index) => (
       <li class="post-list__item">
-        <a class="post-list__post" href={getPostPath(post.id)}>
+        <div class="post-list__post">
           <time class="post-list__date" datetime={post.published_at.toISOString()}>
             {formatDate(post.published_at)}
           </time>
           <div class="post-list__summary">
-            <h2 class="post-list__title">{post.title}</h2>
-            <p class="post-list__description">{post.description}</p>
+            <a class="post-list__link" href={getPostPath(post.id)}>
+              <h2 class="post-list__title">{post.title}</h2>
+              <p class="post-list__description">{post.description}</p>
+            </a>
+            <div class="post-list__metrics">
+              <PostMetrics post={post} />
+            </div>
           </div>
           <span class="post-list__thumbnail">
             <PostThumbnail post={post} loading={index === 0 ? 'eager' : 'lazy'} />
           </span>
-        </a>
+        </div>
       </li>
     ))}
   </ul>

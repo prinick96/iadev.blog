@@ -1,0 +1,13 @@
+---
+import ContentMetric from '@/ui/components/ContentMetric/index.astro'
+import ReadingIcon from '@/ui/components/icons/ReadingIcon/index.astro'
+import type { Props } from '@/ui/components/ReadingTime/types'
+
+const { minutes, tooltipId } = Astro.props
+---
+
+<ContentMetric tooltipId={tooltipId} tooltip="Tiempo de lectura humana">
+  <ReadingIcon slot="icon" />
+  {minutes}
+  min
+</ContentMetric>

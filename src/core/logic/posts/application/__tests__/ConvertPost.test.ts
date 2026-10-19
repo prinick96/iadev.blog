@@ -35,6 +35,8 @@ test('maps category references in source order without leaking technical fields 
     title: 'Un artículo',
     description: 'Descripción del artículo',
     category_ids: ['typescript', 'astro'],
+    reading_time_minutes: 1,
+    token_count: 200000,
     published_at: entry.data.published_at,
     updated_at: entry.data.updated_at,
   })
@@ -48,7 +50,7 @@ test('maps category references in source order without leaking technical fields 
   assert.deepEqual(ConvertPost.execute(entry).category_ids, ['typescript', 'astro'])
 })
 
-test('defaults absent categories to an empty array without updated_at or Astro dependencies', () => {
+test('defaults absent categories and body without updated_at or Astro dependencies', () => {
   const entry: PostSource = {
     id: 'sin-actualizacion',
     data: {
@@ -64,6 +66,8 @@ test('defaults absent categories to an empty array without updated_at or Astro d
     title: entry.data.title,
     description: entry.data.description,
     category_ids: [],
+    reading_time_minutes: 0,
+    token_count: 200000,
     published_at: entry.data.published_at,
     updated_at: undefined,
   })
@@ -89,4 +93,40 @@ test('converts explicit empty categories into an independent empty array', () =>
   post.category_ids.push('testing')
   assert.deepEqual(entry, original)
   assert.deepEqual(ConvertPost.execute(entry).category_ids, [])
+})
+
+test('calculates three minutes from the complete 401-word body without mutating the source', () => {
+  const entry: PostSource = {
+    id: 'long-post',
+    body: Array(401).fill('word').join(' '),
+    data: {
+      title: 'Un artículo largo',
+      description: 'El resumen no cuenta toda la historia.',
+      published_at: new Date('2026-10-18'),
+    },
+  }
+  const original = structuredClone(entry)
+
+  const post = ConvertPost.execute(entry)
+
+  assert.equal(post.reading_time_minutes, 3)
+  assert.equal(post.token_count, 200000)
+  assert.deepEqual(entry, original)
+})
+
+test('returns zero reading time for an explicitly empty body', () => {
+  const entry: PostSource = {
+    id: 'empty-post',
+    body: '',
+    data: {
+      title: 'Un artículo vacío',
+      description: 'El título y el resumen no son el cuerpo.',
+      published_at: new Date('2026-10-18'),
+    },
+  }
+
+  const post = ConvertPost.execute(entry)
+
+  assert.equal(post.reading_time_minutes, 0)
+  assert.equal(post.token_count, 200000)
 })

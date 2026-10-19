@@ -1,0 +1,13 @@
+---
+import type { Props } from '@/ui/components/PostMetrics/types'
+import ReadingTime from '@/ui/components/ReadingTime/index.astro'
+import TokenCount from '@/ui/components/TokenCount/index.astro'
+import '@/ui/components/PostMetrics/styles.css'
+
+const { post } = Astro.props
+---
+
+<span class="post-metrics">
+  <ReadingTime minutes={post.reading_time_minutes} tooltipId={`reading-time-${post.id}`} />
+  <TokenCount tokens={post.token_count} tooltipId={`token-count-${post.id}`} />
+</span>
