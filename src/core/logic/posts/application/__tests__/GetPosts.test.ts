@@ -17,8 +17,8 @@ test('maps repository data and category references into posts with a single repo
       published_at: new Date('2026-10-18'),
       updated_at: undefined,
       category_ids: ['typescript', 'astro'],
-      reading_time_minutes: 0,
-      token_count: 200000,
+      reading_time_minutes: 1,
+      token_count: 4,
     },
   ])
   assert.deepEqual(repository.list.mock.calls, [[]])
@@ -94,9 +94,9 @@ test('sorts by publication date descending without mutating repository data or e
       token_count: post.token_count,
     })),
     [
-      { id: 'future-post', category_ids: [], reading_time_minutes: 3, token_count: 200000 },
-      { id: 'recent-post', category_ids: [], reading_time_minutes: 1, token_count: 200000 },
-      { id: 'old-post', category_ids: ['typescript', 'astro'], reading_time_minutes: 2, token_count: 200000 },
+      { id: 'future-post', category_ids: [], reading_time_minutes: 3, token_count: 405 },
+      { id: 'recent-post', category_ids: [], reading_time_minutes: 1, token_count: 5 },
+      { id: 'old-post', category_ids: ['typescript', 'astro'], reading_time_minutes: 2, token_count: 205 },
     ]
   )
   assert.deepEqual(result[0], {
@@ -107,7 +107,7 @@ test('sorts by publication date descending without mutating repository data or e
     updated_at: undefined,
     category_ids: [],
     reading_time_minutes: 3,
-    token_count: 200000,
+    token_count: 405,
   })
   assert.deepEqual(posts, original)
   assert.notEqual(result, posts)

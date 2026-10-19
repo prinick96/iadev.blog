@@ -5,15 +5,18 @@ import type { PostSource } from '@/core/logic/posts/domain/PostSource'
 
 class ConvertPost {
   static execute({ id, data, body }: PostSource): Post {
+    const { title, description, categories, published_at, updated_at } = data
+    const postFullContent = body ? `${title}\n\n${body}` : title
+
     return {
       id,
-      title: data.title,
-      description: data.description,
-      category_ids: (data.categories ?? []).map((reference) => reference.id),
-      reading_time_minutes: CalculateReadingTime.execute(body ?? ''),
-      token_count: CalculateTokens.execute(body ?? ''),
-      published_at: data.published_at,
-      updated_at: data.updated_at,
+      title,
+      description,
+      category_ids: (categories ?? []).map((reference) => reference.id),
+      reading_time_minutes: CalculateReadingTime.execute(postFullContent),
+      token_count: CalculateTokens.execute(postFullContent),
+      published_at,
+      updated_at,
     }
   }
 }

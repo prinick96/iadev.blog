@@ -21,7 +21,8 @@
   "dependencies": {
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.4",
-    "astro": "7.4.0"
+    "astro": "7.4.0",
+    "gpt-tokenizer": "4.1.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",
