@@ -31,6 +31,18 @@
   color: var(--color-accent);
 }
 
+@keyframes topnav-cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .topnav__cursor {
+    animation: topnav-cursor-blink 2s linear infinite;
+  }
+}
+
 .topnav__description {
   max-inline-size: 78ch;
   margin: 0.875rem auto 0;
