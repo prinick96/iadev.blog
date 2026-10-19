@@ -16,6 +16,9 @@ const { posts } = Astro.props
     {posts.map((post, index) => (
       <li class="post-list__item">
         <div class="post-list__post">
+          <span class="post-list__thumbnail">
+            <PostThumbnail post={post} loading={index === 0 ? 'eager' : 'lazy'} />
+          </span>
           <time class="post-list__date" datetime={post.published_at.toISOString()}>
             {formatDate(post.published_at)}
           </time>
@@ -28,9 +31,6 @@ const { posts } = Astro.props
               <PostMetrics post={post} />
             </div>
           </div>
-          <span class="post-list__thumbnail">
-            <PostThumbnail post={post} loading={index === 0 ? 'eager' : 'lazy'} />
-          </span>
         </div>
       </li>
     ))}

@@ -74,6 +74,23 @@
 }
 
 .content-metric:hover .content-metric__tooltip,
-.content-metric:focus-visible .content-metric__tooltip {
+.content-metric:focus .content-metric__tooltip {
   visibility: visible;
+}
+
+@media (max-width: 47.999rem) {
+  .content-metric {
+    position: static;
+  }
+
+  .content-metric__tooltip,
+  .content-metric--tooltip-end .content-metric__tooltip {
+    inset-inline: 0 auto;
+    max-inline-size: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .content-metric__tooltip::after {
+    display: none;
+  }
 }
