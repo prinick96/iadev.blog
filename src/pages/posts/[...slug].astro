@@ -1,24 +1,32 @@
 ---
-import { getCollection, render } from 'astro:content'
+import { render } from 'astro:content'
 import { getAuthorService } from '@/core/logic/author/services/index'
+import { getCategoriesService } from '@/core/logic/categories/services/index'
 import ConvertPost from '@/core/logic/posts/application/ConvertPost'
+import { getPostSourcesService } from '@/core/logic/posts/services/index'
 import type { Props } from '@/pages/posts/_types'
 import Post from '@/ui/pages/Post/index.astro'
 
 export const getStaticPaths = async () => {
-  const posts = await getCollection('posts')
+  const [posts, categories] = await Promise.all([getPostSourcesService.execute(), getCategoriesService.execute()])
   const author = getAuthorService.execute()
 
   return posts.map((post) => ({
     params: { slug: post.id },
-    props: { post, author },
+    props: {
+      post,
+      author,
+      categories: categories.filter((category) =>
+        post.data.categories.some((reference) => reference.id === category.id)
+      ),
+    },
   }))
 }
 
-const { post, author } = Astro.props
+const { post, author, categories } = Astro.props
 const { Content } = await render(post)
 ---
 
-<Post post={ConvertPost.execute(post)} author={author}>
+<Post post={ConvertPost.execute(post)} author={author} categories={categories}>
   <Content />
 </Post>

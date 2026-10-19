@@ -18,6 +18,10 @@
   text-decoration: none;
 }
 
+.footer__link + .footer__link {
+  margin-inline-start: 1rem;
+}
+
 .footer__link:hover {
   color: var(--color-accent);
   text-decoration: underline;

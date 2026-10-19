@@ -2,6 +2,8 @@
 title: "¡Por supuesto! Tu ejemplo definitivo de Markdown generado por IA"
 description: "Pediste un Markdown de prueba. La IA respondió con una guía integral, siete lenguajes y la confianza de quien no ha abierto el navegador."
 published_at: 2026-10-18
+categories:
+  - categoria-ejemplo
 ---
 
 **CONTENIDO GENERADO POR IA.** No «asistido». No «potenciado». Generado. Por. IA. Incluso esta aclaración ha requerido predecir varias palabras que podríamos habernos ahorrado.
@@ -17,10 +19,10 @@ Las estadísticas, los estudios y las autoridades absurdas que aparecen como chi
 ## Índice
 
 ¡Por supuesto! A continuación encontrarás
- una guía integral, organizada paso a paso, para explorar las posibilidades de Markdown en un flujo de creación de contenido con inteligencia artificial. Cada apartado combina una explicación clara, ejemplos prácticos y recomendaciones clave para facilitar una revisión completa y estructurada.
+una guía integral, organizada paso a paso, para explorar las posibilidades de Markdown en un flujo de creación de contenido con inteligencia artificial. Cada apartado combina una explicación clara, ejemplos prácticos y recomendaciones clave para facilitar una revisión completa y estructurada.
 
 El objetivo es ofrecer una visión de
- conjunto que permita evaluar tanto la presentación visual como la organización del contenido. Para ello, abordaremos los siguientes aspectos fundamentales:
+conjunto que permita evaluar tanto la presentación visual como la organización del contenido. Para ello, abordaremos los siguientes aspectos fundamentales:
 
 - [Encabezados](#encabezados): estructura y jerarquía de la información.
 - [Texto y formato en línea](#texto-y-formato-en-línea): énfasis, legibilidad y consistencia editorial.
@@ -46,10 +48,15 @@ El título del artículo ya ocupa el nivel uno. Por tanto, el contenido comienza
 
 ```markdown
 # Guía integral de contenido Markdown con IA
+
 ## Planificación del contenido
+
 ### Definición de objetivos
+
 #### Criterios de calidad
+
 ##### Revisión de ejemplos
+
 ###### Observaciones complementarias
 ```
 
@@ -73,25 +80,25 @@ Este último nivel permite añadir detalles específicos dentro de una jerarquí
 
 ## Texto y formato en línea
 
-En el entorno digital actual, la presentación del texto desempeña un papel esencial en la comunicación. Un uso equilibrado de **negritas**, *cursivas* y `código en línea` permite destacar conceptos, diferenciar términos y guiar la atención del lector de forma organizada.
+En el entorno digital actual, la presentación del texto desempeña un papel esencial en la comunicación. Un uso equilibrado de **negritas**, _cursivas_ y `código en línea` permite destacar conceptos, diferenciar términos y guiar la atención del lector de forma organizada.
 
 A continuación, se presenta una selección de combinaciones que permite explorar estas posibilidades de manera práctica. Es importante tener en cuenta que el formato debe reforzar el significado del contenido y mantener una relación coherente con el contexto. En otras palabras, la presentación y el mensaje deben trabajar de forma conjunta para favorecer una lectura clara y fluida.
 
-- **Claridad del contenido** y __consistencia de la estructura__.
-- *Revisión
- editorial* y _adecuación al contexto_.
-- ***Una experiencia de lectura clara y accesible***.
-- **Una recomendación general con un *matiz específico***.
-- *Una explicación contextual que destaca una **prioridad fundamental***.
+- **Claridad del contenido** y **consistencia de la estructura**.
+- _Revisión
+  editorial_ y _adecuación al contexto_.
+- _**Una experiencia de lectura clara y accesible**_.
+- **Una recomendación general con un _matiz específico_**.
+- _Una explicación contextual que destaca una **prioridad fundamental**_.
 - ~~Versión inicial del contenido~~. Versión revisada del contenido.
 - ~~**Criterio anterior**~~. Criterio actualizado tras la revisión.
 - Código en línea: `const reviewRequired = true`.
-- Acentos graves dentro de código: `` El campo `published_at` contiene la fecha ``.
+- Acentos graves dentro de código: ``El campo `published_at` contiene la fecha``.
 - Etiqueta HTML en línea: `<article class="content-guide">`.
-- Formatos combinados: **ejecuta `bun run build`** y *comprueba `published_at`*.
+- Formatos combinados: **ejecuta `bun run build`** y _comprueba `published_at`_.
 - Caracteres escapados: \*texto literal\*, \_texto literal\_, \# símbolo y \[referencia literal\].
 - Entidades HTML: &copy; 2026
-, 10 &lt; 20, 30 &gt; 15 y revisión&nbsp;del&nbsp;contenido.
+  , 10 &lt; 20, 30 &gt; 15 y revisión&nbsp;del&nbsp;contenido.
 
 Este párrafo contiene un salto de línea en el archivo
 que se interpreta como una continuación del mismo bloque de texto.
@@ -118,7 +125,7 @@ En este contexto, conviene diferenciar los recursos de documentación de las dir
 - Correo de ejemplo: <editor@example.com>.
 - [Volver al índice](#índice).
 - [**Documentación destacada**](https://example.com).
-- [*Información complementaria*](https://example.com).
+- [_Información complementaria_](https://example.com).
 - [Referencia de ejemplo para `ContentReview`](https://example.com/docs).
 
 [markdown-guide]: https://www.markdownguide.org/basic-syntax/ "Introducción a la sintaxis de Markdown"
@@ -141,13 +148,13 @@ A continuación, exploraremos sus principales variantes de forma progresiva.
 
 También pueden utilizarse asteriscos:
 
-* Mantener una estructura consistente.
-* Utilizar un vocabulario adecuado al contexto.
+- Mantener una estructura consistente.
+- Utilizar un vocabulario adecuado al contexto.
 
 Los signos de suma ofrecen otra forma de expresar la misma estructura:
 
-+ Revisar los ejemplos técnicos.
-+ Verificar los recursos visuales.
+- Revisar los ejemplos técnicos.
+- Verificar los recursos visuales.
 
 ### Listas numeradas
 
@@ -215,7 +222,7 @@ Las citas permiten destacar recomendaciones, observaciones y fragmentos relevant
 
 > **Recomendación para una revisión integral.**
 >
-> El contenido generado con IA debe revisarse teniendo en cuenta su *precisión*, su adecuación al contexto y la coherencia de sus ejemplos.
+> El contenido generado con IA debe revisarse teniendo en cuenta su _precisión_, su adecuación al contexto y la coherencia de sus ejemplos.
 >
 > El campo `review_required` puede representar esta necesidad en un modelo de datos ilustrativo. Para ampliar información sobre la sintaxis, consulta la [guía de Markdown](https://www.markdownguide.org/).
 
@@ -231,8 +238,8 @@ Las citas permiten destacar recomendaciones, observaciones y fragmentos relevant
 > - Comprobar los ejemplos dentro de su contexto.
 >
 > ```ts
-> const reviewRequired = true
-> const contentFormat = 'markdown'
+> const reviewRequired = true;
+> const contentFormat = "markdown";
 > ```
 >
 > En definitiva, la generación y la revisión forman parte de un proceso complementario orientado a mejorar la calidad del resultado.
@@ -247,11 +254,11 @@ Tres guiones permiten crear un separador:
 
 Tres asteriscos producen el mismo tipo de elemento:
 
-***
+---
 
 Tres guiones bajos ofrecen una tercera alternativa:
 
-___
+---
 
 **En resumen:** las tres variantes representan una separación temática. Su elección puede responder a una convención editorial, mientras que su apariencia final depende de los estilos del sitio.
 
@@ -263,46 +270,46 @@ Los datos siguientes son ejemplos de presentación. No representan estadísticas
 
 ### Tabla de formatos
 
-| Elemento | Sintaxis | Resultado |
-| --- | --- | --- |
-| Negrita | `**contenido**` | **contenido** |
-| Cursiva | `*contenido*` | *contenido* |
-| Tachado | `~~contenido~~` | ~~contenido~~ |
-| Código | Acentos graves | `const ready = true` |
-| Enlace | `[texto](url)` | [Documentación](https://example.com) |
+| Elemento | Sintaxis        | Resultado                            |
+| -------- | --------------- | ------------------------------------ |
+| Negrita  | `**contenido**` | **contenido**                        |
+| Cursiva  | `*contenido*`   | _contenido_                          |
+| Tachado  | `~~contenido~~` | ~~contenido~~                        |
+| Código   | Acentos graves  | `const ready = true`                 |
+| Enlace   | `[texto](url)`  | [Documentación](https://example.com) |
 
 ### Alineación y valores numéricos
 
 Los dos puntos indican la alineación solicitada para cada columna. Es importante tener en cuenta que los estilos CSS del sitio pueden modificar la presentación final.
 
-| Recurso de ejemplo | Formato | Cantidad ilustrativa |
-| :--- | :---: | ---: |
-| Documento principal | Markdown | 1 |
-| Fragmentos técnicos solicitados | Código | 7 |
-| Imagen de muestra | Fotografía | 1 |
-| **Total del conjunto ilustrativo** | **Mixto** | **9** |
+| Recurso de ejemplo                 |  Formato   | Cantidad ilustrativa |
+| :--------------------------------- | :--------: | -------------------: |
+| Documento principal                |  Markdown  |                    1 |
+| Fragmentos técnicos solicitados    |   Código   |                    7 |
+| Imagen de muestra                  | Fotografía |                    1 |
+| **Total del conjunto ilustrativo** | **Mixto**  |                **9** |
 
 ### Celdas con formatos y contenido extenso
 
-| Caso | Ejemplo | Consideración |
-| --- | --- | --- |
-| Formato combinado | **Prioridad**, *contexto* y ~~versión anterior~~ | Permite diferenciar información dentro de una celda. |
-| Barra vertical escapada | Contenido \| presentación | La barra no crea una columna adicional. |
-| Celda vacía | | La estructura se mantiene aunque no haya un valor. |
-| Salto con HTML | Primera línea<br>Segunda línea | Permite comprobar dos líneas dentro de una celda. |
-| Texto extenso | La revisión integral del documento contempla la claridad del lenguaje, la consistencia de los ejemplos y el comportamiento visual del contenido cuando la anchura disponible se reduce en dispositivos móviles. | Conviene revisar el ajuste de línea. |
+| Caso                    | Ejemplo                                                                                                                                                                                                         | Consideración                                        |
+| ----------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------- |
+| Formato combinado       | **Prioridad**, _contexto_ y ~~versión anterior~~                                                                                                                                                                | Permite diferenciar información dentro de una celda. |
+| Barra vertical escapada | Contenido \| presentación                                                                                                                                                                                       | La barra no crea una columna adicional.              |
+| Celda vacía             |                                                                                                                                                                                                                 | La estructura se mantiene aunque no haya un valor.   |
+| Salto con HTML          | Primera línea<br>Segunda línea                                                                                                                                                                                  | Permite comprobar dos líneas dentro de una celda.    |
+| Texto extenso           | La revisión integral del documento contempla la claridad del lenguaje, la consistencia de los ejemplos y el comportamiento visual del contenido cuando la anchura disponible se reduce en dispositivos móviles. | Conviene revisar el ajuste de línea.                 |
 
 ### Comparación de lenguajes
 
-| Lenguaje | Extensión | Tipado | Ejecución habitual | Archivo de ejemplo | Aplicación ilustrativa |
-| --- | --- | --- | --- | --- | --- |
-| Go | `.go` | Estático | Binario compilado | `main.go` | Ordenar documentos |
-| Python | `.py` | Dinámico | Intérprete | `summary.py` | Preparar resúmenes |
-| Bash | `.sh` | Variables de shell | Shell | `review.sh` | Comprobar archivos |
-| JavaScript | `.js` | Dinámico | Runtime JavaScript | `content.js` | Transformar datos |
-| TypeScript | `.ts` | Estático | Transformación a JavaScript o runtime compatible | `review.ts` | Definir contratos |
-| HTML | `.html` | No aplica | Navegador | `index.html` | Estructurar contenido |
-| CSS | `.css` | No aplica | Navegador | `styles.css` | Definir presentación |
+| Lenguaje   | Extensión | Tipado             | Ejecución habitual                               | Archivo de ejemplo | Aplicación ilustrativa |
+| ---------- | --------- | ------------------ | ------------------------------------------------ | ------------------ | ---------------------- |
+| Go         | `.go`     | Estático           | Binario compilado                                | `main.go`          | Ordenar documentos     |
+| Python     | `.py`     | Dinámico           | Intérprete                                       | `summary.py`       | Preparar resúmenes     |
+| Bash       | `.sh`     | Variables de shell | Shell                                            | `review.sh`        | Comprobar archivos     |
+| JavaScript | `.js`     | Dinámico           | Runtime JavaScript                               | `content.js`       | Transformar datos      |
+| TypeScript | `.ts`     | Estático           | Transformación a JavaScript o runtime compatible | `review.ts`        | Definir contratos      |
+| HTML       | `.html`   | No aplica          | Navegador                                        | `index.html`       | Estructurar contenido  |
+| CSS        | `.css`    | No aplica          | Navegador                                        | `styles.css`       | Definir presentación   |
 
 **Recomendación clave:** reserva las tablas para información que se beneficie de una comparación por filas y columnas, y comprueba su comportamiento en pantallas pequeñas.
 
@@ -438,21 +445,23 @@ Este ejemplo organiza secciones y calcula el número de apartados que requieren 
 
 ```js
 const sections = [
-  { title: 'Introducción', review_required: true },
-  { title: 'Ejemplos técnicos', review_required: true },
-  { title: 'Referencias', review_required: false },
-]
+  { title: "Introducción", review_required: true },
+  { title: "Ejemplos técnicos", review_required: true },
+  { title: "Referencias", review_required: false },
+];
 
 const outline = sections.map((section, index) => ({
   position: index + 1,
   title: section.title,
   review_required: section.review_required,
-}))
+}));
 
-const pendingCount = outline.filter((section) => section.review_required).length
-const firstTitle = outline[0]?.title ?? 'Sin secciones'
+const pendingCount = outline.filter(
+  (section) => section.review_required,
+).length;
+const firstTitle = outline[0]?.title ?? "Sin secciones";
 
-console.log({ outline, pendingCount, firstTitle })
+console.log({ outline, pendingCount, firstTitle });
 ```
 
 ### TypeScript: contratos de revisión
@@ -461,33 +470,31 @@ TypeScript permite expresar de forma explícita la estructura de los datos y los
 
 ```ts
 type Document = {
-  title: string
-  generated_by_ai: boolean
-  review_required: boolean
-}
+  title: string;
+  generated_by_ai: boolean;
+  review_required: boolean;
+};
 
-type Review<T> =
-  | { valid: true; data: T }
-  | { valid: false; error: string }
+type Review<T> = { valid: true; data: T } | { valid: false; error: string };
 
 function checkDocumentTitle(document: Document): Review<Document> {
   if (document.title.trim().length === 0) {
-    return { valid: false, error: 'El documento debe incluir un título.' }
+    return { valid: false, error: "El documento debe incluir un título." };
   }
 
-  return { valid: true, data: document }
+  return { valid: true, data: document };
 }
 
 const review = checkDocumentTitle({
-  title: 'Guía de contenido Markdown',
+  title: "Guía de contenido Markdown",
   generated_by_ai: true,
   review_required: true,
-})
+});
 
 if (review.valid) {
-  console.log(review.data.title)
+  console.log(review.data.title);
 } else {
-  console.error(review.error)
+  console.error(review.error);
 }
 ```
 
@@ -502,8 +509,9 @@ La estructura siguiente utiliza elementos semánticos para diferenciar el encabe
     <time datetime="2026-10-18">18 de octubre de 2026</time>
   </header>
   <p>
-    La generación con IA puede apoyar la preparación de una primera versión.
-    La <strong>revisión del contenido</strong> permite ajustar el resultado al contexto.
+    La generación con IA puede apoyar la preparación de una primera versión. La
+    <strong>revisión del contenido</strong> permite ajustar el resultado al
+    contexto.
   </p>
   <ul>
     <li>Definir objetivos claros.</li>
@@ -629,19 +637,19 @@ Una valla de cuatro acentos graves permite mostrar un ejemplo que incluye una va
 ````markdown
 ## Ejemplo de contenido estructurado
 
-Una explicación con **énfasis**, *contexto* y `código`.
+Una explicación con **énfasis**, _contexto_ y `código`.
 
 ```ts
-const reviewRequired = true
+const reviewRequired = true;
 ```
 ````
 
 Las vallas con virgulillas ofrecen una alternativa equivalente para delimitar bloques:
 
-~~~text
+```text
 Este bloque utiliza virgulillas como delimitador.
 El contenido conserva sus saltos de línea.
-~~~
+```
 
 **En síntesis:** indicar el lenguaje, conservar la estructura y explicar el alcance de cada fragmento favorece una documentación técnica más clara y útil.
 
@@ -704,7 +712,8 @@ Este recurso contribuye a mantener una separación clara entre la información p
 
 [^content-note]: Esta nota explica el propósito de un ejemplo de formato; no representa una fuente externa ni un resultado de investigación.
 
-[^review-note]: La revisión de contenido generado con IA debe considerar **precisión**, *contexto* y `consistencia`. La [guía de Markdown](https://www.markdownguide.org/) es un recurso para consultar la sintaxis utilizada.
+[^review-note]:
+    La revisión de contenido generado con IA debe considerar **precisión**, _contexto_ y `consistencia`. La [guía de Markdown](https://www.markdownguide.org/) es un recurso para consultar la sintaxis utilizada.
 
     Un segundo párrafo permite ampliar la aclaración y comprobar la presentación de notas con varios bloques de texto.
 
@@ -718,9 +727,9 @@ A continuación, se presentan casos representativos para facilitar una evaluaci�
 
 - **Criterios de revisión del documento**
 
-  | Criterio | Aspecto que conviene comprobar |
-  | --- | --- |
-  | Estructura | Relación entre encabezados y apartados |
+  | Criterio    | Aspecto que conviene comprobar         |
+  | ----------- | -------------------------------------- |
+  | Estructura  | Relación entre encabezados y apartados |
   | Legibilidad | Ajuste del texto al espacio disponible |
 
 - **Conclusión del ejemplo:** la tabla permanece dentro del elemento de lista y conserva su organización por filas y columnas.
@@ -733,7 +742,7 @@ A continuación, se presentan casos representativos para facilitar una evaluaci�
 > - [ ] Segunda fase ilustrativa pendiente.
 > - [ ] Revisión final ilustrativa pendiente.
 
-### Revisión *contextual*, **estructurada** y con `criterios`
+### Revisión _contextual_, **estructurada** y con `criterios`
 
 Este encabezado combina distintos formatos en línea para comprobar su integración en un mismo título. El párrafo siguiente permite evaluar la continuidad visual entre el encabezado y su contenido.
 

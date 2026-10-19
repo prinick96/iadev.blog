@@ -1,0 +1,43 @@
+---
+import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
+import type { Props } from '@/ui/pages/Categories/types'
+import { getCategoryPath } from '@/ui/routes/getCategoryPath'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/pages/Categories/styles.css'
+
+const { archives } = Astro.props
+---
+
+<BaseLayout
+  title="Categorías"
+  description="Artículos organizados por tema. El humo, al menos, viene clasificado."
+  showDescription
+>
+  <div class="categories">
+    <a class="categories__back" href={paths.home}>
+      <ArrowLeftIcon class="categories__back-icon" />
+      Inicio
+    </a>
+    <header class="categories__header">
+      <h1 class="categories__title">Categorías</h1>
+    </header>
+    {archives.length === 0 ? (
+      <p class="categories__empty">Todavía no hay artículos con categorías. El caos aún no tiene etiquetas.</p>
+    ) : (
+      <ul class="categories__list" role="list">
+        {archives.map(({ category, posts }) => (
+          <li class="categories__item">
+            <a class="categories__link" href={getCategoryPath(category.id)}>
+              <h2 class="categories__name">{category.name}</h2>
+              <span class="categories__count">
+                {posts.length} {posts.length === 1 ? 'artículo' : 'artículos'}
+              </span>
+              <p class="categories__description">{category.description}</p>
+            </a>
+          </li>
+        ))}
+      </ul>
+    )}
+  </div>
+</BaseLayout>

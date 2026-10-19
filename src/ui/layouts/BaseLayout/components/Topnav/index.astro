@@ -5,12 +5,13 @@ import { paths } from '@/ui/routes/paths'
 import '@/ui/layouts/BaseLayout/components/Topnav/styles.css'
 
 const { showDescription = false } = Astro.props
-const Heading = showDescription ? 'h1' : 'p'
+const isHome = Astro.url.pathname === paths.home
+const Heading = showDescription && isHome ? 'h1' : 'p'
 ---
 
 <header class:list={['topnav', { 'topnav--home': showDescription }]}>
   <Heading class="topnav__title">
-    <a class="topnav__link" href={paths.home} aria-current={showDescription ? 'page' : undefined}>
+    <a class="topnav__link" href={paths.home} aria-current={isHome ? 'page' : undefined}>
       {`${site.title} - ${site.subtitle}`}<span class="topnav__cursor" aria-hidden="true">_</span>
     </a>
   </Heading>

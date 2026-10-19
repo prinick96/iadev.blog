@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from 'astro'
+import GroupPostsByCategory from '@/core/logic/categories/application/GroupPostsByCategory'
+import { getCategoriesService } from '@/core/logic/categories/services/index'
+import { getPostsService } from '@/core/logic/posts/services/index'
+import Category from '@/ui/pages/Category/index.astro'
+import type { Props } from '@/ui/pages/Category/types'
+
+export const getStaticPaths = (async () => {
+  const [categories, posts] = await Promise.all([getCategoriesService.execute(), getPostsService.execute()])
+  const archives = GroupPostsByCategory.execute({ categories, posts })
+
+  return archives.map((archive) => ({
+    params: { id: archive.category.id },
+    props: { archive },
+  }))
+}) satisfies GetStaticPaths
+
+const { archive } = Astro.props
+---
+
+<Category archive={archive} />

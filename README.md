@@ -16,7 +16,8 @@ bun run dev
 ```
 
 - Abre `http://localhost:4321`. Los artículos están en `src/content/posts/`; puedes crear `tu-primer-post.md`.
-- Cada `.md` necesita `title`, `description` y `published_at` en el frontmatter. `updated_at` y `slug` son opcionales.
+- Cada `.md` necesita `title`, `description` y `published_at` en el frontmatter. `updated_at`, `slug` y `categories` son opcionales.
+- Las categorías se definen en `src/content/categories.json` con `id`, `name` y `description`. El ID es estable y usa minúsculas y guiones; cambiar `name` no cambia la URL. En los posts, usa `categories: [inteligencia-artificial, desarrollo]`. Las referencias inexistentes o repetidas hacen fallar el build. `/categories/` lista solo categorías con artículos y enlaza a `/categories/<id>/`; los posts mantienen sus URLs.
 - No hay borradores ni filtros por fecha.
 - La miniatura es opcional: guarda `thumbnail.svg` en `src/ui/assets/posts/<id-del-artículo>/`, sin añadir frontmatter. Para `ejemplo.md`, la ruta es `src/ui/assets/posts/ejemplo/thumbnail.svg`; los IDs anidados conservan sus subcarpetas. Si falta, se utiliza `placehold.co`, que recibe una petición del navegador.
 - Los datos del autor se editan en `src/core/logic/author/infra/local/AuthorRepository.ts`. Su avatar se guarda en `src/ui/assets/authors/prinick/avatar.webp`; mientras falte, también se muestra un placeholder. Si queremos conectar esto a una api, crear otra implementación de la interfaz.

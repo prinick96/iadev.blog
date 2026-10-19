@@ -7,6 +7,7 @@ class ConvertPost {
       id,
       title: data.title,
       description: data.description,
+      category_ids: (data.categories ?? []).map((reference) => reference.id),
       published_at: data.published_at,
       updated_at: data.updated_at,
     }

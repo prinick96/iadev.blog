@@ -1,0 +1,107 @@
+.categories__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-inline-start: var(--post-gutter);
+  margin-block-end: 1.25rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.categories__back:hover,
+.categories__back:focus-visible {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.categories__back-icon {
+  flex-shrink: 0;
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+.categories__header {
+  border-block-end: 1px solid var(--color-border);
+}
+
+.categories__title {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.categories__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.categories__item + .categories__item {
+  border-block-start: 1px solid var(--color-border);
+}
+
+.categories__link {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding-block: 1.25rem;
+  padding-inline-start: var(--post-gutter);
+  color: var(--color-text);
+  text-decoration: none;
+}
+
+.categories__link:hover,
+.categories__link:focus-visible {
+  text-decoration: none;
+}
+
+.categories__link:hover .categories__name,
+.categories__link:focus-visible .categories__name {
+  color: var(--color-accent);
+}
+
+.categories__name {
+  min-inline-size: 0;
+  margin: 0;
+  font-size: var(--font-size-post-preview-title);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+.categories__count {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.categories__description {
+  grid-column: 1 / -1;
+  max-inline-size: 65ch;
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-md);
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+.categories__empty {
+  margin: 0;
+  padding-block: 1.5rem;
+  padding-inline-start: var(--post-gutter);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-md);
+  overflow-wrap: anywhere;
+}

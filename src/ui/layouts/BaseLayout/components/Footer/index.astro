@@ -8,5 +8,8 @@ const year = new Date().getUTCFullYear()
 
 <footer class="footer">
   <p class="footer__copyright">{site.title} © {year}</p>
-  <a class="footer__link" target="_blank" href={paths.rss}>RSS</a>
+  <nav aria-label="Navegación del pie">
+    <a class="footer__link" href={paths.categories}>Categorías</a>
+    <a class="footer__link" target="_blank" href={paths.rss}>RSS</a>
+  </nav>
 </footer>
