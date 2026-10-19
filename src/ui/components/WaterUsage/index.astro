@@ -1,0 +1,15 @@
+---
+import CalculateWaterUsage from '@/core/logic/posts/application/CalculateWaterUsage'
+import ContentMetric from '@/ui/components/ContentMetric/index.astro'
+import DropletIcon from '@/ui/components/icons/DropletIcon/index.astro'
+import type { Props } from '@/ui/components/WaterUsage/types'
+import { formatWaterVolume } from '@/ui/utils/formatWaterVolume'
+
+const { tokens, tooltipId } = Astro.props
+const liters = CalculateWaterUsage.execute(tokens)
+---
+
+<ContentMetric tooltipId={tooltipId} tooltip="Agua gastada por vibeleer" tooltipAlign="end">
+  <DropletIcon slot="icon" />
+  {formatWaterVolume(liters)}
+</ContentMetric>
