@@ -40,6 +40,7 @@
   line-height: 1.5;
   white-space: normal;
   visibility: hidden;
+  transition: visibility 0s;
 }
 
 .content-metric__tooltip::before {
@@ -76,6 +77,7 @@
 .content-metric:hover .content-metric__tooltip,
 .content-metric:focus .content-metric__tooltip {
   visibility: visible;
+  transition-delay: 200ms;
 }
 
 @media (max-width: 47.999rem) {
