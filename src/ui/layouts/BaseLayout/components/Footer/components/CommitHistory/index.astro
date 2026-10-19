@@ -1,0 +1,66 @@
+---
+import CloseIcon from '@/ui/components/icons/CloseIcon/index.astro'
+import UserIcon from '@/ui/components/icons/UserIcon/index.astro'
+import type { Props } from '@/ui/layouts/BaseLayout/components/Footer/components/CommitHistory/types'
+import { formatRelativeTime } from '@/ui/utils/formatRelativeTime'
+import '@/ui/layouts/BaseLayout/components/Footer/components/CommitHistory/styles.css'
+
+const { commits } = Astro.props
+const now = new Date()
+---
+
+<dialog class="commit-history" id="commit-history" closedby="any" aria-labelledby="commit-history-title">
+  <header class="commit-history__header">
+    <h2 class="commit-history__title" id="commit-history-title">Historial</h2>
+    <button
+      class="commit-history__close"
+      type="button"
+      commandfor="commit-history"
+      command="close"
+      aria-label="Cerrar historial"
+      autofocus
+    >
+      <CloseIcon class="commit-history__close-icon" />
+    </button>
+  </header>
+  <div class="commit-history__scroll" tabindex="0" role="region" aria-label="Commits recientes">
+    {commits.length === 0 && (
+      <p class="commit-history__empty">
+        Todavía no hay commits. <br /> El prompt no cuenta como uno.
+      </p>
+    )}
+    <ol class="commit-history__list">
+      {commits.map((commit) => (
+        <li class="commit-history__item">
+          <a
+            class="commit-history__commit"
+            href={commit.html_url}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={commit.message}
+          >
+            <span class="commit-history__content">
+              <span class="commit-history__message">{commit.message.split('\n')[0]}</span>
+              <span class="commit-history__meta">
+                <span class="commit-history__author">
+                  <UserIcon class="commit-history__author-icon" />
+                  <span class="commit-history__author-name">{commit.author_name ?? 'Autor desconocido'}</span>
+                </span>
+                <span aria-hidden="true">·</span>
+                {commit.authored_at ? (
+                  <time class="commit-history__date" datetime={commit.authored_at} title={commit.authored_at}>
+                    {formatRelativeTime(commit.authored_at, now)}
+                  </time>
+                ) : (
+                  <span class="commit-history__date">Fecha desconocida</span>
+                )}
+                <span aria-hidden="true">·</span>
+                <span class="commit-history__sha">{commit.sha.slice(0, 7)}</span>
+              </span>
+            </span>
+          </a>
+        </li>
+      ))}
+    </ol>
+  </div>
+</dialog>

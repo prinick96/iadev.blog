@@ -2,10 +2,17 @@
 import GroupPostsByCategory from '@/core/logic/categories/application/GroupPostsByCategory'
 import { getCategoriesService } from '@/core/logic/categories/services/index'
 import { getPostsService } from '@/core/logic/posts/services/index'
+import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
 import Categories from '@/ui/pages/Categories/index.astro'
 
 const [categories, posts] = await Promise.all([getCategoriesService.execute(), getPostsService.execute()])
 const archives = GroupPostsByCategory.execute({ categories, posts })
 ---
 
-<Categories archives={archives} />
+<SiteLayout
+  title="Categorías"
+  description="Artículos organizados por tema. El humo, al menos, viene clasificado."
+  showDescription
+>
+  <Categories archives={archives} />
+</SiteLayout>

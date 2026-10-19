@@ -1,12 +1,19 @@
 .footer {
   display: flex;
   flex-shrink: 0;
+  block-size: var(--footer-height);
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   padding: 0.125rem 0.5rem;
   background: var(--color-status-bar);
   color: var(--color-text-muted);
+}
+
+:root:has(.commit-history[open]) .footer {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
 }
 
 .footer__group {
@@ -22,7 +29,11 @@
   justify-content: center;
   inline-size: 1.375rem;
   block-size: 1.375rem;
+  padding: 0;
+  border: 0;
   border-radius: 0.1875rem;
+  background: transparent;
+  cursor: pointer;
   color: inherit;
   text-decoration: none;
 }
@@ -42,6 +53,7 @@
   background: var(--color-surface-active);
 }
 
+:root:has(.commit-history[open]) .footer__item--history,
 .footer__item[aria-current] {
   color: var(--color-accent);
 }
@@ -74,6 +86,11 @@
     line-height: 1.5;
     visibility: hidden;
     transition: visibility 0s;
+  }
+
+  .footer__tooltip--start {
+    inset-inline-start: 0;
+    inset-inline-end: auto;
   }
 
   .footer__tooltip::before {

@@ -1,0 +1,212 @@
+.commit-history {
+  --commit-history-background: #18191d;
+  --commit-history-hover: #222427;
+  position: fixed;
+  inset: 0 auto var(--footer-height) 0;
+  inline-size: min(28rem, 100%);
+  block-size: calc(100dvh - var(--footer-height));
+  max-block-size: none;
+  max-inline-size: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-inline-end: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--color-border);
+  background: var(--commit-history-background);
+  color: var(--color-text);
+  font-size: var(--font-size-sm);
+}
+
+.commit-history[open] {
+  display: flex;
+  flex-direction: column;
+}
+
+.commit-history::backdrop {
+  background: transparent;
+}
+
+:root:has(.commit-history[open]) {
+  overflow: hidden;
+}
+
+.commit-history__header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  border-block-end: 1px solid var(--color-border);
+  background: var(--color-background);
+}
+
+.commit-history__title {
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 50%;
+  margin: 0 0 -1px;
+  padding: 0.25rem 1rem;
+  border-inline-end: 1px solid var(--color-border);
+  border-block-end: 1px solid var(--commit-history-background);
+  background: var(--commit-history-background);
+  font-family: system-ui, sans-serif;
+  font-size: var(--font-size-md);
+  font-weight: 500;
+  line-height: 1.5;
+}
+
+.commit-history__close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  inline-size: 2rem;
+  block-size: 2rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+
+.commit-history__close:hover,
+.commit-history__close:focus-visible {
+  background: var(--commit-history-hover);
+}
+
+.commit-history__close:focus-visible,
+.commit-history__commit:focus-visible,
+.commit-history__scroll:focus-visible {
+  outline-offset: -2px;
+}
+
+.commit-history__close-icon {
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+.commit-history__scroll {
+  flex: 1;
+  min-block-size: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--color-border-strong) transparent;
+  scrollbar-width: thin;
+}
+
+@supports selector(::-webkit-scrollbar) {
+  .commit-history__scroll {
+    scrollbar-color: auto;
+    scrollbar-width: auto;
+  }
+
+  .commit-history__scroll::-webkit-scrollbar {
+    width: 0.625rem;
+  }
+
+  .commit-history__scroll::-webkit-scrollbar-track {
+    margin-block: 0.25rem;
+    background: transparent;
+  }
+
+  .commit-history__scroll::-webkit-scrollbar-thumb {
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: var(--color-border-strong);
+    background-clip: padding-box;
+  }
+
+  .commit-history__scroll::-webkit-scrollbar-button {
+    display: none;
+  }
+
+  .commit-history__scroll::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+}
+
+.commit-history__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.commit-history__commit {
+  display: block;
+  inline-size: 100%;
+  color: inherit;
+  line-height: 1.5;
+  text-decoration: none;
+}
+
+.commit-history__commit:hover,
+.commit-history__commit:focus-visible {
+  background: var(--commit-history-hover);
+  text-decoration: none;
+}
+
+.commit-history__content {
+  display: block;
+  padding: 0.5rem 0.75rem;
+}
+
+.commit-history__message {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.commit-history__meta {
+  display: flex;
+  align-items: center;
+  gap: 0.375rem;
+  margin-block-start: 0.25rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-2xs);
+}
+
+.commit-history__author {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-inline-size: 0;
+}
+
+.commit-history__author-icon {
+  flex-shrink: 0;
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+}
+
+.commit-history__author-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.commit-history__date,
+.commit-history__sha {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.commit-history__empty {
+  margin: 0;
+  padding: 1rem;
+}
+
+@media (pointer: coarse) {
+  .commit-history__close {
+    inline-size: 2.75rem;
+    block-size: 2.75rem;
+  }
+}
+
+@media (max-width: 47.999rem) {
+  .commit-history {
+    inline-size: 100%;
+    border-inline-end: 0;
+  }
+}

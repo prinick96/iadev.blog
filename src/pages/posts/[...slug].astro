@@ -4,6 +4,7 @@ import { getAuthorService } from '@/core/logic/author/services/index'
 import { getCategoriesService } from '@/core/logic/categories/services/index'
 import ConvertPost from '@/core/logic/posts/application/ConvertPost'
 import { getPostSourcesService } from '@/core/logic/posts/services/index'
+import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
 import type { Props } from '@/pages/posts/_types'
 import Post from '@/ui/pages/Post/index.astro'
 
@@ -25,8 +26,11 @@ export const getStaticPaths = async () => {
 
 const { post, author, categories } = Astro.props
 const { Content } = await render(post)
+const convertedPost = ConvertPost.execute(post)
 ---
 
-<Post post={ConvertPost.execute(post)} author={author} categories={categories}>
-  <Content />
-</Post>
+<SiteLayout title={convertedPost.title} description={convertedPost.description}>
+  <Post post={convertedPost} author={author} categories={categories}>
+    <Content />
+  </Post>
+</SiteLayout>

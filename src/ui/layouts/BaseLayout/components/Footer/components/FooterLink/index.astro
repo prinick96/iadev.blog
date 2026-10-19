@@ -1,0 +1,10 @@
+---
+import type { Props } from '@/ui/layouts/BaseLayout/components/Footer/components/FooterLink/types'
+
+const { label, tooltip = label, tooltipId, ...attributes } = Astro.props
+---
+
+<a class="footer__item" {...attributes} aria-label={label} aria-describedby={tooltipId}>
+  <slot />
+  <span class="footer__tooltip" id={tooltipId} role="tooltip">{tooltip}</span>
+</a>

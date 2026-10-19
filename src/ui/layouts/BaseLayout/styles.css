@@ -1,7 +1,12 @@
 .site-shell {
+  --footer-height: 1.625rem;
   display: flex;
   flex-direction: column;
   min-block-size: 100svh;
+}
+
+.site-shell:has(.commit-history[open]) {
+  padding-block-end: var(--footer-height);
 }
 
 .site-shell__content {
@@ -17,4 +22,10 @@
 .site-shell__main {
   flex: 1;
   min-inline-size: 0;
+}
+
+@media (pointer: coarse) {
+  .site-shell {
+    --footer-height: 3rem;
+  }
 }

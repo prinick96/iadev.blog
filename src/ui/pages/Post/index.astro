@@ -2,7 +2,6 @@
 import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
 import PostMetrics from '@/ui/components/PostMetrics/index.astro'
 import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
-import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
 import AuthorInfo from '@/ui/pages/Post/components/AuthorInfo/index.astro'
 import type { Props } from '@/ui/pages/Post/types'
 import { getCategoryPath } from '@/ui/routes/getCategoryPath'
@@ -13,46 +12,44 @@ import '@/ui/pages/Post/styles.css'
 const { post, author, categories } = Astro.props
 ---
 
-<BaseLayout title={post.title} description={post.description}>
-  <article class="post">
-    <div class="post__intro">
-      <a class="post__back" href={paths.home}>
-        <ArrowLeftIcon class="post__back-icon" />
-        Inicio
-      </a>
-    </div>
-    <header class="post__header">
-      <div class="post__heading">
-        <h1 class="post__title">{post.title}</h1>
-        <div class="post__metadata">
-          {categories.length > 0 && (
-            <ul class="post__categories" aria-label="Categorías del artículo">
-              {categories.map((category) => (
-                <li>
-                  <a class="post__category" href={getCategoryPath(category.id)}>
-                    {category.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          )}
-          <PostMetrics post={post} />
-        </div>
+<article class="post">
+  <div class="post__intro">
+    <a class="post__back" href={paths.home}>
+      <ArrowLeftIcon class="post__back-icon" />
+      Inicio
+    </a>
+  </div>
+  <header class="post__header">
+    <div class="post__heading">
+      <h1 class="post__title">{post.title}</h1>
+      <div class="post__metadata">
+        {categories.length > 0 && (
+          <ul class="post__categories" aria-label="Categorías del artículo">
+            {categories.map((category) => (
+              <li>
+                <a class="post__category" href={getCategoryPath(category.id)}>
+                  {category.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )}
+        <PostMetrics post={post} />
       </div>
-      <time class="post__date" datetime={post.published_at.toISOString()}>{formatDate(post.published_at)}</time>
-      <div class="post__thumbnail"><PostThumbnail post={post} loading="eager" /></div>
+    </div>
+    <time class="post__date" datetime={post.published_at.toISOString()}>{formatDate(post.published_at)}</time>
+    <div class="post__thumbnail"><PostThumbnail post={post} loading="eager" /></div>
 
-      {post.updated_at && (
-        <p class="post__updated">
-          Actualizado el <time datetime={post.updated_at.toISOString()}>{formatDate(post.updated_at)}</time>
-        </p>
-      )}
-    </header>
-    <div class="post__author">
-      <AuthorInfo author={author} />
-    </div>
-    <div class="post__content">
-      <slot />
-    </div>
-  </article>
-</BaseLayout>
+    {post.updated_at && (
+      <p class="post__updated">
+        Actualizado el <time datetime={post.updated_at.toISOString()}>{formatDate(post.updated_at)}</time>
+      </p>
+    )}
+  </header>
+  <div class="post__author">
+    <AuthorInfo author={author} />
+  </div>
+  <div class="post__content">
+    <slot />
+  </div>
+</article>

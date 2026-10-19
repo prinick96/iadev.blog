@@ -14,7 +14,7 @@ export default defineConfig({
         name: 'zed-ayu-dark',
         type: 'dark',
         colors: {
-          'editor.background': '#0d1016',
+          'editor.background': '#0c0d12',
           'editor.foreground': '#bfbdb6',
         },
         tokenColors: [

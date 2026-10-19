@@ -10,7 +10,7 @@ import '@/ui/styles/view-transitions.css'
 import { paths } from '@/ui/routes/paths'
 import '@/ui/layouts/BaseLayout/styles.css'
 
-const { title, description = site.description, showDescription = false } = Astro.props
+const { title, description = site.description, showDescription = false, commits } = Astro.props
 const siteTitle = `${site.title} - ${site.subtitle}`
 const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle
 const canonical = new URL(Astro.url.pathname, site.url).href
@@ -22,7 +22,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{pageTitle}</title>
-    <meta name="theme-color" content="#0d1016" />
+    <meta name="theme-color" content="#0c0d12" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1" />
     <link rel="preload" href={regularFont} as="font" type="font/woff2" crossorigin />
     <meta name="description" content={description} />
@@ -42,7 +42,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href
           <slot />
         </main>
       </div>
-      <Footer />
+      <Footer commits={commits} />
     </div>
   </body>
 </html>

@@ -1,13 +1,10 @@
 ---
 import '@/ui/pages/NotFound/styles.css'
-import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
 import { paths } from '@/ui/routes/paths'
 ---
 
-<BaseLayout title="Página no encontrada" description="La página que buscas no existe.">
-  <section class="not-found">
-    <h1>Página no encontrada</h1>
-    <p>La página que buscas no existe o ha cambiado de dirección, eso o el MCP falló.</p>
-    <p><a href={paths.home}>Volver al inicio</a></p>
-  </section>
-</BaseLayout>
+<section class="not-found">
+  <h1>Página no encontrada</h1>
+  <p>La página que buscas no existe o ha cambiado de dirección, eso o el MCP falló.</p>
+  <p><a href={paths.home}>Volver al inicio</a></p>
+</section>

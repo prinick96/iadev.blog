@@ -1,6 +1,6 @@
 :root {
   color-scheme: dark;
-  --color-background: #0d1016;
+  --color-background: #0c0d12;
   --color-surface: #1f2127;
   --color-surface-muted: #1f2127bf;
   --color-surface-hover: #2d2f34;
@@ -33,6 +33,7 @@
   color: var(--color-text);
   scrollbar-color: var(--color-scrollbar-thumb) var(--color-background);
   scrollbar-width: thin;
+  scrollbar-gutter: stable;
   -webkit-font-smoothing: antialiased;
 }
 

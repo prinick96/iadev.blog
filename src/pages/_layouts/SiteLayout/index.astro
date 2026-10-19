@@ -1,0 +1,11 @@
+---
+import { getCommitsService } from '@/core/logic/commits/services/index'
+import type { Props } from '@/pages/_layouts/SiteLayout/types'
+import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
+
+const commits = await getCommitsService.execute()
+---
+
+<BaseLayout {...Astro.props} commits={commits}>
+  <slot />
+</BaseLayout>

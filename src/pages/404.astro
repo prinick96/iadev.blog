@@ -1,5 +1,8 @@
 ---
+import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
 import NotFound from '@/ui/pages/NotFound/index.astro'
 ---
 
-<NotFound />
+<SiteLayout title="Página no encontrada" description="La página que buscas no existe.">
+  <NotFound />
+</SiteLayout>

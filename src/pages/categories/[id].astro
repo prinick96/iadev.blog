@@ -3,6 +3,7 @@ import type { GetStaticPaths } from 'astro'
 import GroupPostsByCategory from '@/core/logic/categories/application/GroupPostsByCategory'
 import { getCategoriesService } from '@/core/logic/categories/services/index'
 import { getPostsService } from '@/core/logic/posts/services/index'
+import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
 import Category from '@/ui/pages/Category/index.astro'
 import type { Props } from '@/ui/pages/Category/types'
 
@@ -19,4 +20,6 @@ export const getStaticPaths = (async () => {
 const { archive } = Astro.props
 ---
 
-<Category archive={archive} />
+<SiteLayout title={archive.category.name} description={archive.category.description}>
+  <Category archive={archive} />
+</SiteLayout>

@@ -1,7 +1,6 @@
 ---
 import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
 import PostList from '@/ui/components/PostList/index.astro'
-import BaseLayout from '@/ui/layouts/BaseLayout/index.astro'
 import type { Props } from '@/ui/pages/Category/types'
 import { paths } from '@/ui/routes/paths'
 import '@/ui/pages/Category/styles.css'
@@ -11,21 +10,19 @@ const {
 } = Astro.props
 ---
 
-<BaseLayout title={category.name} description={category.description}>
-  <div class="category">
-    <a class="category__back" href={paths.categories}>
-      <ArrowLeftIcon class="category__back-icon" />
-      Todas las categorías
-    </a>
-    <header class="category__header">
-      <div class="category__heading">
-        <h1 class="category__title">{category.name}</h1>
-        <p class="category__count">{posts.length} {posts.length === 1 ? 'artículo' : 'artículos'}</p>
-      </div>
-      <p class="category__description">{category.description}</p>
-    </header>
-    <section aria-label="Artículos de la categoría">
-      <PostList posts={posts} />
-    </section>
-  </div>
-</BaseLayout>
+<div class="category">
+  <a class="category__back" href={paths.categories}>
+    <ArrowLeftIcon class="category__back-icon" />
+    Todas las categorías
+  </a>
+  <header class="category__header">
+    <div class="category__heading">
+      <h1 class="category__title">{category.name}</h1>
+      <p class="category__count">{posts.length} {posts.length === 1 ? 'artículo' : 'artículos'}</p>
+    </div>
+    <p class="category__description">{category.description}</p>
+  </header>
+  <section aria-label="Artículos de la categoría">
+    <PostList posts={posts} />
+  </section>
+</div>

@@ -1,6 +1,8 @@
 ---
 import type { GetStaticPaths } from 'astro'
+
 import { getPostsService } from '@/core/logic/posts/services/index'
+import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
 import { POSTS_PER_PAGE } from '@/ui/pages/Home/constants'
 import Home from '@/ui/pages/Home/index.astro'
 import type { Props } from '@/ui/pages/Home/types'
@@ -20,6 +22,9 @@ export const getStaticPaths = (async ({ paginate }) => {
 }) satisfies GetStaticPaths
 
 const { posts, currentPage, totalPages } = Astro.props
+const title = currentPage > 1 ? `Página ${currentPage}` : undefined
 ---
 
-<Home posts={posts} currentPage={currentPage} totalPages={totalPages} />
+<SiteLayout title={title} showDescription>
+  <Home posts={posts} currentPage={currentPage} totalPages={totalPages} />
+</SiteLayout>

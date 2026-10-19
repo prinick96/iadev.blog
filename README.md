@@ -66,6 +66,8 @@ bun run preview
 
 Antes de desplegar, copia `.env.example` a `.env` y cambia `SITE_URL` por la URL pública del blog. También puedes definirla como variable de entorno del build. Se usa en las URLs canónicas, el RSS y el sitemap; por defecto apunta a `https://iadev.blog`.
 
+Define también `GITHUB_API_BASE_URL=https://api.github.com/` en `.env` para desarrollo y como variable de entorno del build en el despliegue. El historial consulta esta API durante la generación estática, nunca desde el navegador. Reinicia el servidor de desarrollo si cambias esta variable.
+
 ~~Publica únicamente `dist/` en un hosting estático.~~ Espera, eres ingeniero no debería estar diciéndote esto.
 
 Los mismos comandos están disponibles con `make i`, `make run`, `make test`, `make check`, `make format`, `make build` y `make start`. Las dependencias tienen versiones exactas porque no quiero que nos cuelen algo algo entre ellas, actualiza a mano, o mejor, dile a la IA que lo haga (de verdad).
