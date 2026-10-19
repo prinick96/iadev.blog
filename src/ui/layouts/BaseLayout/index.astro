@@ -35,12 +35,13 @@ const canonical = new URL(Astro.url.pathname, site.url).href
     <link rel="alternate" type="application/rss+xml" title={site.title} href={paths.rss} />
   </head>
   <body>
-    <a class="skip-link" href="#main-content">Saltar al contenido</a>
     <div class="site-shell">
-      <Topnav showDescription={showDescription} />
-      <main id="main-content" class="site-shell__main" tabindex="-1">
-        <slot />
-      </main>
+      <div class="site-shell__content">
+        <Topnav showDescription={showDescription} />
+        <main class="site-shell__main">
+          <slot />
+        </main>
+      </div>
       <Footer />
     </div>
   </body>

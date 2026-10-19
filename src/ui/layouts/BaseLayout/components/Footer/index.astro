@@ -1,15 +1,69 @@
 ---
-import { site } from '@/ui/config/site'
+import CategoriesIcon from '@/ui/components/icons/CategoriesIcon/index.astro'
+import GitHistoryIcon from '@/ui/components/icons/GitHistoryIcon/index.astro'
+import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
+import HomeIcon from '@/ui/components/icons/HomeIcon/index.astro'
+import RssIcon from '@/ui/components/icons/RssIcon/index.astro'
+import { getFooterNavigationState } from '@/ui/layouts/BaseLayout/components/Footer/utils/getFooterNavigationState'
 import { paths } from '@/ui/routes/paths'
 import '@/ui/layouts/BaseLayout/components/Footer/styles.css'
 
-const year = new Date().getUTCFullYear()
+const { homeCurrent, categoriesCurrent } = getFooterNavigationState(Astro.url.pathname)
 ---
 
 <footer class="footer">
-  <p class="footer__copyright">{site.title} © {year}</p>
-  <nav aria-label="Navegación del pie">
-    <a class="footer__link" href={paths.categories}>Categorías</a>
-    <a class="footer__link" target="_blank" href={paths.rss}>RSS</a>
+  <div class="footer__group">
+    <span
+      class="footer__item"
+      role="img"
+      aria-label="Historial de Git"
+      title="Historial de Git"
+    >
+      <GitHistoryIcon class="footer__icon" />
+    </span>
+  </div>
+  <nav class="footer__group" aria-label="Navegación del pie">
+    <a
+      class="footer__item"
+      href={paths.home}
+      aria-label="Inicio"
+      aria-describedby="footer-home-tooltip"
+      aria-current={homeCurrent}
+    >
+      <HomeIcon class="footer__icon" />
+      <span class="footer__tooltip" id="footer-home-tooltip" role="tooltip">Inicio</span>
+    </a>
+    <a
+      class="footer__item"
+      href={paths.categories}
+      aria-label="Categorías"
+      aria-describedby="footer-categories-tooltip"
+      aria-current={categoriesCurrent}
+    >
+      <CategoriesIcon class="footer__icon" />
+      <span class="footer__tooltip" id="footer-categories-tooltip" role="tooltip">Ver categorías</span>
+    </a>
+    <a
+      class="footer__item"
+      href={paths.rss}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="RSS"
+      aria-describedby="footer-rss-tooltip"
+    >
+      <RssIcon class="footer__icon" />
+      <span class="footer__tooltip" id="footer-rss-tooltip" role="tooltip">RSS</span>
+    </a>
+    <a
+      class="footer__item"
+      href="https://github.com/prinick96/iadev.blog"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Repositorio"
+      aria-describedby="footer-github-tooltip"
+    >
+      <GithubIcon class="footer__icon" />
+      <span class="footer__tooltip" id="footer-github-tooltip" role="tooltip">Repositorio</span>
+    </a>
   </nav>
 </footer>

@@ -1,26 +1,20 @@
 .site-shell {
   display: flex;
   flex-direction: column;
-  inline-size: min(1024px, calc(100% - var(--site-gutter) * 2));
   min-block-size: 100svh;
+}
+
+.site-shell__content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  inline-size: min(1024px, calc(100% - var(--site-gutter) * 2));
+  min-inline-size: 0;
   margin-inline: auto;
+  padding-block-end: clamp(3.5rem, 8vw, 5rem);
 }
 
 .site-shell__main {
   flex: 1;
   min-inline-size: 0;
-}
-
-.skip-link {
-  position: fixed;
-  inset-block-start: 1rem;
-  inset-inline-start: 1rem;
-  z-index: 1;
-  padding: 0.5rem 1rem;
-  transform: translateY(calc(-100% - 2rem));
-  background: var(--color-surface);
-}
-
-.skip-link:focus {
-  transform: translateY(0);
 }
