@@ -3,6 +3,7 @@ import { getImage } from 'astro:assets'
 import { POST_THUMBNAIL_IMAGE_OPTIONS, POST_THUMBNAIL_IMAGES } from '@/ui/components/PostThumbnail/constants'
 import type { Props } from '@/ui/components/PostThumbnail/types'
 import { POSTS_ASSETS_PATH } from '@/ui/constants/assets'
+import { getPostThumbnailTransitionName } from '@/ui/utils/getPostThumbnailTransitionName'
 import { resolveImage } from '@/ui/utils/resolveImage'
 import '@/ui/components/PostThumbnail/styles.css'
 
@@ -15,4 +16,10 @@ const image = await getImage({
 })
 ---
 
-<img class="post-thumbnail" src={image.src} srcset={image.srcSet.attribute || undefined} {...image.attributes} />
+<img
+  class="post-thumbnail"
+  style={{ viewTransitionName: getPostThumbnailTransitionName(post.id) }}
+  src={image.src}
+  srcset={image.srcSet.attribute || undefined}
+  {...image.attributes}
+/>
