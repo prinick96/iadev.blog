@@ -56,6 +56,7 @@
   padding-inline-start: var(--post-gutter);
   color: var(--color-text);
   text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .categories__link:hover,

@@ -1,0 +1,10 @@
+---
+import type { Props } from '@/ui/components/ButtonLink/types'
+import '@/ui/components/ButtonLink/styles.css'
+
+const { iconOnly = false, class: className, ...attributes } = Astro.props
+---
+
+<a class:list={['button-link', { 'button-link--icon-only': iconOnly }, className]} {...attributes}>
+  <slot />
+</a>

@@ -1,5 +1,6 @@
 ---
 import { GITHUB_NEW_POST_URL, GITHUB_REPOSITORY_URL } from '@/core/constants/github'
+import ButtonLink from '@/ui/components/ButtonLink/index.astro'
 import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
 import '@/ui/pages/Post/components/PostFooter/components/WritePost/styles.css'
 ---
@@ -15,7 +16,9 @@ import '@/ui/pages/Post/components/PostFooter/components/WritePost/styles.css'
       LinkedIn, solo un post en Markdown y una PR.
     </p>
     <p class="write-post__details">
-      Crea otra categoría si te da la gana, firma con tu cuenta de Github, crea una nueva feature si la necesitas para el post, total, hoy día todos podemos hacer apps millonarias con un prompt, ¿qué es hacer una feature en un blog estático frente a eso?
+      Crea otra categoría si te da la gana, firma con tu cuenta de Github, crea una nueva feature si la necesitas para
+      el post, total, hoy día todos podemos hacer apps millonarias con un prompt, ¿qué es hacer una feature en un blog
+      estático frente a eso?
     </p>
     <div class="write-post__prompt" aria-hidden="true">
       <span class="write-post__directory">~/iadev.blog</span>
@@ -23,10 +26,10 @@ import '@/ui/pages/Post/components/PostFooter/components/WritePost/styles.css'
     </div>
     <div class="write-post__actions">
       <span class="write-post__prompt-sign" aria-hidden="true">$</span>
-      <a class="write-post__button" href={GITHUB_NEW_POST_URL} target="_blank" rel="noopener noreferrer" data-new-post>
+      <ButtonLink href={GITHUB_NEW_POST_URL} target="_blank" rel="noopener noreferrer" data-new-post>
         <GithubIcon class="write-post__icon" />
         Escribir mi post
-      </a>
+      </ButtonLink>
       <a
         class="write-post__guide"
         href={`${GITHUB_REPOSITORY_URL}#cómo-añadir-autor-avatar-y-categorías`}

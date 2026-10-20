@@ -10,7 +10,16 @@ import '@/ui/styles/global.css'
 import '@/ui/styles/view-transitions.css'
 import '@/ui/layouts/BaseLayout/styles.css'
 
-const { title, description, article, noIndex, showDescription = false, commits } = Astro.props
+const {
+  title,
+  description,
+  article,
+  noIndex,
+  showDescription = false,
+  showHeader = true,
+  centerContent = false,
+  commits,
+} = Astro.props
 ---
 
 <!doctype html>
@@ -25,9 +34,9 @@ const { title, description, article, noIndex, showDescription = false, commits }
   </head>
   <body>
     <div class="site-shell" id="page-top" tabindex="-1">
-      <div class="site-shell__content">
-        <Topnav showDescription={showDescription} />
-        <main class="site-shell__main">
+      <div class:list={['site-shell__content', { 'site-shell__content--centered': centerContent }]}>
+        {showHeader && <Topnav showDescription={showDescription} />}
+        <main class:list={['site-shell__main', { 'site-shell__main--centered': centerContent }]}>
           <slot />
         </main>
       </div>

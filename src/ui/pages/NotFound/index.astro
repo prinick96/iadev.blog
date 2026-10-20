@@ -1,10 +1,16 @@
 ---
+import { Image } from 'astro:assets'
+import notFoundPet from '@/ui/assets/pet/404.svg'
+import ButtonLink from '@/ui/components/ButtonLink/index.astro'
 import '@/ui/pages/NotFound/styles.css'
 import { paths } from '@/ui/routes/paths'
 ---
 
-<section class="not-found">
-  <h1>Página no encontrada</h1>
-  <p>La página que buscas no existe o ha cambiado de dirección, eso o el MCP falló.</p>
-  <p><a href={paths.home}>Volver al inicio</a></p>
+<section class="not-found" aria-labelledby="not-found-title">
+  <Image class="not-found__pet" src={notFoundPet} alt="Error 404" width={200} height={200} loading="eager" />
+  <div class="not-found__message">
+    <h1 class="not-found__title" id="not-found-title">Página no encontrada</h1>
+    <p class="not-found__description">La página que buscas no existe o ha cambiado de dirección, eso o el MCP falló.</p>
+    <ButtonLink class="not-found__link" href={paths.home}>Volver al inicio</ButtonLink>
+  </div>
 </section>

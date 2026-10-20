@@ -24,6 +24,15 @@
   min-inline-size: 0;
 }
 
+.site-shell__content--centered {
+  padding-block-end: 0;
+}
+
+.site-shell__main--centered {
+  display: grid;
+  place-items: center;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .site-document {
     scroll-behavior: smooth;

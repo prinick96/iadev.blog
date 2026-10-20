@@ -3,5 +3,7 @@ import type { Props as SeoMetadataProps } from '@/ui/layouts/BaseLayout/componen
 
 export type Props = SeoMetadataProps & {
   commits: readonly Commit[]
+  centerContent?: boolean
   showDescription?: boolean
+  showHeader?: boolean
 }
