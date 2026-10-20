@@ -14,6 +14,7 @@ test('returns original sources with all technical fields and a single repository
       data: {
         title: 'Sin conversión',
         description: 'Los detalles técnicos llegan intactos al renderizado.',
+        author: { id: 'prinick', collection: 'authors' },
         published_at: new Date('2026-10-18'),
         categories: [{ id: 'astro' }],
       },
@@ -40,6 +41,7 @@ test('preserves source order and includes future publication dates', async () =>
       data: {
         title: 'Primero en origen',
         description: 'La fecha no cambia su posición.',
+        author: { id: 'prinick' },
         published_at: new Date('2025-01-01'),
       },
     },
@@ -48,6 +50,7 @@ test('preserves source order and includes future publication dates', async () =>
       data: {
         title: 'Un artículo futuro',
         description: 'El calendario no decide qué se publica.',
+        author: { id: 'guest' },
         published_at: new Date('2099-01-01'),
       },
     },

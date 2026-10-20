@@ -9,6 +9,7 @@ class PostsRepositoryMock implements IPostsRepository {
         title: 'Un artículo tipado',
         description: 'Los tipos no escriben el artículo, todavía.',
         published_at: new Date('2026-10-18'),
+        author: { id: 'prinick' },
         categories: [{ id: 'typescript' }, { id: 'astro' }],
       },
     },

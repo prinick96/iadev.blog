@@ -4,7 +4,7 @@ Sátira, humor negro y humor friki sobre el maravilloso circo de la inteligencia
 
 Aquí el humo no se vende: se documenta. Si un artículo te parece una barbaridad, es sátira. Si te parece un plan de negocio, probablemente ya estés preparando la ronda de inversión.
 
-Blog estático con Astro y artículos en Markdown, enfocado a un único autor. Sin agentes autónomos para servir HTML: sabemos que eso complica levantar capital.
+Blog estático con Astro y artículos en Markdown, con un autor por artículo, abierto a que cualquiera en la red pueda escribir contenido via PR. Sin agentes autónomos para servir HTML: sabemos que eso complica levantar capital.
 
 ## En local
 
@@ -16,11 +16,11 @@ bun run dev
 ```
 
 - Abre `http://localhost:4321`. Los artículos están en `src/content/posts/`; puedes crear `tu-primer-post.md`.
-- Cada `.md` necesita `title`, `description` y `published_at` en el frontmatter. `updated_at`, `slug` y `categories` son opcionales.
+- Cada `.md` necesita `title`, `description`, `published_at` y `author` en el frontmatter. `updated_at`, `slug` y `categories` son opcionales.
 - Las categorías se definen en `src/content/categories.json` con `id`, `name` y `description`. El ID es estable y usa minúsculas y guiones; cambiar `name` no cambia la URL. En los posts, usa `categories: [inteligencia-artificial, desarrollo]`. Las referencias inexistentes o repetidas hacen fallar el build. `/categories/` lista solo categorías con artículos y enlaza a `/categories/<id>/`; los posts mantienen sus URLs.
 - No hay borradores ni filtros por fecha.
 - La miniatura es opcional: guarda `thumbnail.svg` en `src/ui/assets/posts/<id-del-artículo>/`, sin añadir frontmatter. Para `ejemplo.md`, la ruta es `src/ui/assets/posts/ejemplo/thumbnail.svg`; los IDs anidados conservan sus subcarpetas. Si falta, se utiliza `placehold.co`, que recibe una petición del navegador.
-- Los datos del autor se editan en `src/core/logic/author/infra/local/AuthorRepository.ts`. Su avatar se guarda en `src/ui/assets/authors/prinick/avatar.webp`; mientras falte, también se muestra un placeholder. Si queremos conectar esto a una api, crear otra implementación de la interfaz.
+- Los autores se definen en `src/content/authors.json` con `id`, `name`, `bio` y un `avatar` opcional. Cada post elige exactamente uno con `author: prinick96`, usando su ID estable; un autor ausente o inexistente hace fallar el build. El avatar es una ruta relativa a `src/ui/assets/authors/`, por ejemplo `prinick96/avatar.webp`. Se admiten JPG, JPEG, PNG, TIFF, WebP, GIF, SVG y AVIF como origen; Astro conserva el formato de origen y optimiza el avatar durante el build. Si se omite `avatar` o falta la imagen, se muestra un placeholder. `bio` admite HTML local de confianza, no contenido externo sin sanitizar.
 -
 
 ## Arquitectura

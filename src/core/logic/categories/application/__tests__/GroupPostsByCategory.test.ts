@@ -9,6 +9,7 @@ const createPost = (id: string, category_ids: string[], published_at = '2026-10-
     title: id,
     description: `Artículo ${id}`,
     published_at: new Date(published_at),
+    author_id: 'prinick',
     category_ids,
     reading_time_minutes: 1,
     token_count: 200000,

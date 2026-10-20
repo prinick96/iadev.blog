@@ -4,7 +4,7 @@ import GetPosts from '@/core/logic/posts/application/GetPosts'
 import type { PostSource } from '@/core/logic/posts/domain/PostSource'
 import PostsRepositoryMock from '@/core/logic/posts/infra/astro/mocks/PostsRepository.mock'
 
-test('maps repository data and category references into posts with a single repository call', async () => {
+test('maps repository data and author and category references into posts with a single repository call', async () => {
   const repository = new PostsRepositoryMock()
 
   const result = await new GetPosts(repository).execute()
@@ -16,6 +16,7 @@ test('maps repository data and category references into posts with a single repo
       description: 'Los tipos no escriben el artículo, todavía.',
       published_at: new Date('2026-10-18'),
       updated_at: undefined,
+      author_id: 'prinick',
       category_ids: ['typescript', 'astro'],
       reading_time_minutes: 1,
       token_count: 4,
@@ -29,6 +30,7 @@ test('maps repository data and category references into posts with a single repo
       data: {
         title: 'Un artículo tipado',
         description: 'Los tipos no escriben el artículo, todavía.',
+        author: { id: 'prinick' },
         published_at: new Date('2026-10-18'),
         categories: [{ id: 'typescript' }, { id: 'astro' }],
       },
@@ -45,6 +47,7 @@ test('sorts by publication date descending without mutating repository data or e
       data: {
         title: 'Un artículo antiguo',
         description: 'La actualización no lo convierte en noticia.',
+        author: { id: 'prinick' },
         published_at: new Date('2025-01-01'),
         updated_at: new Date('2099-12-31'),
         categories: [{ id: 'typescript' }, { id: 'astro' }],
@@ -56,6 +59,7 @@ test('sorts by publication date descending without mutating repository data or e
       data: {
         title: 'Un artículo reciente',
         description: 'Todavía no tiene categorías.',
+        author: { id: 'guest' },
         published_at: new Date('2026-10-18'),
       },
     },
@@ -65,6 +69,7 @@ test('sorts by publication date descending without mutating repository data or e
       data: {
         title: 'Un artículo futuro',
         description: 'El calendario no decide qué se publica.',
+        author: { id: 'future-author' },
         published_at: new Date('2099-01-01'),
         categories: [],
       },
@@ -105,10 +110,15 @@ test('sorts by publication date descending without mutating repository data or e
     description: 'El calendario no decide qué se publica.',
     published_at: new Date('2099-01-01'),
     updated_at: undefined,
+    author_id: 'future-author',
     category_ids: [],
     reading_time_minutes: 3,
     token_count: 405,
   })
+  assert.deepEqual(
+    result.map((post) => post.author_id),
+    ['future-author', 'guest', 'prinick']
+  )
   assert.deepEqual(posts, original)
   assert.notEqual(result, posts)
   assert.deepEqual(repository.list.mock.calls, [[]])
@@ -124,6 +134,7 @@ test('preserves the source order when publication dates match', async () => {
         data: {
           title: 'El segundo',
           description: 'Llegó primero al repositorio.',
+          author: { id: 'guest' },
           published_at: new Date('2026-10-18'),
           categories: [{ id: 'astro' }],
         },
@@ -133,6 +144,7 @@ test('preserves the source order when publication dates match', async () => {
         data: {
           title: 'El primero',
           description: 'El nombre no le da prioridad.',
+          author: { id: 'prinick' },
           published_at: new Date('2026-10-18'),
           categories: [{ id: 'typescript' }],
         },

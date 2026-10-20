@@ -11,6 +11,7 @@ const posts = defineCollection({
     description: z.string().trim().min(1, 'La descripción del artículo no puede estar vacía.'),
     published_at: date,
     updated_at: date.optional(),
+    author: reference('authors'),
     categories: z
       .array(reference('categories'))
       .refine(
@@ -37,4 +38,19 @@ const categories = defineCollection({
   }),
 })
 
-export const collections = { posts, categories }
+const authors = defineCollection({
+  loader: file('./src/content/authors.json'),
+  schema: z.strictObject({
+    id: z
+      .string()
+      .regex(
+        /^[a-z0-9]+(?:-[a-z0-9]+)*$/,
+        'El ID de autor debe usar minúsculas y guiones, preferiblemente ser el usuario de github.'
+      ),
+    name: z.string().trim().min(1, 'El nombre del autor no puede estar vacío.'),
+    bio: z.string().trim().min(1, 'La biografía del autor no puede estar vacía.'),
+    avatar: z.string().trim().min(1, 'La ruta del avatar del autor no puede estar vacía.').optional(),
+  }),
+})
+
+export const collections = { posts, categories, authors }

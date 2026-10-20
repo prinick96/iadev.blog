@@ -21,6 +21,20 @@ test('returns the fixed fallback when the image path is missing', () => {
   )
 })
 
+test('returns the fixed fallback when no image path is provided', () => {
+  const image: ImageMetadata = { src: '/_astro/avatar.webp', width: 96, height: 96, format: 'webp' }
+  const images = { [`${AUTHORS_ASSETS_PATH}/prinick/avatar.webp`]: image }
+
+  assert.equal(resolveImage(images), 'https://placehold.co/192x192/1f2127/8a8986.webp?text=vibras')
+  assert.equal(resolveImage(images, undefined, 96), 'https://placehold.co/96x96/1f2127/8a8986.webp?text=vibras')
+})
+
+test('returns the fixed fallback for an empty path even if the map contains an empty key', () => {
+  const image: ImageMetadata = { src: '/_astro/avatar.webp', width: 96, height: 96, format: 'webp' }
+
+  assert.equal(resolveImage({ '': image }, ''), 'https://placehold.co/192x192/1f2127/8a8986.webp?text=vibras')
+})
+
 test('returns the fixed fallback for an empty image map', () => {
   assert.equal(
     resolveImage({}, `${POSTS_ASSETS_PATH}/first-post/thumbnail.svg`),
@@ -50,12 +64,16 @@ test('resolves exact paths containing nested post identifiers', () => {
   assert.equal(resolveImage({ [path]: image }, path), image)
 })
 
-test('resolves author avatar paths with the same image map contract', () => {
-  const image: ImageMetadata = { src: '/_astro/avatar.webp', width: 96, height: 96, format: 'webp' }
-  const path = `${AUTHORS_ASSETS_PATH}/prinick/avatar.webp`
+const avatarFormats: ImageMetadata['format'][] = ['jpg', 'jpeg', 'png', 'tiff', 'webp', 'gif', 'svg', 'avif']
 
-  assert.equal(resolveImage({ [path]: image }, path), image)
-})
+for (const format of avatarFormats) {
+  test(`resolves author avatars in ${format} format without replacing them with the fallback`, () => {
+    const image: ImageMetadata = { src: `/_astro/avatar.${format}`, width: 96, height: 96, format }
+    const path = `${AUTHORS_ASSETS_PATH}/prinick/avatar.${format}`
+
+    assert.equal(resolveImage({ [path]: image }, path), image)
+  })
+}
 
 test('does not mutate the image map or its metadata for existing or missing paths', () => {
   const image: ImageMetadata = Object.freeze({

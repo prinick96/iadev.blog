@@ -1,36 +1,36 @@
 ---
 import { render } from 'astro:content'
-import { getAuthorService } from '@/core/logic/author/services/index'
+import { getAuthorsService } from '@/core/logic/authors/services/index'
 import { getCategoriesService } from '@/core/logic/categories/services/index'
-import ConvertPost from '@/core/logic/posts/application/ConvertPost'
+import GetPostDetails from '@/core/logic/posts/application/GetPostDetails'
 import { getPostSourcesService } from '@/core/logic/posts/services/index'
 import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
 import type { Props } from '@/pages/posts/_types'
 import Post from '@/ui/pages/Post/index.astro'
 
 export const getStaticPaths = async () => {
-  const [posts, categories] = await Promise.all([getPostSourcesService.execute(), getCategoriesService.execute()])
-  const author = getAuthorService.execute()
+  const [posts, categories, authors] = await Promise.all([
+    getPostSourcesService.execute(),
+    getCategoriesService.execute(),
+    getAuthorsService.execute(),
+  ])
 
-  return posts.map((post) => ({
-    params: { slug: post.id },
-    props: {
-      post,
-      author,
-      categories: categories.filter((category) =>
-        post.data.categories.some((reference) => reference.id === category.id)
-      ),
-    },
-  }))
+  return posts.map((source) => {
+    const details = GetPostDetails.execute({ source, authors, categories })
+
+    return {
+      params: { slug: source.id },
+      props: { source, details },
+    }
+  })
 }
 
-const { post, author, categories } = Astro.props
-const { Content } = await render(post)
-const convertedPost = ConvertPost.execute(post)
+const { source, details } = Astro.props
+const { Content } = await render(source)
 ---
 
-<SiteLayout title={convertedPost.title} description={convertedPost.description}>
-  <Post post={convertedPost} author={author} categories={categories}>
+<SiteLayout title={details.post.title} description={details.post.description}>
+  <Post {...details}>
     <Content />
   </Post>
 </SiteLayout>

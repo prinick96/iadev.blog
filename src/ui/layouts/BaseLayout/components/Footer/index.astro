@@ -1,5 +1,5 @@
 ---
-import { GITHUB_REPOSITORY } from '@/core/constants/github'
+import { GITHUB_REPOSITORY, GITHUB_URL } from '@/core/constants/github'
 import CategoriesIcon from '@/ui/components/icons/CategoriesIcon/index.astro'
 import GitHistoryIcon from '@/ui/components/icons/GitHistoryIcon/index.astro'
 import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
@@ -47,7 +47,7 @@ const { homeCurrent, categoriesCurrent } = getFooterNavigationState(Astro.url.pa
       <RssIcon class="footer__icon" />
     </FooterLink>
     <FooterLink
-      href={`https://github.com/${GITHUB_REPOSITORY}`}
+      href={`${GITHUB_URL}/${GITHUB_REPOSITORY}`}
       label="Repositorio"
       tooltipId="footer-github-tooltip"
       target="_blank"

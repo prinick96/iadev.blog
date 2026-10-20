@@ -2,6 +2,7 @@ export type Post = {
   id: string
   title: string
   description: string
+  author_id: string
   category_ids: string[]
   reading_time_minutes: number
   token_count: number

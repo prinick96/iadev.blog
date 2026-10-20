@@ -3,7 +3,7 @@ import assert from 'node:assert/strict'
 import ConvertPost from '@/core/logic/posts/application/ConvertPost'
 import type { PostSource } from '@/core/logic/posts/domain/PostSource'
 
-test('maps category references in source order without leaking technical fields or mutating the source', () => {
+test('maps author and category references without leaking technical fields or mutating the source', () => {
   const entry = {
     id: 'slug-conservado',
     collection: 'posts',
@@ -14,6 +14,7 @@ test('maps category references in source order without leaking technical fields 
       published_at: new Date('2026-10-18'),
       updated_at: new Date('2026-10-19'),
       slug: 'slug-conservado',
+      author: { id: 'guest', collection: 'authors' },
       categories: [
         { id: 'typescript', collection: 'categories' },
         { id: 'astro', collection: 'categories' },
@@ -25,6 +26,7 @@ test('maps category references in source order without leaking technical fields 
     Object.freeze(reference)
   }
   Object.freeze(entry.data.categories)
+  Object.freeze(entry.data.author)
   Object.freeze(entry.data)
   Object.freeze(entry)
 
@@ -34,6 +36,7 @@ test('maps category references in source order without leaking technical fields 
     id: 'slug-conservado',
     title: 'Un artículo',
     description: 'Descripción del artículo',
+    author_id: 'guest',
     category_ids: ['typescript', 'astro'],
     reading_time_minutes: 1,
     token_count: 5,
@@ -56,6 +59,7 @@ test('defaults absent categories and counts the title without a body, updated_at
     data: {
       title: 'Sin actualización',
       description: 'Todavía no ha necesitado una fe de erratas.',
+      author: { id: 'prinick' },
       published_at: new Date('2026-10-18'),
     },
   }
@@ -65,6 +69,7 @@ test('defaults absent categories and counts the title without a body, updated_at
     id: entry.id,
     title: entry.data.title,
     description: entry.data.description,
+    author_id: 'prinick',
     category_ids: [],
     reading_time_minutes: 1,
     token_count: 2,
@@ -80,6 +85,7 @@ test('converts explicit empty categories into an independent empty array', () =>
     data: {
       title: 'Sin categorías',
       description: 'La clasificación puede esperar.',
+      author: { id: 'prinick' },
       published_at: new Date('2026-10-18'),
       categories: Object.freeze([]),
     },
@@ -102,6 +108,7 @@ test('calculates reading time and title-plus-body tokens without mutating the so
     data: {
       title: 'Un artículo largo',
       description: 'El resumen no cuenta toda la historia.',
+      author: { id: 'prinick' },
       published_at: new Date('2026-10-18'),
     },
   }
@@ -122,6 +129,7 @@ test('counts the title and body together while excluding descriptions and techni
     data: {
       title: 'Hello',
       description: Array(100).fill('description').join(' '),
+      author: { id: 'prinick' },
       published_at: new Date('2026-10-18'),
       categories: [{ id: 'astro' }],
     },
@@ -139,6 +147,7 @@ test('calculates reading time and tokens from the title for an explicitly empty 
     data: {
       title: 'Un artículo vacío',
       description: 'El título y el resumen no son el cuerpo.',
+      author: { id: 'prinick' },
       published_at: new Date('2026-10-18'),
     },
   }
@@ -161,6 +170,7 @@ test.each([
       data: {
         title: 'Title',
         description: Array(200).fill('description').join(' '),
+        author: { id: 'prinick' },
         published_at: new Date('2026-10-18'),
       },
     }
