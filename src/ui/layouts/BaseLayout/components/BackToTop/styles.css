@@ -1,0 +1,64 @@
+.back-to-top {
+  position: fixed;
+  z-index: 2;
+  inset-block-end: calc(var(--footer-height) + 1rem + env(safe-area-inset-bottom, 0px));
+  inset-inline-end: max(1rem, env(safe-area-inset-right, 0px));
+  display: grid;
+  place-items: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0.375rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  text-decoration: none;
+  visibility: hidden;
+}
+
+.back-to-top:hover,
+.back-to-top:focus-visible {
+  border-color: var(--color-accent);
+  background: var(--color-surface-hover);
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.back-to-top:active {
+  background: var(--color-surface-active);
+}
+
+.back-to-top__icon {
+  inline-size: 1.25rem;
+  block-size: 1.25rem;
+}
+
+@supports (animation-timeline: scroll(root block)) and (animation-range: 0px max(600px, 100vh)) {
+  .back-to-top {
+    animation-name: back-to-top-reveal;
+    animation-duration: 1ms;
+    animation-timing-function: steps(1, end);
+    animation-fill-mode: both;
+    animation-timeline: scroll(root block);
+    animation-range: 0px max(600px, 100vh);
+  }
+}
+
+@keyframes back-to-top-reveal {
+  from {
+    visibility: hidden;
+  }
+
+  to {
+    visibility: visible;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .back-to-top {
+    transition:
+      background-color 160ms ease-out,
+      border-color 160ms ease-out,
+      color 160ms ease-out;
+  }
+}

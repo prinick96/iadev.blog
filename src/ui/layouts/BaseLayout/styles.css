@@ -24,6 +24,12 @@
   min-inline-size: 0;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+  .site-document {
+    scroll-behavior: smooth;
+  }
+}
+
 @media (pointer: coarse) {
   .site-shell {
     --footer-height: 3rem;

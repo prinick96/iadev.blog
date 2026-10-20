@@ -1,6 +1,7 @@
 ---
 import regularFont from '@/ui/assets/fonts/ibm-plex-mono/ibm-plex-mono-latin-400-normal.woff2?url'
 import { site } from '@/ui/config/site'
+import BackToTop from '@/ui/layouts/BaseLayout/components/BackToTop/index.astro'
 import Footer from '@/ui/layouts/BaseLayout/components/Footer/index.astro'
 import Topnav from '@/ui/layouts/BaseLayout/components/Topnav/index.astro'
 import type { Props } from '@/ui/layouts/BaseLayout/types'
@@ -17,7 +18,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href
 ---
 
 <!doctype html>
-<html lang="es">
+<html lang="es" class="site-document">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -35,7 +36,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href
     <link rel="alternate" type="application/rss+xml" title={site.title} href={paths.rss} />
   </head>
   <body>
-    <div class="site-shell">
+    <div class="site-shell" id="page-top" tabindex="-1">
       <div class="site-shell__content">
         <Topnav showDescription={showDescription} />
         <main class="site-shell__main">
@@ -43,6 +44,7 @@ const canonical = new URL(Astro.url.pathname, site.url).href
         </main>
       </div>
       <Footer commits={commits} />
+      <BackToTop />
     </div>
   </body>
 </html>
