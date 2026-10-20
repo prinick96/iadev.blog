@@ -67,7 +67,9 @@ bun run preview
 
 Antes de desplegar, copia `.env.example` a `.env` y cambia `SITE_URL` por la URL pública del blog. También puedes definirla como variable de entorno del build. Se usa en las URLs canónicas, el RSS y el sitemap; por defecto apunta a `https://iadev.blog`.
 
-Define también `GITHUB_API_BASE_URL=https://api.github.com/` en `.env` para desarrollo y como variable de entorno del build en el despliegue. El historial consulta esta API durante la generación estática, nunca desde el navegador. Reinicia el servidor de desarrollo si cambias esta variable.
+Define también `GITHUB_API_BASE_URL=https://api.github.com/` en `.env` para desarrollo y como variable de entorno del build en el despliegue. El historial consulta esta API durante la generación estática, nunca desde el navegador.
+
+Configura `GITHUB_TOKEN` en `.env` para desarrollo y como secreto del entorno de build en el despliegue. Se envía como `Authorization: Bearer …` únicamente en las peticiones del cliente de GitHub. Sin token, la consulta sigue siendo anónima y comparte el límite de 60 peticiones por hora por IP. Como esto lo voy a desplegar en Cloudflare, utilizaré las IP de Cloudflare, por tanto necesito autenticarme para aumentar este límite. Si tienes una IP dedicada, pues no será necesario, ya que no compilarás más de 60 veces en una hora (no deberías). Igualmente, es una variable de entorno, va full buildtime. **Este token solo debería tener permisos de lectura básicos, yo le he colocado eso solo para repositorios públicos**
 
 ~~Publica únicamente `dist/` en un hosting estático.~~ Espera, eres ingeniero no debería estar diciéndote esto.
 
