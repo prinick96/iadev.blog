@@ -70,7 +70,7 @@
 @media (hover: hover) and (pointer: fine) {
   .footer__tooltip {
     position: absolute;
-    z-index: 2;
+    z-index: 3;
     inset-block-end: calc(100% + 0.5rem);
     inset-inline-end: 0;
     display: block;
