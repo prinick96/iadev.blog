@@ -1,20 +1,16 @@
 ---
 import regularFont from '@/ui/assets/fonts/ibm-plex-mono/ibm-plex-mono-latin-400-normal.woff2?url'
-import { site } from '@/ui/config/site'
 import BackToTop from '@/ui/layouts/BaseLayout/components/BackToTop/index.astro'
 import Footer from '@/ui/layouts/BaseLayout/components/Footer/index.astro'
+import SeoMetadata from '@/ui/layouts/BaseLayout/components/SeoMetadata/index.astro'
 import Topnav from '@/ui/layouts/BaseLayout/components/Topnav/index.astro'
 import type { Props } from '@/ui/layouts/BaseLayout/types'
 import '@/ui/styles/fonts.css'
 import '@/ui/styles/global.css'
 import '@/ui/styles/view-transitions.css'
-import { paths } from '@/ui/routes/paths'
 import '@/ui/layouts/BaseLayout/styles.css'
 
-const { title, description = site.description, showDescription = false, commits } = Astro.props
-const siteTitle = `${site.title} - ${site.subtitle}`
-const pageTitle = title ? `${title} | ${siteTitle}` : siteTitle
-const canonical = new URL(Astro.url.pathname, site.url).href
+const { title, description, article, noIndex, showDescription = false, commits } = Astro.props
 ---
 
 <!doctype html>
@@ -22,18 +18,10 @@ const canonical = new URL(Astro.url.pathname, site.url).href
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>{pageTitle}</title>
+    <SeoMetadata title={title} description={description} article={article} noIndex={noIndex} />
     <meta name="theme-color" content="#0c0d12" />
     <link rel="icon" type="image/x-icon" href="/favicon.ico?v=1" />
     <link rel="preload" href={regularFont} as="font" type="font/woff2" crossorigin />
-    <meta name="description" content={description} />
-    <link rel="canonical" href={canonical} />
-    <meta property="og:title" content={pageTitle} />
-    <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
-    <meta property="og:site_name" content={site.title} />
-    <meta property="og:url" content={canonical} />
-    <link rel="alternate" type="application/rss+xml" title={site.title} href={paths.rss} />
   </head>
   <body>
     <div class="site-shell" id="page-top" tabindex="-1">

@@ -26,10 +26,11 @@ export const getStaticPaths = async () => {
 }
 
 const { source, details } = Astro.props
+const { post, author } = details
 const { Content } = await render(source)
 ---
 
-<SiteLayout title={details.post.title} description={details.post.description}>
+<SiteLayout title={post.title} description={post.description} article={{ post, author }}>
   <Post {...details}>
     <Content />
   </Post>
