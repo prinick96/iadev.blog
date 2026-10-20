@@ -1,0 +1,83 @@
+---
+import BlueskyIcon from '@/ui/components/icons/BlueskyIcon/index.astro'
+import FacebookIcon from '@/ui/components/icons/FacebookIcon/index.astro'
+import HackerNewsIcon from '@/ui/components/icons/HackerNewsIcon/index.astro'
+import LineIcon from '@/ui/components/icons/LineIcon/index.astro'
+import LinkedInIcon from '@/ui/components/icons/LinkedInIcon/index.astro'
+import MailIcon from '@/ui/components/icons/MailIcon/index.astro'
+import MessageIcon from '@/ui/components/icons/MessageIcon/index.astro'
+import PinterestIcon from '@/ui/components/icons/PinterestIcon/index.astro'
+import RedditIcon from '@/ui/components/icons/RedditIcon/index.astro'
+import TelegramIcon from '@/ui/components/icons/TelegramIcon/index.astro'
+import ThreadsIcon from '@/ui/components/icons/ThreadsIcon/index.astro'
+import TumblrIcon from '@/ui/components/icons/TumblrIcon/index.astro'
+import ViberIcon from '@/ui/components/icons/ViberIcon/index.astro'
+import WhatsAppIcon from '@/ui/components/icons/WhatsAppIcon/index.astro'
+import XIcon from '@/ui/components/icons/XIcon/index.astro'
+import type { Props } from '@/ui/pages/Post/components/PostFooter/components/PostShare/types'
+import { getPostShareLinks } from '@/ui/pages/Post/components/PostFooter/components/PostShare/utils/getPostShareLinks'
+import '@/ui/pages/Post/components/PostFooter/components/PostShare/styles.css'
+
+const { postUrl, postTitle } = Astro.props
+const links = getPostShareLinks(postUrl, postTitle)
+const socialLinks = [
+  { label: 'X', Icon: XIcon, href: links.x },
+  { label: 'Bluesky', Icon: BlueskyIcon, href: links.bluesky },
+  { label: 'Facebook', Icon: FacebookIcon, href: links.facebook },
+  { label: 'LinkedIn', Icon: LinkedInIcon, href: links.linkedin },
+  { label: 'Threads', Icon: ThreadsIcon, href: links.threads },
+  { label: 'Reddit', Icon: RedditIcon, href: links.reddit },
+  { label: 'Pinterest', Icon: PinterestIcon, href: links.pinterest },
+  { label: 'Hacker News', Icon: HackerNewsIcon, href: links.hackerNews },
+  { label: 'Tumblr', Icon: TumblrIcon, href: links.tumblr },
+]
+const messagingLinks = [
+  { label: 'WhatsApp', Icon: WhatsAppIcon, href: links.whatsapp, external: true },
+  { label: 'Telegram', Icon: TelegramIcon, href: links.telegram, external: true },
+  { label: 'Viber', Icon: ViberIcon, href: links.viber, external: false },
+  { label: 'LINE', Icon: LineIcon, href: links.line, external: true },
+  { label: 'Correo', Icon: MailIcon, href: links.email, external: false },
+  { label: 'SMS', Icon: MessageIcon, href: links.sms, external: false },
+]
+---
+
+<section class="post-share" aria-labelledby="post-share-title">
+  <h2 class="post-share__title" id="post-share-title">Compártelo</h2>
+  <p class="post-share__intro">El algoritmo ya ha leído suficiente.<br />Pásaselo a una persona.</p>
+
+  <h3 class="post-share__heading" id="post-share-social">Redes sociales</h3>
+  <ul class="post-share__list" aria-labelledby="post-share-social">
+    {socialLinks.map(({ label, Icon, href }) => (
+      <li class="post-share__item">
+        <a
+          class="post-share__link"
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Compartir en ${label} (se abre en otra pestaña)`}
+          title={`Compartir en ${label}`}
+        >
+          <Icon class="post-share__icon" />
+        </a>
+      </li>
+    ))}
+  </ul>
+
+  <h3 class="post-share__heading" id="post-share-messaging">Mensajería</h3>
+  <ul class="post-share__list" aria-labelledby="post-share-messaging">
+    {messagingLinks.map(({ label, Icon, href, external }) => (
+      <li class="post-share__item">
+        <a
+          class="post-share__link"
+          href={href}
+          target={external ? '_blank' : undefined}
+          rel={external ? 'noopener noreferrer' : undefined}
+          aria-label={`Compartir por ${label}`}
+          title={external ? `Compartir por ${label}` : `Compartir por ${label} (requiere una aplicación compatible)`}
+        >
+          <Icon class="post-share__icon" />
+        </a>
+      </li>
+    ))}
+  </ul>
+</section>

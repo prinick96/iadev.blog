@@ -16,6 +16,7 @@ bun run dev
 ```
 
 - Abre `http://localhost:4321`. Los artículos están en `src/content/posts/`; puedes crear `tu-primer-post.md`.
+- Para entrar desde el móvil u otro dispositivo en la misma wifi, abre la URL `Network` que muestra Astro al arrancar (por ejemplo, `http://192.168.1.100:4321`). Desarrollo y previsualización escuchan en todas las interfaces de red: úsalos solo en redes de confianza y permite el acceso en el firewall si lo bloquea.
 - Cada `.md` necesita `title`, `description`, `published_at` y `author` en el frontmatter. `updated_at`, `slug` y `categories` son opcionales.
 - Las categorías se definen en `src/content/categories.json` con `id`, `name` y `description`. El ID es estable y usa minúsculas y guiones; cambiar `name` no cambia la URL. En los posts, usa `categories: [inteligencia-artificial, desarrollo]`. Las referencias inexistentes o repetidas hacen fallar el build. `/categories/` lista solo categorías con artículos y enlaza a `/categories/<id>/`; los posts mantienen sus URLs.
 - No hay borradores ni filtros por fecha.

@@ -54,6 +54,6 @@ const postUrl = new URL(Astro.url.pathname, site.url).href
   </div>
   <div class="post__content">
     <slot />
-    <PostFooter postUrl={postUrl} />
+    <PostFooter postUrl={postUrl} postTitle={post.title} />
   </div>
 </article>

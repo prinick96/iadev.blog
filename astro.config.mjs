@@ -5,6 +5,9 @@ import { site } from './src/ui/config/site.ts'
 export default defineConfig({
   site: site.url,
   output: 'static',
+  server: {
+    host: true,
+  },
   trailingSlash: 'ignore',
   prerenderConflictBehavior: 'error',
   integrations: [sitemap()],
