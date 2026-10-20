@@ -1,5 +1,11 @@
 [
   {
+    "id": "default",
+    "name": "anónimo",
+    "bio": "Una persona o una IA, quién sabe?",
+    "avatar": "default/avatar.png"
+  },
+  {
     "id": "prinick96",
     "name": "prinick",
     "bio": "<s>IA Engineer</s> | Software Engineer",

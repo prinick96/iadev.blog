@@ -1,0 +1,13 @@
+---
+import type { Props } from '@/ui/pages/Post/components/AuthorInfo/components/AnonymousAuthor/types'
+
+const { author, image } = Astro.props
+---
+
+<span class="author-info__link author-info__link--avatar">
+  <span class="author-info__avatar" style={{ '--author-avatar': `url("${image.src}")` }} aria-hidden="true"></span>
+</span>
+<div>
+  <p class="author-info__name">{author.name}</p>
+  <div class="author-info__bio" set:html={author.bio}></div>
+</div>

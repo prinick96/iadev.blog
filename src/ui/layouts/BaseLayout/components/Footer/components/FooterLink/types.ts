@@ -5,4 +5,6 @@ export type Props = Pick<HTMLAttributes<'a'>, 'target' | 'rel' | 'aria-current'>
   label: string
   tooltip?: string
   tooltipId: string
+  tooltipAlign?: 'start' | 'end'
+  'data-new-post'?: boolean
 }

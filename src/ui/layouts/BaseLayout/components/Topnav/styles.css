@@ -31,15 +31,9 @@
   color: var(--color-accent);
 }
 
-@keyframes topnav-cursor-blink {
-  50% {
-    opacity: 0;
-  }
-}
-
 @media (prefers-reduced-motion: no-preference) {
   .topnav__cursor {
-    animation: topnav-cursor-blink 2s linear infinite;
+    animation: cursor-blink 2s linear infinite;
   }
 }
 

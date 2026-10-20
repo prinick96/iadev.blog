@@ -2,7 +2,7 @@
 title: "¡Por supuesto! Tu ejemplo definitivo de Markdown generado por IA"
 description: "Pediste un Markdown de prueba. La IA respondió con una guía integral, siete lenguajes y la confianza de quien no ha abierto el navegador."
 published_at: 2026-10-18
-author: prinick96
+author: default
 categories:
   - categoria-ejemplo
 ---

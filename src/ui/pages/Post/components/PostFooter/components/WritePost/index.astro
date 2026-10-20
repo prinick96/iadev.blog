@@ -1,0 +1,47 @@
+---
+import { GITHUB_NEW_POST_URL, GITHUB_REPOSITORY_URL } from '@/core/constants/github'
+import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
+import '@/ui/pages/Post/components/PostFooter/components/WritePost/styles.css'
+---
+
+<section class="write-post" aria-labelledby="write-post-title">
+  <div class="write-post__bar" aria-hidden="true">
+    <span class="write-post__tab">iadev.blog — contribuciones</span>
+  </div>
+  <div class="write-post__output">
+    <h2 class="write-post__title" id="write-post-title">¿Quieres escribir aquí? Pues escribe.</h2>
+    <p class="write-post__intro">
+      Este blog también es tuyo. Ven a despotricar a gusto: aquí no hay censura ni necesitas un cargo inventado en
+      LinkedIn, solo un post en Markdown y una PR.
+    </p>
+    <p class="write-post__details">
+      Crea otra categoría si te da la gana, firma con tu cuenta de Github, crea una nueva feature si la necesitas para el post, total, hoy día todos podemos hacer apps millonarias con un prompt, ¿qué es hacer una feature en un blog estático frente a eso?
+    </p>
+    <div class="write-post__prompt" aria-hidden="true">
+      <span class="write-post__directory">~/iadev.blog</span>
+      <span class="write-post__branch">(main)</span>
+    </div>
+    <div class="write-post__actions">
+      <span class="write-post__prompt-sign" aria-hidden="true">$</span>
+      <a class="write-post__button" href={GITHUB_NEW_POST_URL} target="_blank" rel="noopener noreferrer" data-new-post>
+        <GithubIcon class="write-post__icon" />
+        Escribir mi post
+      </a>
+      <a
+        class="write-post__guide"
+        href={`${GITHUB_REPOSITORY_URL}#cómo-añadir-autor-avatar-y-categorías`}
+        target="_blank"
+        rel="noopener noreferrer"
+        >Cómo añadir autor, avatar y categorías</a
+      >
+    </div>
+    <p class="write-post__note">
+      Necesitas una cuenta de GitHub: crea el fichero y abre una PR y cuando la apruebe se mergea.<br />
+      También puedes clonarlo y hacer un push a una rama y abrir la PR, como se te haga mas cómodo.
+      <br />
+      Puedes crear el post como anónimo, pero tu cuenta y la PR mergeada seguirán siendo públicas en GitHub ya que
+      entrarás en los commits.
+    </p>
+    <div class="write-post__cursor-line" aria-hidden="true">$ <span class="write-post__cursor"></span></div>
+  </div>
+</section>

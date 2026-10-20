@@ -1,6 +1,7 @@
 ---
 import PostShare from '@/ui/pages/Post/components/PostFooter/components/PostShare/index.astro'
 import VibecoderZone from '@/ui/pages/Post/components/PostFooter/components/VibecoderZone/index.astro'
+import WritePost from '@/ui/pages/Post/components/PostFooter/components/WritePost/index.astro'
 import type { Props } from '@/ui/pages/Post/components/PostFooter/types'
 import '@/ui/pages/Post/components/PostFooter/styles.css'
 
@@ -10,4 +11,5 @@ const { postUrl, postTitle } = Astro.props
 <footer class="post-footer">
   <VibecoderZone postUrl={postUrl} />
   <PostShare postUrl={postUrl} postTitle={postTitle} />
+  <WritePost />
 </footer>

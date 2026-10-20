@@ -41,7 +41,9 @@ const { pageTitle, socialTitle, canonical, image, structuredData } = getSeoMetad
 {article && (
   <>
     <meta name="author" content={article.author.name} />
-    <meta property="article:author" content={`${GITHUB_URL}/${article.author.id}`} />
+    {article.author.id !== 'default' && (
+      <meta property="article:author" content={`${GITHUB_URL}/${article.author.id}`} />
+    )}
     <meta property="article:published_time" content={article.post.published_at.toISOString()} />
     {article.post.updated_at && (
       <meta property="article:modified_time" content={article.post.updated_at.toISOString()} />

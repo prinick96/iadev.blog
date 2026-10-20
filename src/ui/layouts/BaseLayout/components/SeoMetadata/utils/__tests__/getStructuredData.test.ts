@@ -113,6 +113,29 @@ describe('getStructuredData', () => {
     })
   })
 
+  test('preserves the default author name without emitting an author URL', () => {
+    const result = getStructuredData({
+      ...articleInput,
+      article: {
+        post: { ...post, author_id: 'default' },
+        author: { ...author, id: 'default' },
+      },
+    })
+
+    expect(result).toStrictEqual({
+      '@context': 'https://schema.org',
+      '@graph': [
+        website,
+        articlePage,
+        {
+          ...blogPosting,
+          author: { '@type': 'Person', name: author.name },
+        },
+      ],
+    })
+    expect(JSON.stringify(result)).not.toContain(`${GITHUB_URL}/default`)
+  })
+
   test('includes the updated date in ISO format only when supplied', () => {
     const result = getStructuredData({
       ...articleInput,

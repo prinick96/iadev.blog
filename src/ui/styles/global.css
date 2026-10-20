@@ -83,6 +83,12 @@ strong {
   font-weight: 700;
 }
 
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
 @media (max-width: 47.999rem) {
   :root {
     --post-gutter: 0rem;

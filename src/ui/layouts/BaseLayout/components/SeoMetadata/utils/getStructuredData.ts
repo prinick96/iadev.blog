@@ -56,7 +56,7 @@ export function getStructuredData({ canonical, title, description, image, articl
     author: {
       '@type': 'Person',
       name: author.name,
-      url: `${GITHUB_URL}/${author.id}`,
+      ...(author.id !== 'default' ? { url: `${GITHUB_URL}/${author.id}` } : {}),
     },
     inLanguage: 'es',
   }

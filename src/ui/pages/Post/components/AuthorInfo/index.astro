@@ -1,27 +1,19 @@
 ---
-import { GITHUB_URL } from '@/core/constants/github'
+import AnonymousAuthor from '@/ui/pages/Post/components/AuthorInfo/components/AnonymousAuthor/index.astro'
+import AuthorProfile from '@/ui/pages/Post/components/AuthorInfo/components/AuthorProfile/index.astro'
 import type { Props } from '@/ui/pages/Post/components/AuthorInfo/types'
 import { getAuthorAvatar } from '@/ui/pages/Post/components/AuthorInfo/utils/getAuthorAvatar'
 import '@/ui/pages/Post/components/AuthorInfo/styles.css'
 
 const { author } = Astro.props
-const profileUrl = `${GITHUB_URL}/${author.id}`
-const image = await getAuthorAvatar(author.avatar)
+
+const image = await getAuthorAvatar(author.id, author.avatar)
 ---
 
 <div class="author-info">
-  <a class="author-info__link author-info__link--avatar" href={profileUrl} target="_blank" rel="noopener noreferrer">
-    <img
-      class="author-info__avatar"
-      src={image.src}
-      srcset={image.srcSet.attribute || undefined}
-      {...image.attributes}
-    />
-  </a>
-  <div>
-    <p class="author-info__name">
-      <a class="author-info__link" href={profileUrl} target="_blank" rel="noopener noreferrer">{author.name}</a>
-    </p>
-    <div class="author-info__bio" set:html={author.bio}></div>
-  </div>
+  {author.id === 'default' ? (
+    <AnonymousAuthor author={author} image={image} />
+  ) : (
+    <AuthorProfile author={author} image={image} />
+  )}
 </div>

@@ -1,10 +1,11 @@
 ---
-import { GITHUB_REPOSITORY, GITHUB_URL } from '@/core/constants/github'
+import { GITHUB_NEW_POST_URL, GITHUB_REPOSITORY_URL } from '@/core/constants/github'
 import CategoriesIcon from '@/ui/components/icons/CategoriesIcon/index.astro'
 import GitHistoryIcon from '@/ui/components/icons/GitHistoryIcon/index.astro'
 import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
 import HomeIcon from '@/ui/components/icons/HomeIcon/index.astro'
 import RssIcon from '@/ui/components/icons/RssIcon/index.astro'
+import WritePostIcon from '@/ui/components/icons/WritePostIcon/index.astro'
 import CommitHistory from '@/ui/layouts/BaseLayout/components/Footer/components/CommitHistory/index.astro'
 import FooterLink from '@/ui/layouts/BaseLayout/components/Footer/components/FooterLink/index.astro'
 import type { Props } from '@/ui/layouts/BaseLayout/components/Footer/types'
@@ -29,6 +30,18 @@ const { homeCurrent, categoriesCurrent } = getFooterNavigationState(Astro.url.pa
       <GitHistoryIcon class="footer__icon" />
       <span class="footer__tooltip footer__tooltip--start" id="footer-history-tooltip" role="tooltip">Historial</span>
     </button>
+    <FooterLink
+      href={GITHUB_NEW_POST_URL}
+      label="Vibecodear post"
+      tooltip="Vibecodear post"
+      tooltipId="footer-new-post-tooltip"
+      tooltipAlign="start"
+      target="_blank"
+      rel="noopener noreferrer"
+      data-new-post
+    >
+      <WritePostIcon class="footer__icon" />
+    </FooterLink>
   </div>
   <nav class="footer__group" aria-label="Navegación del footer">
     <FooterLink href={paths.home} label="Inicio" tooltipId="footer-home-tooltip" aria-current={homeCurrent}>
@@ -47,7 +60,7 @@ const { homeCurrent, categoriesCurrent } = getFooterNavigationState(Astro.url.pa
       <RssIcon class="footer__icon" />
     </FooterLink>
     <FooterLink
-      href={`${GITHUB_URL}/${GITHUB_REPOSITORY}`}
+      href={GITHUB_REPOSITORY_URL}
       label="Repositorio"
       tooltipId="footer-github-tooltip"
       target="_blank"
@@ -58,3 +71,9 @@ const { homeCurrent, categoriesCurrent } = getFooterNavigationState(Astro.url.pa
   </nav>
 </footer>
 <CommitHistory commits={commits} />
+
+<script>
+import { initializePostTemplate } from '@/ui/utils/initializePostTemplate'
+
+initializePostTemplate()
+</script>

@@ -22,8 +22,11 @@
   inline-size: 3.5rem;
   block-size: 3.5rem;
   flex-shrink: 0;
-  border-radius: 50%;
-  object-fit: cover;
+  border-radius: 4%;
+  background-image: var(--author-avatar, none), url("@/ui/assets/authors/default/avatar.png");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .author-info__name {

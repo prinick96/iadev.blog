@@ -15,18 +15,119 @@ bun install --frozen-lockfile
 bun run dev
 ```
 
-- Abre `http://localhost:4321`. Los artículos están en `src/content/posts/`; puedes crear `tu-primer-post.md`.
+- Abre `http://localhost:4321`.
 - Para entrar desde el móvil u otro dispositivo en la misma wifi, abre la URL `Network` que muestra Astro al arrancar (por ejemplo, `http://192.168.1.100:4321`). Desarrollo y previsualización escuchan en todas las interfaces de red: úsalos solo en redes de confianza y permite el acceso en el firewall si lo bloquea.
-- Cada `.md` necesita `title`, `description`, `published_at` y `author` en el frontmatter. `updated_at`, `slug` y `categories` son opcionales.
-- Las categorías se definen en `src/content/categories.json` con `id`, `name` y `description`. El ID es estable y usa minúsculas y guiones; cambiar `name` no cambia la URL. En los posts, usa `categories: [inteligencia-artificial, desarrollo]`. Las referencias inexistentes o repetidas hacen fallar el build. `/categories/` lista solo categorías con artículos y enlaza a `/categories/<id>/`; los posts mantienen sus URLs.
-- No hay borradores ni filtros por fecha.
-- La miniatura es opcional: guarda `thumbnail.svg` en `src/ui/assets/posts/<id-del-artículo>/`, sin añadir frontmatter. Para `ejemplo.md`, la ruta es `src/ui/assets/posts/ejemplo/thumbnail.svg`; los IDs anidados conservan sus subcarpetas. Si falta, se utiliza `placehold.co`, que recibe una petición del navegador.
-- Los autores se definen en `src/content/authors.json` con `id`, `name`, `bio` y un `avatar` opcional. Cada post elige exactamente uno con `author: prinick96`, usando su ID estable; un autor ausente o inexistente hace fallar el build. El avatar es una ruta relativa a `src/ui/assets/authors/`, por ejemplo `prinick96/avatar.webp`. Se admiten JPG, JPEG, PNG, TIFF, WebP, GIF, SVG y AVIF como origen; Astro conserva el formato de origen y optimiza el avatar durante el build. Si se omite `avatar` o falta la imagen, se muestra un placeholder. `bio` admite HTML local de confianza, no contenido externo sin sanitizar.
--
+
+## Cómo añadir autor, avatar y categorías
+
+Incluye el artículo y todos los cambios de autor, avatar, categorías y thumbnail en la misma PR. No necesitas un comité editorial; sí que las referencias existan.
+
+### ¿Dónde creo el artículo?
+
+Crea un archivo `.md` en `src/content/posts/`, por ejemplo `mi-post.md`, con este frontmatter antes del texto:
+
+```yaml
+---
+title: "Mi opinión no solicitada sobre la IA"
+description: "Un resumen del melón que vienes a abrir."
+published_at: 2026-10-20
+author: default
+categories: []
+---
+```
+
+Cambia el título, la descripción y la fecha por los de tu artículo. `title`, `description`, `published_at` y `author` son obligatorios; `categories`, `updated_at` y `slug` son opcionales. El botón «Escribir mi post» del blog precarga una plantilla y genera la fecha al pulsarlo, si tienes JavaScript activado.
+
+Por defecto, `mi-post.md` genera `/posts/mi-post/`. Un `slug` explícito permite conservar la URL al renombrar el archivo. No hay borradores ni filtros por fecha: cada Markdown válido se publica al compilar, aunque tenga una fecha futura.
+
+### ¿Cómo publico como anónimo?
+
+Deja `author: default` en el frontmatter del post. Ese autor ya existe y se muestra como «anónimo», sin enlaces personales ni perfil de GitHub. No hace falta modificar `authors.json`.
+
+Esto solo anonimiza la firma en el blog: tu cuenta, la PR y el historial de contribuciones siguen siendo públicos en GitHub.
+
+### ¿Cómo añado mi propio autor?
+
+Añade un objeto al array de `src/content/authors.json`, sin borrar los autores existentes:
+
+```json
+{
+  "id": "tu-usuario",
+  "name": "Tu nombre o alias",
+  "bio": "Programo cosas. Algunas incluso funcionan.",
+  "avatar": "tu-usuario/avatar.webp"
+}
+```
+
+- `id` debe ser único, estable y usar minúsculas, números y guiones. Se recomienda que coincida con tu usuario de GitHub: salvo `default`, el nombre y el avatar enlazan a `https://github.com/<id>`. Si eliges otro ID, ese enlace no apuntará necesariamente a tu perfil.
+- `name` es la firma visible y puede ser tu nombre o un alias.
+- `bio` es obligatoria. Admite HTML local de confianza; no pegues contenido externo sin sanitizar.
+- `avatar` es opcional: si lo omites, se usa tu foto de GitHub. Añádelo solo si quieres usar una imagen distinta.
+
+Después, selecciona ese autor en el frontmatter de tu artículo:
+
+```yaml
+author: tu-usuario
+```
+
+Cada artículo tiene exactamente un autor. No uses el nombre visible como referencia: usa su `id`. Si falta el autor o no existe, el build falla.
+
+### ¿Dónde pongo mi avatar?
+
+**No necesitas subir un avatar:** por defecto se usa la foto de GitHub del usuario indicado por tu `id`. Puedes omitir la propiedad `avatar` de tu autor.
+
+La opción de subir una imagen es para quienes quieran usar otra distinta. En ese caso, guárdala en `src/ui/assets/authors/tu-usuario/avatar.png` y añade `"avatar": "tu-usuario/avatar.png"` a tu autor. La ruta es relativa a `src/ui/assets/authors/`, no una URL ni una ruta desde la raíz del repositorio.
+
+Se admiten JPG, JPEG, PNG, TIFF, WebP, GIF, SVG y AVIF. Astro procesa la imagen local durante el build. No añadas el avatar al frontmatter del post: pertenece al autor.
+
+Si no hay imagen local, el avatar usa directamente `https://github.com/<id>.png?size=192`.
+
+### ¿Cómo uso o creo categorías?
+
+Consulta primero `src/content/categories.json`. Para usar una categoría existente, añade su `id` al frontmatter:
+
+```yaml
+categories: [categoria-ejemplo]
+```
+
+Para crear otra, añade un objeto al array de ese archivo:
+
+```json
+{
+  "id": "humo-como-servicio",
+  "name": "Humo como servicio",
+  "description": "Productos que todavía no existen, pero ya tienen plan enterprise."
+}
+```
+
+Y referencia ese ID en el post:
+
+```yaml
+categories: [humo-como-servicio]
+```
+
+Los tres campos son obligatorios. El `id` debe ser único, estable y usar minúsculas, números y guiones. Puedes cambiar el nombre visible sin cambiar su URL `/categories/<id>/`.
+
+Puedes combinar varias categorías, sin repetir IDs. También puedes dejar `categories: []` u omitir el campo. Una referencia inexistente o repetida hace fallar el build; las categorías sin artículos no aparecen en el listado.
+
+### ¿Cómo añado el thumbnail del artículo?
+
+La miniatura es opcional. Guarda un SVG llamado `thumbnail.svg` en `src/ui/assets/posts/<id-del-artículo>/`. El ID corresponde al nombre del Markdown sin `.md`, no al título ni al `slug` del frontmatter:
+
+```text
+src/content/posts/mi-post.md
+src/ui/assets/posts/mi-post/thumbnail.svg
+```
+
+Si el artículo está en una subcarpeta, consérvala también en los recursos: `posts/serie/mi-post.md` usa `src/ui/assets/posts/serie/mi-post/thumbnail.svg`. No añadas un campo `thumbnail` al frontmatter: se encuentra por su ruta.
+
+Para generarlo con IA, utiliza [THUMBNAIL_PROMPT.md](./THUMBNAIL_PROMPT.md). Sustituye `[post.title]` y `[post.description]` por el título y la descripción del artículo. El recurso detalla el estilo visual del blog, el formato SVG de 100 × 100 y los criterios de optimización y validación. Guarda el SVG real como `thumbnail.svg`, no un PNG renombrado, e inclúyelo en la PR.
+
+Si no añades la miniatura, se muestra un placeholder por defecto, asi que tampoco pasa nada.
 
 ## Arquitectura
 
-Astro genera todo durante el build: páginas, artículos, RSS y sitemap. La salida es estática (`dist/`), sin SSR ni JavaScript de cliente.
+Astro genera todo durante el build: páginas, artículos, RSS y sitemap. La salida es estática (`dist/`), sin SSR; las interacciones puntuales, como precargar la plantilla del post, usan JavaScript en el browser, pero es poquito.
 
 ```text
 src/
