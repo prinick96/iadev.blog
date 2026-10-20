@@ -16,7 +16,8 @@
     "test": "bun test",
     "lint": "biome lint .",
     "format": "biome format --write .",
-    "check": "biome check --write . && astro check"
+    "check": "biome check --write . && astro check",
+    "check:ci": "biome ci . && astro check"
   },
   "dependencies": {
     "@astrojs/rss": "4.0.19",
