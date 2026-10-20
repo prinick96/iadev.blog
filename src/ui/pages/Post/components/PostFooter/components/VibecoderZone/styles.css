@@ -1,0 +1,43 @@
+.vibecoder-zone__prompt-box {
+  position: relative;
+}
+
+.vibecoder-zone .vibecoder-zone__prompt {
+  padding-inline-end: 2.75rem;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.vibecoder-zone__copy {
+  position: absolute;
+  inset-block-start: 0.5rem;
+  inset-inline-end: 0.5rem;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 0.2rem;
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.vibecoder-zone__copy:not([hidden]) {
+  display: grid;
+  place-items: center;
+}
+
+.vibecoder-zone__copy-icon {
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+}
+
+.vibecoder-zone__copy:hover,
+.vibecoder-zone__copy:focus-visible {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.vibecoder-zone__copy:disabled {
+  cursor: wait;
+}

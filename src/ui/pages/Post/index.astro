@@ -2,7 +2,9 @@
 import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
 import PostMetrics from '@/ui/components/PostMetrics/index.astro'
 import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
+import { site } from '@/ui/config/site'
 import AuthorInfo from '@/ui/pages/Post/components/AuthorInfo/index.astro'
+import PostFooter from '@/ui/pages/Post/components/PostFooter/index.astro'
 import type { Props } from '@/ui/pages/Post/types'
 import { getCategoryPath } from '@/ui/routes/getCategoryPath'
 import { paths } from '@/ui/routes/paths'
@@ -10,6 +12,7 @@ import { formatDate } from '@/ui/utils/formatDate'
 import '@/ui/pages/Post/styles.css'
 
 const { post, author, categories } = Astro.props
+const postUrl = new URL(Astro.url.pathname, site.url).href
 ---
 
 <article class="post">
@@ -51,5 +54,6 @@ const { post, author, categories } = Astro.props
   </div>
   <div class="post__content">
     <slot />
+    <PostFooter postUrl={postUrl} />
   </div>
 </article>

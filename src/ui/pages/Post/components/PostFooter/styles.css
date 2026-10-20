@@ -1,0 +1,4 @@
+.post-footer {
+  margin-block-start: 2.5rem;
+  border-block-start: 1px solid var(--color-border);
+}

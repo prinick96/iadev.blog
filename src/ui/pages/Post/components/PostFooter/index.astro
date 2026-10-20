@@ -1,0 +1,11 @@
+---
+import VibecoderZone from '@/ui/pages/Post/components/PostFooter/components/VibecoderZone/index.astro'
+import type { Props } from '@/ui/pages/Post/components/PostFooter/types'
+import '@/ui/pages/Post/components/PostFooter/styles.css'
+
+const { postUrl } = Astro.props
+---
+
+<footer class="post-footer">
+  <VibecoderZone postUrl={postUrl} />
+</footer>

@@ -10,12 +10,7 @@ const image = await getAuthorAvatar(author.avatar)
 ---
 
 <div class="author-info">
-  <a
-    class="author-info__link author-info__link--avatar"
-    href={profileUrl}
-    target="_blank"
-    rel="noopener noreferrer"
-  >
+  <a class="author-info__link author-info__link--avatar" href={profileUrl} target="_blank" rel="noopener noreferrer">
     <img
       class="author-info__avatar"
       src={image.src}
@@ -25,9 +20,7 @@ const image = await getAuthorAvatar(author.avatar)
   </a>
   <div>
     <p class="author-info__name">
-      <a class="author-info__link" href={profileUrl} target="_blank" rel="noopener noreferrer"
-        >{author.name}</a
-      >
+      <a class="author-info__link" href={profileUrl} target="_blank" rel="noopener noreferrer">{author.name}</a>
     </p>
     <div class="author-info__bio" set:html={author.bio}></div>
   </div>
