@@ -1,7 +1,17 @@
 [
   {
-    "id": "categoria-ejemplo",
-    "name": "Categoría de ejemplo",
-    "description": "No se me ocurre nada que poner aquí, y no me quedan tokens."
+    "id": "engineering",
+    "name": "Ingeniería real",
+    "description": "Un poco de divulgación, cómo funciona esto con lo que te sientes superior a un programador promedio, cómo se entrena, qué son los tokens, por qué se equivoca o qué significa eso de que un modelo \"razona\"."
+  },
+  {
+    "id": "humo",
+    "name": "Departamento de humo",
+    "description": "Promesas, marketing, destapando mitos, Linkedin, gurús de la IA y novedades del sector."
+  },
+  {
+    "id": "colateral-damage",
+    "name": "Daños colaterales",
+    "description": "Las consecuencias de la IA: trabajo, educación, privacidad, derechos de autor, desinformación y quién gana o pierde con todo esto."
   }
 ]
