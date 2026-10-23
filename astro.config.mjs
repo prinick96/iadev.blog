@@ -1,6 +1,8 @@
+import { satteri } from '@astrojs/markdown-satteri'
 import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
 import { site } from './src/ui/config/site.ts'
+import { openLinksInNewTab } from './src/ui/plugins/openLinksInNewTab.ts'
 
 export default defineConfig({
   site: site.url,
@@ -12,6 +14,10 @@ export default defineConfig({
   prerenderConflictBehavior: 'error',
   integrations: [sitemap()],
   markdown: {
+    processor: satteri({
+      features: { rawHtml: true },
+      hastPlugins: [openLinksInNewTab()],
+    }),
     shikiConfig: {
       theme: {
         name: 'zed-ayu-dark',

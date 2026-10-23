@@ -1,0 +1,10 @@
+---
+import type { Props } from '@/ui/components/MarkdownContent/types'
+import '@/ui/components/MarkdownContent/styles.css'
+
+const { class: className } = Astro.props
+---
+
+<div class:list={['markdown-content', className]}>
+  <slot />
+</div>

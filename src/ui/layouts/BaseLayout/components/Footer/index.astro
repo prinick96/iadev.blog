@@ -1,5 +1,5 @@
 ---
-import { GITHUB_NEW_POST_URL, GITHUB_REPOSITORY_URL } from '@/core/constants/github'
+import { GITHUB_REPOSITORY_URL } from '@/core/constants/github'
 import CategoriesIcon from '@/ui/components/icons/CategoriesIcon/index.astro'
 import GitHistoryIcon from '@/ui/components/icons/GitHistoryIcon/index.astro'
 import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
@@ -14,7 +14,7 @@ import { paths } from '@/ui/routes/paths'
 import '@/ui/layouts/BaseLayout/components/Footer/styles.css'
 
 const { commits } = Astro.props
-const { homeCurrent, categoriesCurrent } = getFooterNavigationState(Astro.url.pathname)
+const { homeCurrent, categoriesCurrent, publishingGuideCurrent } = getFooterNavigationState(Astro.url.pathname)
 ---
 
 <footer class="footer">
@@ -31,14 +31,12 @@ const { homeCurrent, categoriesCurrent } = getFooterNavigationState(Astro.url.pa
       <span class="footer__tooltip footer__tooltip--start" id="footer-history-tooltip" role="tooltip">Historial</span>
     </button>
     <FooterLink
-      href={GITHUB_NEW_POST_URL}
-      label="Vibecodear post"
-      tooltip="Vibecodear post"
+      href={paths.publishingGuide}
+      label="Cómo escribir un post"
+      tooltip="Cómo escribir un post"
       tooltipId="footer-new-post-tooltip"
       tooltipAlign="start"
-      target="_blank"
-      rel="noopener noreferrer"
-      data-new-post
+      aria-current={publishingGuideCurrent}
     >
       <WritePostIcon class="footer__icon" />
     </FooterLink>

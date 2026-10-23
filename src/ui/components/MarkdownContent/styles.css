@@ -1,0 +1,139 @@
+.markdown-content {
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.markdown-content p,
+.markdown-content ul,
+.markdown-content ol,
+.markdown-content blockquote,
+.markdown-content pre,
+.markdown-content table,
+.markdown-content figure {
+  margin-block: 0 1.25rem;
+}
+
+.markdown-content h2,
+.markdown-content h3,
+.markdown-content h4,
+.markdown-content h5,
+.markdown-content h6 {
+  margin-block: 1.75rem 0.75rem;
+  font-size: inherit;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+
+.markdown-content h2 {
+  font-size: var(--font-size-lg);
+}
+
+.markdown-content h3 {
+  font-size: var(--font-size-base);
+}
+
+.markdown-content li + li {
+  margin-block-start: 0.375rem;
+}
+
+.markdown-content ul,
+.markdown-content ol {
+  padding-inline-start: 1.75rem;
+}
+
+.markdown-content blockquote {
+  margin-inline: 0;
+  padding-inline-start: 1.25rem;
+  border-inline-start: 1px solid var(--color-accent);
+  color: var(--color-text-muted);
+}
+
+.markdown-content pre {
+  max-inline-size: 100%;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  font-size: var(--font-size-sm);
+  line-height: 1.8;
+  overflow-x: auto;
+  overflow-wrap: normal;
+}
+
+.markdown-content :not(pre) > code {
+  padding: 0.125em 0.35em;
+  border-radius: 0.2rem;
+  background: var(--color-surface);
+  font-size: var(--font-size-inline-code);
+}
+
+.markdown-content img {
+  display: block;
+  max-inline-size: 100%;
+  block-size: auto;
+  border-radius: 0.625rem;
+}
+
+.markdown-content table {
+  display: block;
+  inline-size: fit-content;
+  max-inline-size: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: var(--color-background);
+  font-size: var(--font-size-md);
+  overflow-x: auto;
+  overflow-wrap: normal;
+  word-break: normal;
+}
+
+.markdown-content th,
+.markdown-content td {
+  padding: 0.75rem 1rem;
+  border-block-end: 1px solid var(--color-border);
+  text-align: start;
+  vertical-align: top;
+}
+
+.markdown-content :is(th, td) + :is(th, td) {
+  border-inline-start: 1px solid var(--color-border);
+}
+
+.markdown-content th {
+  background: var(--color-surface);
+  font-weight: 600;
+}
+
+.markdown-content tbody tr:nth-child(even) {
+  background: var(--color-surface-muted);
+}
+
+.markdown-content tbody tr:hover,
+.markdown-content tbody tr:focus-within {
+  background: var(--color-surface-hover);
+}
+
+.markdown-content tbody tr:is(:hover, :focus-within) > :is(th, td) {
+  border-color: var(--color-border-strong);
+}
+
+.markdown-content tbody tr:last-child td {
+  border-block-end: 0;
+}
+
+.markdown-content hr {
+  margin-block: 1.75rem;
+  border: 0;
+  border-block-start: 1px solid var(--color-border);
+}
+
+.markdown-content figcaption {
+  margin-block-start: 0.5rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}

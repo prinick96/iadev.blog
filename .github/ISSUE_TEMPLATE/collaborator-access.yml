@@ -1,0 +1,21 @@
+name: Solicitar acceso de colaboración
+description: Recibe automáticamente una invitación de escritura para colaborar directamente
+title: "[Colaboración] Solicitar acceso de escritura"
+labels: ["request access"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        La plantilla añade automáticamente la etiqueta «request access» y debe tenerla o no funcionará.
+        Esta solicitud invita automáticamente a la cuenta que abre la issue como colaboradora del repo.
+        No necesitas crear un fork ni indicar un username, no necesitas hacer mucha cosa. No hay revisión manual de la solicitud.
+        GitHub envía una invitación, tienes que aceptarla para obtener acceso.
+        Después, crea una rama en este repositorio y abre una PR.
+        Si la invitación caduca, vuelve a abrir esta issue para solicitar otra.
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Solicitud de colaboración (collaborator-invitation-v1)
+      options:
+        - label: Solicito acceso de escritura para mi cuenta
+          required: true

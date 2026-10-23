@@ -1,7 +1,8 @@
 ---
-import { GITHUB_NEW_POST_URL, GITHUB_REPOSITORY_URL } from '@/core/constants/github'
+import { GITHUB_COLLABORATOR_REQUEST_URL, GITHUB_NEW_POST_URL } from '@/core/constants/github'
 import ButtonLink from '@/ui/components/ButtonLink/index.astro'
 import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
+import { paths } from '@/ui/routes/paths'
 import '@/ui/pages/Post/components/PostFooter/components/WritePost/styles.css'
 ---
 
@@ -30,18 +31,16 @@ import '@/ui/pages/Post/components/PostFooter/components/WritePost/styles.css'
         <GithubIcon class="write-post__icon" />
         Escribir mi post
       </ButtonLink>
-      <a
-        class="write-post__guide"
-        href={`${GITHUB_REPOSITORY_URL}#cómo-añadir-autor-avatar-y-categorías`}
-        target="_blank"
-        rel="noopener noreferrer"
-        >Cómo añadir autor, avatar y categorías</a
-      >
+      <a class="write-post__guide" href={paths.publishingGuide}>Guía para publicar</a>
     </div>
     <p class="write-post__note">
-      Necesitas una cuenta de GitHub: crea el fichero y abre una PR y cuando la apruebe se mergea.<br />
-      También puedes clonarlo y hacer un push a una rama y abrir la PR, como se te haga mas cómodo.
+      ~ Antes de escribir <strong>necesitas ser colaborador del repositorio</strong>, puedes {' '}
+      <a href={GITHUB_COLLABORATOR_REQUEST_URL} target="_blank" rel="noopener noreferrer"
+        >solicitar acceso abriendo este issue.</a
+      >
       <br />
+      ~ El proceso está automatizado, recibirás una invitación que <strong>debes aceptar.</strong>
+      <br /><br />
       Puedes crear el post como anónimo, pero tu cuenta y la PR mergeada seguirán siendo públicas en GitHub ya que
       entrarás en los commits.
     </p>

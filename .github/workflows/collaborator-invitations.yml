@@ -1,0 +1,151 @@
+name: Invitar colaboradores
+
+on:
+  issues:
+    types: [opened, reopened, labeled]
+
+permissions: {}
+
+concurrency:
+  group: collaborator-invitation-${{ github.repository }}-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  invite:
+    if: >-
+      github.ref == 'refs/heads/main' &&
+      github.event.repository.default_branch == 'main' &&
+      !github.event.issue.pull_request &&
+      github.event.issue.user.type == 'User' &&
+      !endsWith(github.event.issue.user.login, '[bot]') &&
+      contains(github.event.issue.labels.*.name, 'request access') &&
+      (github.event.action != 'labeled' || github.event.label.name == 'request access')
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    environment: collaborator-invitations
+    permissions:
+      issues: write
+    steps:
+      - name: Crear token de repo
+        id: app-token
+        uses: actions/create-github-app-token@v3
+        with:
+          client-id: ${{ vars.COLLABORATOR_APP_CLIENT_ID }}
+          private-key: ${{ secrets.COLLABORATOR_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+          repositories: ${{ github.event.repository.name }}
+          permission-administration: write
+
+      - name: Confirmar acceso
+        uses: actions/github-script@v9
+        env:
+          COLLABORATOR_APP_TOKEN: ${{ steps.app-token.outputs.token }}
+        with:
+          github-token: ${{ github.token }}
+          retries: 0
+          script: |
+            try {
+              const issueParams = { ...context.repo, issue_number: context.payload.issue.number }
+              const { data: issue } = await github.rest.issues.get(issueParams)
+
+
+              if (
+                issue.state !== 'open' || issue.pull_request || issue.user.type !== 'User' ||
+                issue.user.login.endsWith('[bot]') ||
+                issue.user.id !== context.payload.issue.user.id ||
+                issue.user.login !== context.payload.issue.user.login ||
+                !issue.labels.some((label) => label.name === 'request access')
+              ) {
+                core.notice('La solicitud ya no cumple los requisitos; no se ha modificado el acceso.')
+                return
+              }
+
+              const app = getOctokit(process.env.COLLABORATOR_APP_TOKEN, { request: { timeout: 15000 } })
+              const collaboratorParams = { ...context.repo, username: issue.user.login }
+
+              const hasWriteAccess = async () => {
+                try {
+                  const { data } = await app.rest.repos.getCollaboratorPermissionLevel(collaboratorParams)
+                  return ['write', 'admin'].includes(data.permission)
+                } catch (error) {
+                  if (error.status === 404) {
+                    return false
+                  }
+                  throw error
+                }
+              }
+
+              const complete = async (body) => {
+                await github.rest.issues.createComment({ ...issueParams, body })
+                await github.rest.issues.update({ ...issueParams, state: 'closed', state_reason: 'completed' })
+              }
+
+              const accessMessage = 'Tu cuenta ya tiene acceso de escritura. Puedes crear una rama en este repositorio y abrir una PR.'
+              const invitationUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/invitations`
+              const invitationMessage = `Hay una invitación pendiente para tu cuenta. [Acepta la invitación de GitHub](${invitationUrl}) para obtener acceso.`
+
+              if (await hasWriteAccess()) {
+                await complete(accessMessage)
+                return
+              }
+
+              const invitations = await app.paginate(app.rest.repos.listInvitations, { ...context.repo, per_page: 100 })
+              const invitation = invitations.find((entry) => entry.invitee?.id === issue.user.id)
+              const expired = invitation && (
+                invitation.expired === true ||
+                Date.parse(invitation.created_at) + 7 * 24 * 60 * 60 * 1000 <= Date.now()
+              )
+
+              if (invitation && !expired) {
+                if (!['write', 'maintain', 'admin'].includes(invitation.permissions)) {
+                  await app.rest.repos.updateInvitation({
+                    ...context.repo,
+                    invitation_id: invitation.id,
+                    permissions: 'write',
+                  })
+                }
+                await complete(invitationMessage)
+
+                return
+              }
+
+              if (expired) {
+                await app.rest.repos.deleteInvitation({ ...context.repo, invitation_id: invitation.id })
+              }
+
+              const response = await app.rest.repos.addCollaborator({ ...collaboratorParams, permission: 'push' })
+              if (
+                response.status === 201 && response.data.invitee?.id === issue.user.id &&
+                response.data.expired !== true && ['write', 'maintain', 'admin'].includes(response.data.permissions)
+              ) {
+                await complete(invitationMessage)
+                return
+              }
+
+              if (response.status === 204 && await hasWriteAccess()) {
+                await complete(accessMessage)
+                return
+              }
+
+              core.setFailed('GitHub no ha confirmado una invitación válida ni acceso de escritura.')
+            } catch {
+              core.setFailed('No se ha podido completar la solicitud de colaboración.')
+            }
+
+      - name: Informar del fallo
+        if: failure()
+        uses: actions/github-script@v9
+        with:
+          github-token: ${{ github.token }}
+          retries: 0
+          script: |
+            try {
+              const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`
+              await github.rest.issues.createComment({
+                ...context.repo,
+                issue_number: context.payload.issue.number,
+                body: `No se ha podido completar la solicitud automáticamente y este flujo no ha cerrado la issue. Es posible que la invitación se haya enviado antes del fallo: revisa tus notificaciones de GitHub, puedes cerrar y volver a abrir esta issue.`,
+              })
+            } catch {
+              core.setFailed('Tampoco se ha podido publicar el aviso en la issue.')
+            }

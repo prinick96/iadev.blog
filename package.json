@@ -13,19 +13,21 @@
     "build": "astro build",
     "preview": "astro preview",
     "prepare": "husky",
-    "test": "bun test",
+    "test": "bun test ./src ./.github/workflows/__tests__",
     "lint": "biome lint .",
     "format": "biome format --write .",
     "check": "biome check --write . && astro check",
     "check:ci": "biome ci . && astro check"
   },
   "dependencies": {
+    "@astrojs/markdown-satteri": "0.4.4",
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.4",
     "astro": "7.4.0",
     "axios": "1.20.0",
     "fontkit": "2.0.4",
     "gpt-tokenizer": "4.1.0",
+    "satteri": "0.10.5",
     "sharp": "0.35.5"
   },
   "devDependencies": {
