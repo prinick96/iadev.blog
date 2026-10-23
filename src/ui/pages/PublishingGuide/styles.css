@@ -1,0 +1,35 @@
+.publishing-guide {
+  margin-inline-start: var(--post-gutter);
+  overflow-wrap: anywhere;
+}
+
+.publishing-guide__back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-block-end: 1.25rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+  text-decoration: none;
+}
+
+.publishing-guide__back:hover,
+.publishing-guide__back:focus-visible {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+.publishing-guide__back-icon {
+  flex-shrink: 0;
+  inline-size: 1rem;
+  block-size: 1rem;
+}
+
+.publishing-guide__title {
+  margin: 0 0 1.75rem;
+  font-size: var(--font-size-post-title);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.2;
+  text-wrap: balance;
+}

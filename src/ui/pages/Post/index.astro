@@ -1,5 +1,6 @@
 ---
 import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import MarkdownContent from '@/ui/components/MarkdownContent/index.astro'
 import PostMetrics from '@/ui/components/PostMetrics/index.astro'
 import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
 import { site } from '@/ui/config/site'
@@ -52,8 +53,8 @@ const postUrl = new URL(Astro.url.pathname, site.url).href
   <div class="post__author">
     <AuthorInfo author={author} />
   </div>
-  <div class="post__content">
+  <MarkdownContent class="post__content">
     <slot />
     <PostFooter postUrl={postUrl} postTitle={post.title} />
-  </div>
+  </MarkdownContent>
 </article>

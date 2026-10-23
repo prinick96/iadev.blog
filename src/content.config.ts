@@ -53,4 +53,12 @@ const authors = defineCollection({
   }),
 })
 
-export const collections = { posts, categories, authors }
+const pages = defineCollection({
+  loader: glob({ base: './src/content/pages', pattern: '**/*.md' }),
+  schema: z.strictObject({
+    title: z.string().trim().min(1, 'El título de la página no puede estar vacío.'),
+    description: z.string().trim().min(1, 'La descripción de la página no puede estar vacía.'),
+  }),
+})
+
+export const collections = { posts, categories, authors, pages }

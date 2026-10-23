@@ -1,0 +1,15 @@
+---
+import { render } from 'astro:content'
+import { getPageService } from '@/core/logic/pages/services/index'
+import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
+import PublishingGuide from '@/ui/pages/PublishingGuide/index.astro'
+
+const guide = await getPageService.execute('publishing-guide')
+const { Content } = await render(guide)
+---
+
+<SiteLayout title={guide.data.title} description={guide.data.description} showDescription>
+  <PublishingGuide title={guide.data.title}>
+    <Content />
+  </PublishingGuide>
+</SiteLayout>

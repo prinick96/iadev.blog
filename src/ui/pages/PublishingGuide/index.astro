@@ -1,0 +1,17 @@
+---
+import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import MarkdownContent from '@/ui/components/MarkdownContent/index.astro'
+import type { Props } from '@/ui/pages/PublishingGuide/types'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/pages/PublishingGuide/styles.css'
+---
+
+<article class="publishing-guide">
+  <a class="publishing-guide__back" href={paths.home}>
+    <ArrowLeftIcon class="publishing-guide__back-icon" />
+    Inicio
+  </a>
+  <MarkdownContent>
+    <slot />
+  </MarkdownContent>
+</article>
