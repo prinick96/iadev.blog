@@ -5,6 +5,7 @@ published_at: 2026-10-25
 author: prinick96
 categories:
   - engineering
+  - machine-learning
 ---
 
 Antes de empezar, ¿qué haremos aquí? exploraremos creo yo que el algoritmo más elemental y simple que podemos hacer para que algo sea "inteligente" o más bien, que una máquina sea capaz de aprender.
