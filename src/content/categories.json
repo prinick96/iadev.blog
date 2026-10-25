@@ -13,5 +13,10 @@
     "id": "colateral-damage",
     "name": "Daños colaterales",
     "description": "Las consecuencias de la IA: trabajo, educación, privacidad, derechos de autor, desinformación y quién gana o pierde con todo esto."
+  },
+  {
+    "id": "development",
+    "name": "Desarrollo de Software",
+    "description": "Es una categoría apta solo para programadores, si vibecodeas seguramente no entenderás nada de lo que está escrito aquí y tampoco te hace falta."
   }
 ]
