@@ -18,5 +18,10 @@
     "id": "development",
     "name": "Desarrollo de Software",
     "description": "Es una categoría apta solo para programadores, si vibecodeas seguramente no entenderás nada de lo que está escrito aquí y tampoco te hace falta."
+  },
+  {
+    "id": "machine-learning",
+    "name": "Machine Learning",
+    "description": "Explorar conceptos de Machine Learning, ejemplos prácticos, todo lo que pueda caber en varios posts."
   }
 ]
