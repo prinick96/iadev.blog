@@ -1,7 +1,7 @@
 ---
 title: "Regresión logística en Go: cuando una recta tiene que tomar decisiones"
 description: "Pasamos de predecir números a clasificar resultados con una sigmoide, porque tomar una decisión no requiere de una LLM, sino una probabilidad y un if."
-published_at: 2026-10-26
+published_at: 2026-10-29
 author: prinick96
 categories:
   - engineering
@@ -446,6 +446,8 @@ p = sigmoid(z)
 
 Con un 70 % de RAM utilizada, le pasamos `0.70`, obtenemos un `z` cercano a `0.3889` y la sigmoide lo transforma en aproximadamente `0.5960`, es decir, un **59.60 % de probabilidad estimada de fallo** según este modelo de juguete.
 
+![una-recta-no-es-una-probabilidad](https://i.8upload.com/image/4e980146be866e06/1.png)
+
 No estamos diciendo que el servidor vaya a consumir un 59.60 % de memoria.
 La entrada es consumo y la salida, probabilidad de un evento, son cosas distintas aunque las dos se puedan escribir con un porcentaje.
 
@@ -499,6 +501,8 @@ La idea de una probabilidad bien calibrada sería que, entre muchos casos a los 
 Nuestro `59.60 %` no significa que el programa tenga un 59.60 % de posibilidades de estar bien implementado, ni que el modelo acierte ese porcentaje de veces, ni que doce observaciones inventadas nos permitan conocer el futuro de algo.
 
 Poner dos decimales es fácil, tener datos que justifiquen esos decimales ya requiere trabajar un poco más.
+
+![la-probabilidad-no-decide-por-ti](https://i.8upload.com/image/eb0162cccd96a265/2.png)
 
 ## Y los ejemplos que no vio durante el entrenamiento?
 
