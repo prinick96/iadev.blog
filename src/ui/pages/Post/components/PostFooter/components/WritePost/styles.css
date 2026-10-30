@@ -1,25 +1,6 @@
 .write-post {
   margin-block-start: 2rem;
-  border: 1px solid var(--color-border-strong);
-  border-radius: 0.25rem;
-  background: var(--color-background);
   font-size: var(--font-size-sm);
-}
-
-.write-post__bar {
-  display: flex;
-  border-block-end: 1px solid var(--color-border);
-  border-start-start-radius: inherit;
-  border-start-end-radius: inherit;
-  background: var(--color-surface);
-}
-
-.write-post__tab {
-  padding: 0.375rem 1rem;
-  border-inline-end: 1px solid var(--color-border);
-  background: var(--color-background);
-  color: var(--color-text-muted);
-  font-size: var(--font-size-xs);
 }
 
 .write-post__output {

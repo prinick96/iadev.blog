@@ -1,0 +1,6 @@
+@media (min-width: 640px) {
+  :host(.saas-is-dead[position="left"]:not([preview])) .bubble::after {
+    border-top: 0;
+    border-bottom: 1px solid var(--border);
+  }
+}

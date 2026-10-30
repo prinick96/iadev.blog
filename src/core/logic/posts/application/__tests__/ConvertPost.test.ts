@@ -40,6 +40,7 @@ test('maps author and category references without leaking technical fields or mu
     category_ids: ['typescript', 'astro'],
     reading_time_minutes: 1,
     token_count: 5,
+    pinned: false,
     published_at: entry.data.published_at,
     updated_at: entry.data.updated_at,
   })
@@ -73,9 +74,29 @@ test('defaults absent categories and counts the title without a body, updated_at
     category_ids: [],
     reading_time_minutes: 1,
     token_count: 2,
+    pinned: false,
     published_at: entry.data.published_at,
     updated_at: undefined,
   })
+  assert.deepEqual(entry, original)
+})
+
+test.each([undefined, false, true])('normalizes pinned %j without mutating the source', (pinned) => {
+  const entry: PostSource = {
+    id: 'pin-policy',
+    data: {
+      title: 'Un artículo',
+      description: 'Una chincheta no cambia la fecha.',
+      author: { id: 'prinick' },
+      published_at: new Date('2026-10-18'),
+      ...(pinned === undefined ? {} : { pinned }),
+    },
+  }
+  const original = structuredClone(entry)
+  Object.freeze(entry.data)
+  Object.freeze(entry)
+
+  assert.equal(ConvertPost.execute(entry).pinned, pinned ?? false)
   assert.deepEqual(entry, original)
 })
 

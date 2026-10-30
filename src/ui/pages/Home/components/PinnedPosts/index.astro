@@ -1,0 +1,46 @@
+---
+import EditorPanel from '@/ui/components/EditorPanel/index.astro'
+import PinIcon from '@/ui/components/icons/PinIcon/index.astro'
+import PostMetrics from '@/ui/components/PostMetrics/index.astro'
+import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
+import type { Props } from '@/ui/pages/Home/components/PinnedPosts/types'
+import { getPostPath } from '@/ui/routes/getPostPath'
+import { formatDate } from '@/ui/utils/formatDate'
+import '@/ui/pages/Home/components/PinnedPosts/styles.css'
+
+const { posts } = Astro.props
+---
+
+<section class="pinned-posts" aria-labelledby="pinned-posts-heading">
+  <EditorPanel>
+    <h2 slot="title" class="pinned-posts__heading" id="pinned-posts-heading">
+      <PinIcon class="pinned-posts__icon" />
+      Artículos fijados
+    </h2>
+    <ul class="pinned-posts__list">
+      {posts.map((post, index) => (
+        <li class="pinned-posts__item">
+          <article class="pinned-posts__post">
+            <div class="pinned-posts__summary">
+              <time class="pinned-posts__date" datetime={post.published_at.toISOString()}>
+                {formatDate(post.published_at)}
+              </time>
+              <h3 class="pinned-posts__title">
+                <a class="pinned-posts__link" href={getPostPath(post.id)}>
+                  {post.title}
+                </a>
+              </h3>
+              <p class="pinned-posts__description">{post.description}</p>
+            </div>
+            <div class="pinned-posts__thumbnail">
+              <PostThumbnail post={post} loading={index === 0 ? 'eager' : 'lazy'} />
+            </div>
+            <div class="pinned-posts__footer">
+              <PostMetrics post={post} />
+            </div>
+          </article>
+        </li>
+      ))}
+    </ul>
+  </EditorPanel>
+</section>

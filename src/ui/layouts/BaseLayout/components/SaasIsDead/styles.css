@@ -1,0 +1,10 @@
+.saas-is-dead {
+  z-index: 2;
+  inset-block-end: calc(var(--footer-height) + 0.5rem);
+}
+
+@media (width < 640px) {
+  .saas-is-dead {
+    display: none;
+  }
+}

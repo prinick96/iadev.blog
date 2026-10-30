@@ -35,6 +35,7 @@ const post: Post = {
   category_ids: ['ia'],
   reading_time_minutes: 3,
   token_count: 1200,
+  pinned: false,
   published_at: new Date('2026-10-18T23:30:00-03:00'),
 }
 const author: Author = {

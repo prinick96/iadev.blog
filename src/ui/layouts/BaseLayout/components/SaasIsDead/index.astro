@@ -1,0 +1,15 @@
+---
+import '@/ui/layouts/BaseLayout/components/SaasIsDead/styles.css'
+---
+
+<saas-is-dead class="saas-is-dead" story="support" size="small" position="left" theme="dark">
+  <a href="https://saasisdead.si/" target="_blank" rel="noopener">SaaS is dead</a>
+</saas-is-dead>
+<script is:inline src="https://saasisdead.si/reaper/v1.js" defer crossorigin="anonymous"></script>
+
+<script>
+import stylesheetUrl from '@/ui/layouts/BaseLayout/components/SaasIsDead/assets/reaper-arrow.css?url'
+import { initializeSaasIsDead } from '@/ui/layouts/BaseLayout/components/SaasIsDead/utils/initializeSaasIsDead'
+
+void initializeSaasIsDead(stylesheetUrl)
+</script>
