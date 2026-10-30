@@ -20,6 +20,7 @@ test('maps repository data and author and category references into posts with a 
       category_ids: ['typescript', 'astro'],
       reading_time_minutes: 1,
       token_count: 4,
+      pinned: false,
     },
   ])
   assert.deepEqual(repository.list.mock.calls, [[]])
@@ -38,7 +39,7 @@ test('maps repository data and author and category references into posts with a 
   ])
 })
 
-test('sorts by publication date descending without mutating repository data or excluding future dates', async () => {
+test('sorts all posts chronologically regardless of pinned without mutating data or excluding future dates', async () => {
   const repository = new PostsRepositoryMock()
   const posts: PostSource[] = [
     {
@@ -50,6 +51,7 @@ test('sorts by publication date descending without mutating repository data or e
         author: { id: 'prinick' },
         published_at: new Date('2025-01-01'),
         updated_at: new Date('2099-12-31'),
+        pinned: true,
         categories: [{ id: 'typescript' }, { id: 'astro' }],
       },
     },
@@ -61,6 +63,7 @@ test('sorts by publication date descending without mutating repository data or e
         description: 'Todavía no tiene categorías.',
         author: { id: 'guest' },
         published_at: new Date('2026-10-18'),
+        pinned: true,
       },
     },
     {
@@ -114,10 +117,15 @@ test('sorts by publication date descending without mutating repository data or e
     category_ids: [],
     reading_time_minutes: 3,
     token_count: 405,
+    pinned: false,
   })
   assert.deepEqual(
     result.map((post) => post.author_id),
     ['future-author', 'guest', 'prinick']
+  )
+  assert.deepEqual(
+    result.map((post) => post.pinned),
+    [false, true, true]
   )
   assert.deepEqual(posts, original)
   assert.notEqual(result, posts)
@@ -125,7 +133,7 @@ test('sorts by publication date descending without mutating repository data or e
   assert.equal(await repository.list.mock.results[0]?.value, posts)
 })
 
-test('preserves the source order when publication dates match', async () => {
+test('preserves the source order when publication dates match even if the later post is pinned', async () => {
   const repository = new PostsRepositoryMock()
   repository.list.mockReturnValue(
     Promise.resolve([
@@ -144,6 +152,7 @@ test('preserves the source order when publication dates match', async () => {
         data: {
           title: 'El primero',
           description: 'El nombre no le da prioridad.',
+          pinned: true,
           author: { id: 'prinick' },
           published_at: new Date('2026-10-18'),
           categories: [{ id: 'typescript' }],

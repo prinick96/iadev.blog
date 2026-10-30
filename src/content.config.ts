@@ -11,6 +11,7 @@ const posts = defineCollection({
     description: z.string().trim().min(1, 'La descripción del artículo no puede estar vacía.'),
     published_at: date,
     updated_at: date.optional(),
+    pinned: z.boolean().default(false),
     author: reference('authors'),
     categories: z
       .array(reference('categories'))

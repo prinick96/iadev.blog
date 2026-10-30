@@ -14,6 +14,7 @@ const post: Post = {
   category_ids: [],
   reading_time_minutes: 3,
   token_count: 1200,
+  pinned: false,
   published_at: new Date('2026-10-18T00:00:00Z'),
 }
 const author: Author = { id: 'author-handle', name: 'An author', bio: 'Software Engineer' }

@@ -1,0 +1,15 @@
+---
+import type { Props } from '@/ui/components/EditorPanel/types'
+import '@/ui/components/EditorPanel/styles.css'
+
+const { decorativeTitle = false } = Astro.props
+---
+
+<div class="editor-panel">
+  <div class="editor-panel__bar" aria-hidden={decorativeTitle ? 'true' : undefined}>
+    <div class="editor-panel__tab">
+      <slot name="title" />
+    </div>
+  </div>
+  <slot />
+</div>

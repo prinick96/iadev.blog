@@ -2,6 +2,7 @@
 import regularFont from '@/ui/assets/fonts/ibm-plex-mono/ibm-plex-mono-latin-400-normal.woff2?url'
 import BackToTop from '@/ui/layouts/BaseLayout/components/BackToTop/index.astro'
 import Footer from '@/ui/layouts/BaseLayout/components/Footer/index.astro'
+import SaasIsDead from '@/ui/layouts/BaseLayout/components/SaasIsDead/index.astro'
 import SeoMetadata from '@/ui/layouts/BaseLayout/components/SeoMetadata/index.astro'
 import Topnav from '@/ui/layouts/BaseLayout/components/Topnav/index.astro'
 import type { Props } from '@/ui/layouts/BaseLayout/types'
@@ -42,6 +43,7 @@ const {
       </div>
       <Footer commits={commits} />
       <BackToTop />
+      <SaasIsDead />
     </div>
   </body>
 </html>

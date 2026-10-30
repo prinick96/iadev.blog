@@ -1,0 +1,133 @@
+.pinned-posts {
+  min-inline-size: 0;
+}
+
+.pinned-posts__heading {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+  font: inherit;
+}
+
+.pinned-posts__icon {
+  flex: none;
+  inline-size: 0.875rem;
+  block-size: 0.875rem;
+  color: var(--color-accent);
+}
+
+.pinned-posts__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.pinned-posts__item + .pinned-posts__item {
+  border-block-start: 1px solid var(--color-border);
+}
+
+.pinned-posts__post {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 0.75rem 1.5rem;
+  padding: 1.25rem;
+}
+
+.pinned-posts__summary {
+  min-inline-size: 0;
+}
+
+.pinned-posts__date {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  font-variant-numeric: tabular-nums;
+}
+
+.pinned-posts__title {
+  margin: 0.5rem 0 0;
+  font-size: var(--font-size-post-preview-title);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+.pinned-posts__link {
+  color: var(--color-text);
+  text-decoration: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.pinned-posts__link::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+}
+
+.pinned-posts__link:hover {
+  text-decoration: none;
+}
+
+.pinned-posts__post:hover .pinned-posts__link,
+.pinned-posts__link:focus-visible {
+  color: var(--color-accent);
+}
+
+.pinned-posts__link:focus-visible {
+  outline: none;
+}
+
+.pinned-posts__link:focus-visible::after {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.pinned-posts__description {
+  max-inline-size: 65ch;
+  margin: 0.5rem 0 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-md);
+  line-height: 1.6;
+  overflow-wrap: anywhere;
+  text-wrap: pretty;
+}
+
+.pinned-posts__thumbnail {
+  --thumbnail-size: 5.25rem;
+  align-self: center;
+}
+
+.pinned-posts__footer {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 47.999rem) {
+  .pinned-posts__post {
+    grid-template-columns: minmax(0, 1fr) 3.5rem;
+    gap: 1rem 0.75rem;
+    padding: 1rem;
+  }
+
+  .pinned-posts__summary {
+    grid-column: 1 / -1;
+    grid-row: 1;
+  }
+
+  .pinned-posts__date {
+    display: block;
+    min-block-size: 3.5rem;
+    padding-block-start: 0.875rem;
+    padding-inline-end: 4.25rem;
+    font-size: var(--font-size-2xs);
+  }
+
+  .pinned-posts__thumbnail {
+    --thumbnail-size: 3.5rem;
+    grid-column: 2;
+    grid-row: 1;
+    align-self: start;
+  }
+}

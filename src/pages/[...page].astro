@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths } from 'astro'
-
+import GetHomePosts from '@/core/logic/posts/application/GetHomePosts'
 import { getPostsService } from '@/core/logic/posts/services/index'
 import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
 import { POSTS_PER_PAGE } from '@/ui/pages/Home/constants'
@@ -10,21 +10,23 @@ import { getHomePagePath } from '@/ui/routes/getHomePagePath'
 
 export const getStaticPaths = (async ({ paginate }) => {
   const posts = await getPostsService.execute()
+  const homePosts = GetHomePosts.execute({ posts })
 
-  return paginate(posts, { pageSize: POSTS_PER_PAGE }).map(({ props: { page } }) => ({
+  return paginate(homePosts.posts, { pageSize: POSTS_PER_PAGE }).map(({ props: { page } }) => ({
     params: { page: getHomePagePath(page.currentPage).slice(1, -1) || undefined },
     props: {
       posts: page.data,
+      pinnedPosts: page.currentPage === 1 ? homePosts.pinned_posts : [],
       currentPage: page.currentPage,
       totalPages: page.lastPage,
     },
   }))
 }) satisfies GetStaticPaths
 
-const { posts, currentPage, totalPages } = Astro.props
+const { posts, pinnedPosts, currentPage, totalPages } = Astro.props
 const title = currentPage > 1 ? `Página ${currentPage}` : undefined
 ---
 
 <SiteLayout title={title} showDescription>
-  <Home posts={posts} currentPage={currentPage} totalPages={totalPages} />
+  <Home posts={posts} pinnedPosts={pinnedPosts} currentPage={currentPage} totalPages={totalPages} />
 </SiteLayout>

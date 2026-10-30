@@ -5,7 +5,7 @@ import type { PostSource } from '@/core/logic/posts/domain/PostSource'
 
 class ConvertPost {
   static execute({ id, data, body }: PostSource): Post {
-    const { title, description, author, categories, published_at, updated_at } = data
+    const { title, description, author, categories, published_at, updated_at, pinned } = data
     const postFullContent = body ? `${title}\n\n${body}` : title
 
     return {
@@ -18,6 +18,7 @@ class ConvertPost {
       token_count: CalculateTokens.execute(postFullContent),
       published_at,
       updated_at,
+      pinned: pinned ?? false,
     }
   }
 }

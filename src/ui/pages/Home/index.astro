@@ -1,13 +1,26 @@
 ---
 import PostList from '@/ui/components/PostList/index.astro'
 import Pagination from '@/ui/pages/Home/components/Pagination/index.astro'
+import PinnedPosts from '@/ui/pages/Home/components/PinnedPosts/index.astro'
 import type { Props } from '@/ui/pages/Home/types'
 import '@/ui/pages/Home/styles.css'
 
-const { posts, currentPage, totalPages } = Astro.props
+const { posts, pinnedPosts, currentPage, totalPages } = Astro.props
+const showPinnedPosts = currentPage === 1 && pinnedPosts.length > 0
+const showPostList = posts.length > 0 || !showPinnedPosts
 ---
 
-<section class="home" aria-label="Últimos artículos">
-  <PostList posts={posts} />
+<div class="home">
+  {showPinnedPosts && <PinnedPosts posts={pinnedPosts} />}
+  {showPostList && (
+    <section class="home__latest" aria-labelledby="latest-posts-heading">
+      <header class="home__header">
+        <h2 class="home__heading" id="latest-posts-heading">
+          Últimos artículos
+        </h2>
+      </header>
+      <PostList posts={posts} headingLevel={3} />
+    </section>
+  )}
   <Pagination currentPage={currentPage} totalPages={totalPages} />
-</section>
+</div>
