@@ -1,6 +1,7 @@
 ---
 import { GITHUB_REPOSITORY_URL } from '@/core/constants/github'
 import CategoriesIcon from '@/ui/components/icons/CategoriesIcon/index.astro'
+import CloudflareIcon from '@/ui/components/icons/CloudflareIcon/index.astro'
 import GitHistoryIcon from '@/ui/components/icons/GitHistoryIcon/index.astro'
 import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
 import HomeIcon from '@/ui/components/icons/HomeIcon/index.astro'
@@ -65,6 +66,16 @@ const { homeCurrent, categoriesCurrent, publishingGuideCurrent } = getFooterNavi
       rel="noopener noreferrer"
     >
       <GithubIcon class="footer__icon" />
+    </FooterLink>
+    <FooterLink
+      href="https://one.one.one.one/"
+      label="Cloudflare"
+      tooltip="Anti bloqueos de LaLiga"
+      tooltipId="footer-cloudflare-tooltip"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <CloudflareIcon class="footer__icon" />
     </FooterLink>
   </nav>
 </footer>
