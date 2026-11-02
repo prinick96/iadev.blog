@@ -23,12 +23,17 @@
     "@astrojs/markdown-satteri": "0.4.4",
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.4",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
     "astro": "7.4.0",
     "axios": "1.20.0",
     "fontkit": "2.0.4",
     "gpt-tokenizer": "4.1.0",
+    "katex": "0.19.1",
     "satteri": "0.10.5",
-    "sharp": "0.35.5"
+    "sharp": "0.35.5",
+    "vega": "6.4.0",
+    "vega-lite": "6.5.0"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.10",

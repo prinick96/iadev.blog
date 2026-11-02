@@ -20,9 +20,9 @@ Como el código lo estoy haciendo yo, pues vamos a seguir en Go.
 
 La recta sigue siendo esta:
 
-```text
-y = b0 + b1 * x
-```
+$$
+y = b_0 + b_1 x
+$$
 
 `b0` es el intercepto y `b1` la pendiente, lo que cambia no es el modelo, sino cómo encontramos esos dos valores: antes los calculábamos directamente y ahora vamos a ir corrigiéndolos poco a poco...
 
@@ -51,18 +51,21 @@ Así los errores positivos y negativos no se cancelan y los errores grandes pesa
 
 La cosa sería:
 
-```text
-error_i = predicción_i - valor_real_i
-
-MSE = (error_1^2 + error_2^2 + ... + error_n^2) / n
-```
+$$
+\begin{aligned}
+\text{error}_i &= \text{predicción}_i - \text{valor real}_i \\
+\mathrm{MSE} &= \frac{\text{error}_1^2 + \text{error}_2^2 + \cdots + \text{error}_n^2}{n}
+\end{aligned}
+$$
 
 Con todas las predicciones a cero:
 
-```text
-MSE = (3^2 + 5^2 + 7^2 + 9^2 + 11^2) / 5
-MSE = 57
-```
+$$
+\begin{aligned}
+\mathrm{MSE} &= \frac{3^2 + 5^2 + 7^2 + 9^2 + 11^2}{5} \\
+\mathrm{MSE} &= 57
+\end{aligned}
+$$
 
 Ese será nuestro punto de partida, con esto tenemos una medida concreta de lo mal que está ajustando estos datos.
 
@@ -76,14 +79,15 @@ En el post anterior solo hicimos algo de primaria, ahora tenemos que usar deriva
 
 Para nuestra recta y nuestro MSE, las cuentas quedan así:
 
-```text
-error_i = (b0 + b1*x_i) - y_i
+$$
+\begin{aligned}
+\text{error}_i &= (b_0 + b_1 x_i) - y_i \\
+\text{gradiente}_{b_0} &= \frac{2}{n} \sum_i \text{error}_i \\
+\text{gradiente}_{b_1} &= \frac{2}{n} \sum_i \text{error}_i x_i
+\end{aligned}
+$$
 
-gradiente_b0 = (2 / n) * suma(error_i)
-gradiente_b1 = (2 / n) * suma(error_i * x_i)
-```
-
-El `2` sale de derivar el cuadrado, `la derivada de x^2 es 2x`, en el segundo gradiente aparece también `x_i` porque estamos derivando respecto a la pendiente, que está multiplicada por esa entrada, son las derivadas del mismo error que acabamos de definir.
+El `2` sale de derivar el cuadrado, la derivada de `x^2` es `2x`, en el segundo gradiente aparece también `x_i` porque estamos derivando respecto a la pendiente, que está multiplicada por esa entrada, son las derivadas del mismo error que acabamos de definir.
 
 Después actualizamos:
 
