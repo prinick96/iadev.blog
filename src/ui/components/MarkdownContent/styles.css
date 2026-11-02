@@ -1,3 +1,5 @@
+@import "katex/dist/katex.css";
+
 .markdown-content {
   font-size: var(--font-size-md);
   font-weight: 400;
@@ -130,6 +132,42 @@
   margin-block: 1.75rem;
   border: 0;
   border-block-start: 1px solid var(--color-border);
+}
+
+.markdown-content__chart {
+  inline-size: min(100%, 28rem);
+  margin-inline: 0;
+  overflow-x: auto;
+}
+
+.markdown-content__chart > svg {
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 24rem;
+  block-size: auto;
+}
+
+.markdown-content .katex {
+  font-size: 1.1em;
+}
+
+.markdown-content__math {
+  max-inline-size: 100%;
+  margin-block: 0 1.25rem;
+  padding: 1rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.375rem;
+  background: var(--color-background);
+  overflow-x: auto;
+}
+
+.markdown-content__math .katex-display {
+  margin: 0;
+}
+
+.markdown-content__math .katex-display,
+.markdown-content__math .katex-display > .katex {
+  text-align: start;
 }
 
 .markdown-content figcaption {

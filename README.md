@@ -125,6 +125,50 @@ Para generarlo con IA, utiliza [THUMBNAIL_PROMPT.md](./THUMBNAIL_PROMPT.md). Sus
 
 Si no añades la miniatura, se muestra un placeholder por defecto, asi que tampoco pasa nada.
 
+### ¿Cómo incluyo una gráfica?
+
+Escribe un bloque de código con el lenguaje `vega-lite` y una especificación JSON de [Vega-Lite 6](https://vega.github.io/vega-lite/docs/). Por ejemplo:
+
+````md
+```vega-lite
+{
+  "description": "Consumo de RAM de tres mediciones: A, 15 %; B, 20 %; C, 25 %.",
+  "data": {
+    "values": [
+      { "measurement": "A", "ram": 15 },
+      { "measurement": "B", "ram": 20 },
+      { "measurement": "C", "ram": 25 }
+    ]
+  },
+  "mark": "bar",
+  "encoding": {
+    "x": { "field": "measurement", "type": "nominal", "title": "Medición" },
+    "y": { "field": "ram", "type": "quantitative", "title": "RAM (%)" }
+  }
+}
+```
+````
+
+La gráfica se convierte en SVG durante el build, sin JavaScript adicional en el navegador. `description` es obligatoria y debe explicar el contenido de forma accesible; conserva una tabla o explicación con los datos cuando sea necesaria. En pantallas estrechas, las gráficas permiten desplazamiento horizontal para mantener las etiquetas legibles.
+
+Usa datos dentro de `data.values` o `datasets`, y dimensiones numéricas si necesitas indicar `width` y `height`. No se admiten archivos o URLs de datos, imágenes ni enlaces dentro de la gráfica. `$schema` es opcional y no se descarga. Un JSON, una especificación o un recurso no válido hace fallar el build indicando el archivo y la línea del bloque. Las gráficas son estáticas: no hay tooltips, filtros ni controles interactivos.
+
+### ¿Cómo escribo ecuaciones?
+
+Para símbolos y expresiones cortas dentro de una frase, usa backticks, como `k = 3`. Reserva `$$` en líneas separadas para las ecuaciones independientes:
+
+```md
+La distancia entre dos puntos `a` y `b` se calcula así:
+
+$$
+d^2(a, b) = (a_x - b_x)^2 + (a_y - b_y)^2
+$$
+```
+
+Las fórmulas se renderizan con KaTeX durante el build, con HTML y MathML accesible, sin JavaScript adicional ni fuentes de una CDN. Las ecuaciones largas permiten desplazamiento horizontal. Un error de LaTeX hace fallar el build indicando el archivo y la línea; no se permiten comandos de confianza que inserten HTML o carguen recursos externos.
+
+Los bloques y fragmentos de código no se interpretan como matemáticas. Para escribir un dólar literal fuera del código, escápalo como `\$`.
+
 ## Arquitectura
 
 Astro genera todo durante el build: páginas, artículos, RSS y sitemap. La salida es estática (`dist/`), sin SSR; las interacciones puntuales, como precargar la plantilla del post, usan JavaScript en el browser, pero es poquito.

@@ -54,9 +54,9 @@ Al predecir solo conocemos la RAM actual, no podemos pasarle también si acabó 
 
 Es la misma, solo que el resultado es `z` en vez de `y`, pero sigue siendo la ecuación de una recta, esto es porque `z` no es la predicción que queremos devolver.
 
-```text
-z = b0 + b1 * x
-```
+$$
+z = b_0 + b_1 x
+$$
 
 Una recta puede darnos `-3`, `0.8` o `7`. Eso sirve para muchas cosas, pero si queremos una probabilidad no podemos decir que el servidor tiene un 700 % de posibilidades de explotar.
 
@@ -66,11 +66,12 @@ Necesitamos transformar ese resultado en un valor entre cero y uno, para poder t
 
 La [función sigmoide logística](https://developers.google.com/machine-learning/crash-course/logistic-regression/sigmoid-function) tiene esta forma:
 
-```text
-sigmoid(z) = 1 / (1 + e^(-z))
-
-p = sigmoid(b0 + b1 * x)
-```
+$$
+\begin{aligned}
+\operatorname{sigmoid}(z) &= \frac{1}{1 + e^{-z}} \\
+p &= \operatorname{sigmoid}(b_0 + b_1 x)
+\end{aligned}
+$$
 
 La `e` de Euler es una constante matemática, vale aproximadamente `2.71828`. En Go calcularemos la exponencial con `math.Exp`, no hace falta escribirla a mano.
 
@@ -86,9 +87,9 @@ Su gráfica tiene forma de S, los valores muy negativos se acercan a cero, los m
 
 Interpretamos `p` como la **probabilidad estimada de que de 1 con la entrada**, escrito de forma más formal:
 
-```text
-p = P(y = 1 | x)
-```
+$$
+p = P(y = 1 \mid x)
+$$
 
 La barra se lee "dado": probabilidad de fallo dada esa proporción de RAM, todavía no es el valor final, primero estamos estimando una probabilidad y después decidiremos qué hacer con el.
 
@@ -100,9 +101,9 @@ En el post anterior utilizamos el MSE. Ahora vamos a usar **entropía cruzada bi
 
 La [fórmula completa](https://developers.google.com/machine-learning/crash-course/logistic-regression/loss-regularization) para una observación es:
 
-```text
-loss = -[y * ln(p) + (1 - y) * ln(1 - p)]
-```
+$$
+\text{loss} = -\bigl[y \ln(p) + (1 - y) \ln(1 - p)\bigr]
+$$
 
 `ln` es el logaritmo natural, la formula parece más grande de lo que es, porque `y` solo puede valer cero o uno, entonces sustituyendo uno de los dos términos desaparece:
 
@@ -131,27 +132,28 @@ La mecánica no cambia: hacemos predicciones, calculamos los gradientes y movemo
 
 Para la combinación de sigmoide y entropía cruzada, las cuentas quedan así:
 
-```text
-p_i = sigmoid(b0 + b1 * x_i)
-error_i = p_i - y_i
-
-gradiente_b0 = suma(error_i) / n
-gradiente_b1 = suma(error_i * x_i) / n
-
-b0_nuevo = b0 - learningRate * gradiente_b0
-b1_nuevo = b1 - learningRate * gradiente_b1
-```
+$$
+\begin{aligned}
+p_i &= \operatorname{sigmoid}(b_0 + b_1 x_i) \\\\
+\text{error}_i &= p_i - y_i \\\\
+\text{gradiente}_{b_0} &= \frac{\sum_i \text{error}_i}{n} \\\\
+\text{gradiente}_{b_1} &= \frac{\sum_i \text{error}_i x_i}{n} \\\\
+b_{0,\text{nuevo}} &= b_0 - \text{learningRate} \cdot \text{gradiente}_{b_0} \\\\
+b_{1,\text{nuevo}} &= b_1 - \text{learningRate} \cdot \text{gradiente}_{b_1}
+\end{aligned}
+$$
 
 Se parece muchísimo a lo anterior, pero ahora el error utiliza una probabilidad y no aparece el factor `2` del MSE.
 
 Y no, no nos hemos olvidado de derivar la sigmoide, la derivada es sencilla, básicamente:
 
-```text
-dloss/dp = (p - y) / [p * (1 - p)]
-dp/dz    = p * (1 - p)
-
-dloss/dz = p - y
-```
+$$
+\begin{aligned}
+\frac{d\,\text{loss}}{dp} &= \frac{p - y}{p(1 - p)} \\\\
+\frac{dp}{dz} &= p(1 - p) \\\\
+\frac{d\,\text{loss}}{dz} &= p - y
+\end{aligned}
+$$
 
 Los factores se cancelan, después, derivar `z` respecto a `b0` da `1` y respecto a `b1` da `x`. De ahí salen los dos gradientes; no hay que multiplicar otra vez por la derivada de la sigmoide.
 
@@ -336,9 +338,9 @@ Un detalle importante de implementación: en la explicación hemos usado `ln(p)`
 
 Si por redondeo la probabilidad llega a cero o uno, la expresión literal puede terminar evaluando `log(0)` y generando infinitos o `NaN`. Para evitarlo usamos esta [forma equivalente y numéricamente estable](https://www.tensorflow.org/api_docs/python/tf/nn/sigmoid_cross_entropy_with_logits):
 
-```text
-loss = max(z, 0) - y*z + ln(1 + exp(-abs(z)))
-```
+$$
+\text{loss} = \max(z, 0) - yz + \ln\bigl(1 + e^{-|z|}\bigr)
+$$
 
 [`math.Log1p(v)`](https://pkg.go.dev/math#Log1p) calcula `ln(1 + v)` con más precisión cuando `v` está cerca de cero. Las dos ramas de `sigmoid` también evitan pedir exponenciales enormes, la operación matemática es la misma, cambia cómo la calculamos.
 
@@ -485,10 +487,12 @@ Y otra cosita: **un umbral de probabilidad del 50 % no significa avisar al llega
 
 Con los parámetros aprendidos, `p = 0.5` ocurre cuando `z = 0`:
 
-```text
-0 = b0 + b1*x
-x = -b0 / b1 ≈ 0.667
-```
+$$
+\begin{aligned}
+0 &= b_0 + b_1 x \\\\
+x &= -\frac{b_0}{b_1} \approx 0.667
+\end{aligned}
+$$
 
 Aquí la frontera está alrededor del 66.7 % de RAMl, para este modelo, con pendiente positiva, superar esa entrada equivale a superar la probabilidad de `0.5`, esa frontera sale de los parámetros que ajustamos, no de escribir a mano `ram > 0.667` antes del entrenamiento.
 

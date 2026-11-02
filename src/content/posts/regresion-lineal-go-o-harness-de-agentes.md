@@ -18,9 +18,9 @@ Por qué en Go y no en Python? porque me gusta más y ya está, igualmente, esto
 
 La regresión lineal simple busca una recta que se ajuste lo mejor posible a un conjunto de observaciones, vale que hay que ver algo de matemática pero muy simple la verdad, con sabernos la formula basta:
 
-```
-y = b0 + b1*x
-```
+$$
+y = b_0 + b_1 x
+$$
 
 Esa simple ecuación, dónde, si esto lo usamos para calcular la predicción del precio de una vivienda, cada variable podria ser
 

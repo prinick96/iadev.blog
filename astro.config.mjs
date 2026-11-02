@@ -3,6 +3,8 @@ import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
 import { site } from './src/ui/config/site.ts'
 import { openLinksInNewTab } from './src/ui/plugins/openLinksInNewTab.ts'
+import { renderMath } from './src/ui/plugins/renderMath.ts'
+import { renderVegaLiteCharts } from './src/ui/plugins/renderVegaLiteCharts.ts'
 
 export default defineConfig({
   site: site.url,
@@ -15,9 +17,10 @@ export default defineConfig({
   integrations: [sitemap()],
   markdown: {
     processor: satteri({
-      features: { rawHtml: true },
-      hastPlugins: [openLinksInNewTab()],
+      features: { rawHtml: true, math: true },
+      hastPlugins: [renderMath(), renderVegaLiteCharts(), openLinksInNewTab()],
     }),
+    syntaxHighlight: { type: 'shiki', excludeLangs: ['vega-lite', 'math'] },
     shikiConfig: {
       theme: {
         name: 'zed-ayu-dark',
