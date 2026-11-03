@@ -47,7 +47,7 @@ Y ya mi dependencia apunta exactamente a la solución de ese error.
 
 Antes de salir a producción lo cambiaré, por la release, pero por ahora, me viene bien.
 
-![ia-solutions](https://i.8upload.com/image/76b5437f82d1586e/flujo-de-depuracio-n-del-pa-nico-a-la-solucio-n-correcta.png)
+![ia-solutions](https://img.iadev.blog/posts/flujo-de-depuracio-n-del-pa-nico-a-la-solucio-n-correcta.png)
 
 ## Y si estuviera vibecodeando?
 

@@ -307,7 +307,7 @@ Tiempo restante desde la última medición: 54.49 minutos
 
 Y así de simple. Hemos implementado un algoritmo de regresión lineal en unas pocas líneas de Go, sin frameworks de machine learning, sin dependencias de medio internet y lo mejor de todo, **sin necesitar una suscripción de OpenAI que nos explique cómo sumar dos números**.
 
-![regresion-linear-en-go](https://i.8upload.com/image/57a01250d68ab0fb/simplicidad-contra-caos-agentes-en-accio-n.png)
+![regresion-linear-en-go](https://img.iadev.blog/posts/simplicidad-contra-caos-agentes-en-accio-n.png)
 
 No hemos tenido que resolver integrales, derivadas, ecuaciones diferenciales ni invocar ninguna entidad matemática de otro universo, solo hemos utilizado una fórmula que algún matemático, hace bastante tiempo, tuvo la amabilidad de desarrollar y nosotros como buenos ingenieros, hemos hecho lo que mejor sabemos hacer: **entender el problema, aprovechar el conocimiento existente e implementarlo**.
 

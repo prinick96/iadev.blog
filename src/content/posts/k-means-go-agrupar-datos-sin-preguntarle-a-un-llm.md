@@ -16,7 +16,7 @@ Añadimos ese parámetro adicional, para ahora hacernos la pregunta, **qué obse
 
 Vamos a agruparlas con **K-Means**, desde cero y en Go, esta vez ni siquiera necesitamos derivar una sigmoide, con restar, multiplicar y calcular medias es más que suficiente.
 
-![asignar-promediar-repetir](https://i.8upload.com/image/b1159cf3d0a88e8d/01-asignar-promediar-repetir.png)
+![asignar-promediar-repetir](https://img.iadev.blog/posts/01-asignar-promediar-repetir.png)
 
 ## Ahora no tenemos una `y` que copiar
 
@@ -493,7 +493,7 @@ Ahora los tres centros empiezan en la misma zona, con nuestro código, la inerci
 
 En el segundo caso se queda separando la zona de poco consumo en dos grupos y juntando las otras dos zonas en uno solo, esol significa que está estable, pero tenemos otro resultado que reduce mucho más la misma función, podrías subir el límite de 100 a 1M de iteraciones y no arreglarías ese arranque, si las asignaciones ya no cambian, repetir las mismas medias no va a encontrar otra solución.
 
-![converger-no-es-encontrar-lo-mejor](https://i.8upload.com/image/0eb3d02d2a9b5427/02-converger-no-es-encontrar-lo-mejor.png)
+![converger-no-es-encontrar-lo-mejor](https://img.iadev.blog/posts/02-converger-no-es-encontrar-lo-mejor.png)
 
 Una estrategia habitual es probar varias inicializaciones y quedarse con la de menor inercia, **comparando el mismo `k`, los mismos datos y la misma escala**.
 

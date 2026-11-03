@@ -448,7 +448,7 @@ p = sigmoid(z)
 
 Con un 70 % de RAM utilizada, le pasamos `0.70`, obtenemos un `z` cercano a `0.3889` y la sigmoide lo transforma en aproximadamente `0.5960`, es decir, un **59.60 % de probabilidad estimada de fallo** según este modelo de juguete.
 
-![una-recta-no-es-una-probabilidad](https://i.8upload.com/image/4e980146be866e06/1.png)
+![una-recta-no-es-una-probabilidad](https://img.iadev.blog/posts/1.png)
 
 No estamos diciendo que el servidor vaya a consumir un 59.60 % de memoria.
 La entrada es consumo y la salida, probabilidad de un evento, son cosas distintas aunque las dos se puedan escribir con un porcentaje.
@@ -506,7 +506,7 @@ Nuestro `59.60 %` no significa que el programa tenga un 59.60 % de posibilidades
 
 Poner dos decimales es fácil, tener datos que justifiquen esos decimales ya requiere trabajar un poco más.
 
-![la-probabilidad-no-decide-por-ti](https://i.8upload.com/image/eb0162cccd96a265/2.png)
+![la-probabilidad-no-decide-por-ti](https://img.iadev.blog/posts/8.png)
 
 ## Y los ejemplos que no vio durante el entrenamiento?
 

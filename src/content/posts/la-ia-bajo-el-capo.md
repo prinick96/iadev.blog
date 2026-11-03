@@ -59,7 +59,7 @@ Vamos a levantar el capó de la IA y tratar de entender un poco cómo funciona p
 
 Para empezar, el modelo no recibe exactamente las palabras que leemos todos, porque el **no las entiende**. Un [tokenizador](https://github.com/openai/tiktoken) transforma el texto en una secuencia de identificadores, estos son los famoso `tokens` y pueden representar palabras completas, trozos de palabras, signos o combinaciones que incluyen espacios, la división depende del tokenizador concreto y no tenemos una tabla "universal" donde "palabra" tenga siempre el mismo número.
 
-![prompt en pedacitos](https://i.8upload.com/image/f6cf509f2fbe2b2a/imagen-de-chatgpt-21-oct-2026-12-53-35-1.png)
+![prompt en pedacitos](https://img.iadev.blog/posts/imagen-de-chatgpt-21-oct-2026-12-53-35-1.png)
 
 > De hecho en este repo utilizamos la librería `gpt-tokenizer` para hacer la broma de "tokens gastados" por leer el artículo, puedes revisar un poco cómo funciona esa librería en npm.
 
@@ -119,7 +119,7 @@ Aunque hay algo importante: **la frase sigue siendo ambigua**. Podría referirse
 
 Imagina ahora que cada palabra de esa frase puede consultar información cruzada de otras palabras de la misma frase.
 
-![atención en la IA](https://i.8upload.com/image/c49f55d27cc36196/imagen-de-chatgpt-21-oct-2026-12-53-37-3.png)
+![atención en la IA](https://img.iadev.blog/posts/imagen-de-chatgpt-21-oct-2026-12-53-37-3.png)
 
 Cuando la IA procesa la parte "estaba dañado", necesita información sobre lo que ha aparecido antes, el mecanismo de atención le permite combinar info de diferentes posiciones de la frase, dando distinta importancia a cada una según el contexto.
 
@@ -131,7 +131,7 @@ En lugar de calcular una única forma de relacionar las palabras, el tokenizador
 
 Además, hay muchas capas que transforman y refinan esas representaciones, así que no hay un único "cerebro" decidiendo qué palabra importa, hay muchas operaciones matemáticas que trabajan conjuntamente.
 
-![multi-hjead attention](https://i.8upload.com/image/6340e48557e9eae7/imagen-de-chatgpt-21-oct-2026-12-53-38-4.png)
+![multi-hjead attention](https://img.iadev.blog/posts/imagen-de-chatgpt-21-oct-2026-12-53-38-4.png)
 
 ### Predicción de tokens
 
@@ -284,7 +284,7 @@ El problema aparece cuando la IA hace lo tercero, pero su respuesta parece tan s
 
 Y eso es especialmente peligroso porque una alucinación puede estar muy bien escrita, ser detallada y utilizar términos técnicos correctos, la parte visual funcionar exactamente como le dices, pero está mal detrás, en otro post hablaremos sobre vibecoding de forma seria, cuando está bien y cuando no está bien usarlo.
 
-![ia procesando](https://i.8upload.com/image/1539fa1a7cade530/imagen-de-chatgpt-21-oct-2026-12-53-36-2.png)
+![ia procesando](https://img.iadev.blog/posts/imagen-de-chatgpt-21-oct-2026-12-53-36-2.png)
 
 # Entonces, piensa o no?
 

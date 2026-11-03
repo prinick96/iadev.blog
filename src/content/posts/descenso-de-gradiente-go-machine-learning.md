@@ -45,7 +45,7 @@ Si inicializamos los dos parámetros a cero, la predicción será cero para cual
 
 Ahora necesitamos convertir ese desastre en un número, para ello utilizaremos el **error cuadrático medio**, o **MSE**: calculamos la resta entre cada predicción y su valor real, después la elevamos al cuadrado y hacemos la media, es sencillo.
 
-![medir-el-error-machine-learning](https://i.8upload.com/image/0c989dd1095e901c/01-medir-el-error.png)
+![medir-el-error-machine-learning](https://img.iadev.blog/posts/01-medir-el-error.png)
 
 Así los errores positivos y negativos no se cancelan y los errores grandes pesan más, te puedes [revisar esto](https://developers.google.com/machine-learning/crash-course/linear-regression/loss?hl=es-419)
 
@@ -111,7 +111,7 @@ La nueva recta es `y = 0.14 + 0.50*x`. Su MSE ya no es `57`, sino `33.2296`.
 
 Todavía responde bastante mal, pero menos mal que antes, **ESA es la idea**: repetir una corrección que hemos calculado.
 
-![corregir-no-es-adivinar](https://i.8upload.com/image/3f15c8abda10a92c/02-un-paso-de-gradiente.png)
+![corregir-no-es-adivinar](https://img.iadev.blog/posts/02-un-paso-de-gradiente.png)
 
 ## Implementación en Go
 
@@ -293,7 +293,7 @@ Puedes reproducirlo cambiando la tasa y el número de epochs en la llamada a `Fi
 
 Otra diferencia útil: la pendiente y el intercepto son **parámetros**, los ajusta el entrenamiento, la tasa y el número de epochs son **hiperparámetros**, los configuramos nosotros en este ejemplo.
 
-![tasa-de-aprendizaje](https://i.8upload.com/image/d60a20e0028d2a19/03-tasa-de-aprendizaje.png)
+![tasa-de-aprendizaje](https://img.iadev.blog/posts/03-tasa-de-aprendizaje.png)
 
 ## Volvamos al ejemplo del server que se quedaba sin RAM
 
