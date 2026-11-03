@@ -46,7 +46,7 @@ Y sí, hasta [Epic Games ha hablado abiertamente de "vibecoding" para desarrolla
 
 Si eso es lo que llamamos _vibe coding_, hemos modificado el término original hasta incluir cualquier desarrollo asistido por IA, aquí la diferencia no es quién pulsa las teclas, es quién entiende y controla lo que se está construyendo.
 
-![demo-no-es-produccion](https://i.8upload.com/image/b74916f49cdbc1a1/01-demo-no-es-produccion.png)
+![demo-no-es-produccion](https://img.iadev.blog/posts/01-demo-no-es-produccion.png)
 
 ## No-code: adelante. De verdad
 
@@ -74,7 +74,7 @@ Si tienes un bar y te apetece crearte una página web muy brutal sobre tu bar, d
 
 Aquí voy a defenderlo, porque lo he utilizado para esto y funciona muy bien.
 
-![prototipar-aprender-disenar](https://i.8upload.com/image/68b621a95565b883/02-prototipar-aprender-disenar.png)
+![prototipar-aprender-disenar](https://img.iadev.blog/posts/02-prototipar-aprender-disenar.png)
 
 Cuando desarrollamos un producto nuevo, muchas veces ni siquiera sabemos exactamente qué estamos construyendo, tenemos una idea, reuniones con el cliente, requisitos a medio definir, conversaciones con diseño, flujos de UX que cambian y ese maravilloso momento en el que alguien descubre en la quinta reunión algo que habría sido útil saber en la primera.
 
@@ -217,7 +217,7 @@ En julio de 2025, durante un experimento de Jason Lemkin con Replit, un agente e
 
 Un agente con herramientas no es una persona que teclea, puede ejecutar comandos, consultar bases de datos, modificar ficheros, encadenar acciones sin que estés aprobando cada paso y escalar todo eso, si le das credenciales de producción y permisos para destruirla, el problema no se arregla metiendo un agente más para vigilar al primero.
 
-![limites-para-el-agente](https://i.8upload.com/image/59dae13768012fb5/03-limites-para-el-agente.png)
+![limites-para-el-agente](https://img.iadev.blog/posts/03-limites-para-el-agente.png)
 
 Por añadir otro matiz, [Lovable reconoció en abril de 2026](https://lovable.dev/blog/our-response-to-the-april-2026-incident) un fallo de **su propia plataforma** que volvió a hacer accesibles historiales de chat y código de determinados proyectos públicos a otros usuarios autenticados, no fue necesariamente una vulnerabilidad escrita por un vibecoder: fue una regresión en la plataforma. Lo menciono porque incluso las herramientas que nos venden la experiencia de "crear software sin complicaciones" necesitan la misma ingeniería, revisión y respuesta a incidentes que cualquier otro producto del mercado.
 
@@ -251,7 +251,7 @@ Vamos a aclarar algunas palabras, porque **no son inventos inútiles**. Lo que e
 
 Hay situaciones donde todo esto tiene sentido, si tienes un problema que exige búsquedas documentales, integraciones o automatización supervisada, adelante, claro que sí, mi problema es que se haya convertido en la respuesta predeterminada a cualquier cosa que antes resolvíamos con una función, un test y un poco de sentido común.
 
-![harness-para-un-formulari](https://i.8upload.com/image/ee387c699317591d/04-harness-para-un-formulario.png)
+![harness-para-un-formulari](https://img.iadev.blog/posts/04-harness-para-un-formulario.png)
 
 Igual que en [mi artículo de regresión lineal en Go](https://iadev.blog/posts/regresion-lineal-go-o-harness-de-agentes/), a veces una solución de veinte líneas sigue siendo mejor que quemar miles de tokens construyendo el montón de agentes que finalmente la ejecutará.
 

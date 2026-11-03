@@ -1,0 +1,4 @@
+Contact: mailto:princk093@gmail.com
+Preferred-Languages: es, en
+Expires: 2027-11-02T00:00:00Z
+Canonical: https://iadev.blog/.well-known/security.txt
