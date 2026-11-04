@@ -16,6 +16,7 @@ const website = {
 }
 const image = {
   url: 'https://images.example.com/social/portada.webp',
+  type: 'image/webp',
   width: 1200,
   height: 630,
   alt: 'Programación, café & suscripciones',
