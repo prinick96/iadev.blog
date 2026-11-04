@@ -2,10 +2,11 @@ import { describe, expect, test } from 'bun:test'
 import type { Author } from '@/core/logic/authors/domain/Author'
 import type { Post } from '@/core/logic/posts/domain/Post'
 import { site } from '@/ui/config/site'
+import type { SocialImageSource } from '@/ui/layouts/BaseLayout/components/SeoMetadata/types'
 import { getSeoMetadata } from '@/ui/layouts/BaseLayout/components/SeoMetadata/utils/getSeoMetadata'
 
 const siteTitle = `${site.title} - ${site.subtitle}`
-const fallbackImage = { src: '/_astro/iadev.example.png', width: 1280, height: 640 }
+const fallbackImage: SocialImageSource = { src: '/_astro/iadev.example.png', width: 1280, height: 640, format: 'png' }
 const post: Post = {
   id: 'example',
   title: 'Senior por suscripción',
@@ -28,6 +29,7 @@ describe('getSeoMetadata', () => {
     expect(result.canonical).toBe(new URL('/', site.url).href)
     expect(result.image).toEqual({
       url: new URL(fallbackImage.src, site.url).href,
+      type: 'image/png',
       width: 1280,
       height: 640,
       alt: siteTitle,
@@ -65,6 +67,7 @@ describe('getSeoMetadata', () => {
     expect(result.socialTitle).toBe(post.title)
     expect(result.image).toEqual({
       url: new URL('/social/posts/example.png', site.url).href,
+      type: 'image/png',
       width: 1200,
       height: 630,
       alt: `${post.title} — ${site.title}`,
@@ -77,6 +80,74 @@ describe('getSeoMetadata', () => {
     })
   })
 
+  test('prefers the original article image with its actual size in all structured data', () => {
+    const articleImage: SocialImageSource = {
+      src: '/_astro/social.original.jpg',
+      width: 1440,
+      height: 720,
+      format: 'jpg',
+    }
+    const result = getSeoMetadata({
+      pathname: '/posts/public-slug/',
+      title: post.title,
+      description: post.description,
+      article: { post, author },
+      articleImage,
+      fallbackImage,
+    })
+    const url = new URL(articleImage.src, site.url).href
+
+    expect(result.image).toEqual({
+      url,
+      type: 'image/jpeg',
+      width: 1440,
+      height: 720,
+      alt: `${post.title} — ${site.title}`,
+    })
+    expect(result.structuredData['@graph'][1]).toMatchObject({
+      primaryImageOfPage: { url, width: 1440, height: 720 },
+    })
+    expect(result.structuredData['@graph'][2]).toMatchObject({
+      image: { url, width: 1440, height: 720 },
+    })
+  })
+
+  test.each<{ format: SocialImageSource['format']; type: string }>([
+    { format: 'jpg', type: 'image/jpeg' },
+    { format: 'jpeg', type: 'image/jpeg' },
+    { format: 'png', type: 'image/png' },
+    { format: 'apng', type: 'image/apng' },
+    { format: 'tiff', type: 'image/tiff' },
+    { format: 'webp', type: 'image/webp' },
+    { format: 'gif', type: 'image/gif' },
+    { format: 'svg', type: 'image/svg+xml' },
+    { format: 'avif', type: 'image/avif' },
+  ])('uses the correct MIME type for $format images', ({ format, type }) => {
+    const articleImage = { src: `/_astro/social.example.${format}`, width: 1200, height: 630, format }
+    const result = getSeoMetadata({
+      pathname: '/posts/example/',
+      description: post.description,
+      article: { post, author },
+      articleImage,
+      fallbackImage,
+    })
+
+    expect(result.image.type).toBe(type)
+    expect(result.image.url).toBe(new URL(articleImage.src, site.url).href)
+  })
+
+  test('keeps the site image for non-article pages even if an article image is supplied', () => {
+    const result = getSeoMetadata({
+      pathname: '/',
+      description: site.description,
+      articleImage: { src: '/_astro/social.example.webp', width: 1200, height: 630, format: 'webp' },
+      fallbackImage,
+    })
+
+    expect(result.image.url).toBe(new URL(fallbackImage.src, site.url).href)
+    expect(result.image.type).toBe('image/png')
+  })
+
   test('preserves encoded canonical paths', () => {
     const result = getSeoMetadata({
       pathname: '/posts/archivo/opini%C3%B3n/',
@@ -87,12 +158,13 @@ describe('getSeoMetadata', () => {
     expect(result.canonical).toBe(new URL('/posts/archivo/opini%C3%B3n/', site.url).href)
   })
 
-  test('does not modify the article, author or fallback image', () => {
+  test('does not modify the article, author, original image or fallback image', () => {
     const input = structuredClone({
       pathname: '/posts/example/',
       title: post.title,
       description: post.description,
       article: { post, author },
+      articleImage: { src: '/_astro/social.example.webp', width: 1200, height: 630, format: 'webp' as const },
       fallbackImage,
     })
     const before = structuredClone(input)

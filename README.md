@@ -125,6 +125,14 @@ Para generarlo con IA, utiliza [THUMBNAIL_PROMPT.md](./THUMBNAIL_PROMPT.md). Sus
 
 Si no añades la miniatura, se muestra un placeholder por defecto, asi que tampoco pasa nada.
 
+### ¿Cómo añado una imagen para compartir el artículo?
+
+Guarda una única imagen llamada `social` en la misma carpeta que el thumbnail, por ejemplo `src/ui/assets/posts/mi-post/social.jpg`. Se localiza por el ID del Markdown, también con subcarpetas, no por el `slug`. No necesita thumbnail ni un campo nuevo en el frontmatter.
+
+Se admiten JPG, JPEG, PNG, APNG, TIFF, WebP, GIF, SVG y AVIF. Para que las redes sociales la previsualicen de forma fiable, se recomienda PNG o JPEG a 1200 × 630; no todos los servicios aceptan los demás formatos, especialmente SVG. La imagen se publica directamente, sin redimensionarla ni convertirla, y se usa en Open Graph, Twitter y los datos estructurados.
+
+Si existe `social.*`, no se genera el PNG social de ese artículo. Si falta, se mantiene la generación automática con el título y el thumbnail. Si hay varias imágenes `social.*` en la misma carpeta, la compilación falla: deja solo una.
+
 ### ¿Cómo incluyo una gráfica?
 
 Escribe un bloque de código con el lenguaje `vega-lite` y una especificación JSON de [Vega-Lite 6](https://vega.github.io/vega-lite/docs/). Por ejemplo:

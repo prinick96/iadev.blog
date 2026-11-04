@@ -5,7 +5,10 @@ import boldFont from '@/ui/assets/fonts/ibm-plex-mono/ibm-plex-mono-latin-700-no
 import regularExtendedFont from '@/ui/assets/fonts/ibm-plex-mono/ibm-plex-mono-latin-ext-400-normal.woff2?inline'
 import boldExtendedFont from '@/ui/assets/fonts/ibm-plex-mono/ibm-plex-mono-latin-ext-700-normal.woff2?inline'
 import { POSTS_ASSETS_PATH } from '@/ui/constants/assets'
+import { POST_SOCIAL_IMAGES } from '@/ui/constants/postSocialImages'
+import { POST_THUMBNAIL_SOURCES } from '@/ui/constants/postThumbnailSources'
 import type { SocialImageFonts, SocialImageInput } from '@/ui/types/socialImage'
+import { getPostSocialImage } from '@/ui/utils/getPostSocialImage'
 import { renderSocialImage } from '@/ui/utils/renderSocialImage'
 
 const fonts: SocialImageFonts = {
@@ -13,22 +16,18 @@ const fonts: SocialImageFonts = {
   bold: [boldFont, boldExtendedFont].map((font) => Buffer.from(font.slice(font.indexOf(',') + 1), 'base64')),
 }
 
-const thumbnails = import.meta.glob<string>('/src/ui/assets/posts/**/thumbnail.svg', {
-  eager: true,
-  query: '?raw',
-  import: 'default',
-})
-
 export const getStaticPaths = async () => {
   const posts = await getPostsService.execute()
 
-  return posts.map(({ id, title }) => ({
-    params: { image: `posts/${id}` },
-    props: {
-      title,
-      thumbnail: thumbnails[`${POSTS_ASSETS_PATH}/${id}/thumbnail.svg`],
-    },
-  }))
+  return posts
+    .filter(({ id }) => !getPostSocialImage(POST_SOCIAL_IMAGES, id))
+    .map(({ id, title }) => ({
+      params: { image: `posts/${id}` },
+      props: {
+        title,
+        thumbnail: POST_THUMBNAIL_SOURCES[`${POSTS_ASSETS_PATH}/${id}/thumbnail.svg`],
+      },
+    }))
 }
 
 export async function GET({ props }: APIContext<SocialImageInput>): Promise<Response> {

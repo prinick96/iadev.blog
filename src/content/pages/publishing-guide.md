@@ -58,6 +58,7 @@ Si luego quieres aportar otras features, serán bienvenidas también.
 - **Firma propia:** añade tu autor a `src/content/authors.json` y usa su `id` en `author`. No borres los autores existentes. El avatar de GitHub se usa por defecto, así que no necesitas subir una foto.
 - **Categorías:** consulta `src/content/categories.json` y referencia sus IDs en `categories`. Puedes dejarlo vacío, usar categorías existentes o añadir otra en el mismo archivo. No repitas IDs.
 - **Miniatura opcional:** guarda `thumbnail.svg` en `src/ui/assets/posts/mi-post/`, usando el nombre del Markdown sin extensión. No añadas un campo `thumbnail` al frontmatter.
+- **Imagen para compartir opcional:** guarda una única imagen `social.*` en esa misma carpeta, sin añadir campos al frontmatter del post, esta se usa directamente en lugar de generar la imagen social en el buildtime. Te recomiendo PNG o JPEG a 1200 × 630 por compatibilidad con las redes; si no la añades, la imagen se genera como hasta ahora.
 
 [Consulta los ejemplos de autor, avatar, categorías y miniatura en el README](https://github.com/prinick96/iadev.blog#cómo-añadir-autor-avatar-y-categorías). Incluye todos los archivos necesarios en **la misma rama y PR**; puedes seguir añadiendo commits después de abrirla.
 
