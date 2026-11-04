@@ -4,6 +4,7 @@ import BackToTop from '@/ui/layouts/BaseLayout/components/BackToTop/index.astro'
 import Footer from '@/ui/layouts/BaseLayout/components/Footer/index.astro'
 import SaasIsDead from '@/ui/layouts/BaseLayout/components/SaasIsDead/index.astro'
 import SeoMetadata from '@/ui/layouts/BaseLayout/components/SeoMetadata/index.astro'
+import Topbar from '@/ui/layouts/BaseLayout/components/Topbar/index.astro'
 import Topnav from '@/ui/layouts/BaseLayout/components/Topnav/index.astro'
 import type { Props } from '@/ui/layouts/BaseLayout/types'
 import '@/ui/styles/fonts.css'
@@ -35,6 +36,7 @@ const {
   </head>
   <body>
     <div class="site-shell" id="page-top" tabindex="-1">
+      <Topbar />
       <div class:list={['site-shell__content', { 'site-shell__content--centered': centerContent }]}>
         {showHeader && <Topnav showDescription={showDescription} />}
         <main class:list={['site-shell__main', { 'site-shell__main--centered': centerContent }]}>

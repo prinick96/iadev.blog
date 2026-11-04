@@ -1,0 +1,11 @@
+---
+import '@/ui/layouts/BaseLayout/components/Topbar/components/Clock/styles.css'
+---
+
+<time class="clock" data-clock aria-live="off" hidden></time>
+
+<script>
+import { initializeClock } from '@/ui/layouts/BaseLayout/components/Topbar/components/Clock/utils/initializeClock'
+
+initializeClock()
+</script>

@@ -5,6 +5,8 @@
   --color-surface-muted: #1f2127bf;
   --color-surface-hover: #2d2f34;
   --color-surface-active: #3e4043;
+  --color-panel-background: #18191d;
+  --color-panel-hover: #222427;
   --color-status-bar: #313337;
   --color-text: #bfbdb6;
   --color-text-muted: #8a8986;
@@ -59,11 +61,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 5px;
 }
 
 img {
