@@ -23,6 +23,7 @@
     "@astrojs/markdown-satteri": "0.4.4",
     "@astrojs/rss": "4.0.19",
     "@astrojs/sitemap": "3.7.4",
+    "@tursodatabase/serverless": "1.4.1",
     "ajv": "8.20.0",
     "ajv-formats": "3.0.1",
     "astro": "7.4.0",

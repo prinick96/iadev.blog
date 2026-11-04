@@ -1,7 +1,9 @@
 ---
 import { render } from 'astro:content'
+import { EXECUTE_POST_NOTIFICATIONS } from '@/core/constants/turso'
 import { getAuthorsService } from '@/core/logic/authors/services/index'
 import { getCategoriesService } from '@/core/logic/categories/services/index'
+import { registerNewPostsService } from '@/core/logic/post-notifications/services/index'
 import GetPostDetails from '@/core/logic/posts/application/GetPostDetails'
 import { getPostSourcesService } from '@/core/logic/posts/services/index'
 import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
@@ -14,6 +16,13 @@ export const getStaticPaths = async () => {
     getCategoriesService.execute(),
     getAuthorsService.execute(),
   ])
+
+  if (EXECUTE_POST_NOTIFICATIONS) {
+    const slugs = posts.map((source) => source.id)
+    const newSlugs = await registerNewPostsService.execute(slugs)
+
+    console.info('[post-notifications] nuevos slugs detectados:', newSlugs)
+  }
 
   return posts.map((source) => {
     const details = GetPostDetails.execute({ source, authors, categories })
