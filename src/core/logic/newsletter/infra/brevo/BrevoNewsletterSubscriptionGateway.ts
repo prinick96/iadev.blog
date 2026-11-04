@@ -1,11 +1,10 @@
 import type { AxiosInstance } from 'axios'
+import { BREVO_NEWSLETTER_FORM_URL } from '@/core/constants/brevo'
 import type { BrevoSubscriptionResponse } from '@/core/logic/newsletter/domain/BrevoSubscriptionResponse'
 import type { SubscribeToNewsletterInput } from '@/core/logic/newsletter/domain/Inputs'
 import type { SubscriptionResult } from '@/core/logic/newsletter/domain/SubscriptionResult'
 import { SubscriptionStatus } from '@/core/logic/newsletter/domain/SubscriptionStatus'
 import type { INewsletterSubscriptionGateway } from '@/core/logic/newsletter/infra/interfaces/INewsletterSubscriptionGateway'
-
-export const BREVO_NEWSLETTER_FORM_URL = String(import.meta.env.PUBLIC_BREVO_NEWSLETTER_FORM_URL ?? '')
 
 class BrevoNewsletterSubscriptionGateway implements INewsletterSubscriptionGateway {
   constructor(private readonly client: AxiosInstance) {}

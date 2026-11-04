@@ -47,6 +47,8 @@ class PostNotificationsRepository implements IPostNotificationsRepository {
       'immediate'
     )
 
+    console.info('[post-notifications] nuevos slugs insertados:', slugs)
+
     return results.flatMap((result) => result.rows.map((row) => row.slug))
   }
 

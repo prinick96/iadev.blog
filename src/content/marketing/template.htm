@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="es" xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Nuevas publicaciones | IADev</title>
+
+    <style type="text/css">
+      @media only screen and (max-width: 620px) {
+        .shell {
+          width: 100% !important;
+        }
+
+        .pad {
+          padding-left: 24px !important;
+          padding-right: 24px !important;
+        }
+
+        .heading {
+          font-size: 23px !important;
+          line-height: 32px !important;
+        }
+
+        .post-title {
+          font-size: 18px !important;
+          line-height: 27px !important;
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    style="margin: 0; padding: 0; background-color: #0d0f14; color: #b8b8b5"
+  >
+    <!-- Texto de previsualización en la bandeja de entrada -->
+    <div
+      style="
+        display: none;
+        font-size: 1px;
+        line-height: 1px;
+        color: #0d0f14;
+        max-height: 0;
+        max-width: 0;
+        overflow: hidden;
+        mso-hide: all;
+      "
+    >
+      Hay nuevas publicaciones en IADev. El humo no se documenta solo.
+    </div>
+
+    <table
+      role="presentation"
+      cellpadding="0"
+      cellspacing="0"
+      border="0"
+      width="100%"
+      bgcolor="#0D0F14"
+    >
+      <tr>
+        <td align="center" style="padding: 48px 12px">
+          <table
+            role="presentation"
+            class="shell"
+            cellpadding="0"
+            cellspacing="0"
+            border="0"
+            width="560"
+            style="
+              width: 560px;
+              max-width: 100%;
+              border: 1px solid #30343d;
+              background-color: #0d0f14;
+            "
+          >
+            <!-- Header -->
+            <tr>
+              <td
+                class="pad"
+                style="
+                  padding: 28px 38px 24px;
+                  border-bottom: 1px solid #30343d;
+                  font-family: Menlo, Monaco, Consolas, monospace;
+                "
+              >
+                <a
+                  href="https://iadev.blog"
+                  style="
+                    text-decoration: none;
+                    color: #b8b8b5;
+                    font-size: 23px;
+                    font-weight: 700;
+                    letter-spacing: -1px;
+                  "
+                >
+                  IADev<span style="color: #4fc3f7">_</span>
+                </a>
+
+                <div
+                  style="
+                    margin-top: 8px;
+                    color: #777777;
+                    font-size: 12px;
+                    line-height: 18px;
+                  "
+                >
+                  Senior por Suscripción
+                </div>
+              </td>
+            </tr>
+
+            <!-- Introducción -->
+            <tr>
+              <td
+                class="pad"
+                style="
+                  padding: 40px 38px 12px;
+                  font-family: Menlo, Monaco, Consolas, monospace;
+                "
+              >
+                <div
+                  style="
+                    margin-bottom: 22px;
+                    font-size: 12px;
+                    line-height: 18px;
+                    color: #4fc3f7;
+                  "
+                >
+                  &gt; posts/published
+                </div>
+
+                <h1
+                  class="heading"
+                  style="
+                    margin: 0 0 20px;
+                    font-size: 26px;
+                    line-height: 36px;
+                    font-weight: 700;
+                    color: #e0e0de;
+                  "
+                >
+                  Más lectura.<br />
+                  Menos humo sin documentar.<span style="color: #4fc3f7"
+                    >_</span
+                  >
+                </h1>
+
+                <p
+                  style="
+                    margin: 0;
+                    color: #999999;
+                    font-size: 13px;
+                    line-height: 23px;
+                  "
+                >
+                  Estas son las nuevas publicaciones de IADev. Sin pedirle a un
+                  agente que te resuma lo que todavía no has leído.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Artículos: el bucle permanece dentro de una celda -->
+            <tr>
+              <td
+                class="pad"
+                style="
+                  padding: 24px 38px 0;
+                  font-family: Menlo, Monaco, Consolas, monospace;
+                "
+              >
+                {% for post in params.posts %}
+                <table
+                  role="presentation"
+                  cellpadding="0"
+                  cellspacing="0"
+                  border="0"
+                  width="100%"
+                >
+                  <tr>
+                    <td
+                      style="
+                        padding: 24px 0 28px;
+                        border-top: 1px solid #30343d;
+                      "
+                    >
+                      <h2
+                        class="post-title"
+                        style="
+                          margin: 0 0 14px;
+                          font-size: 20px;
+                          line-height: 29px;
+                          font-weight: 700;
+                          color: #e0e0de;
+                        "
+                      >
+                        <a
+                          href="{{ post.url }}"
+                          style="color: #e0e0de; text-decoration: none"
+                        >
+                          {{ post.title }}
+                        </a>
+                      </h2>
+
+                      <p
+                        style="
+                          margin: 0 0 20px;
+                          color: #999999;
+                          font-size: 13px;
+                          line-height: 23px;
+                        "
+                      >
+                        {{ post.description }}
+                      </p>
+
+                      <a
+                        href="{{ post.url }}"
+                        style="
+                          display: inline-block;
+                          padding: 8px 0;
+                          color: #4fc3f7;
+                          font-size: 13px;
+                          line-height: 20px;
+                          text-decoration: underline;
+                        "
+                      >
+                        Leer artículo &rarr;
+                      </a>
+                    </td>
+                  </tr>
+                </table>
+                {% endfor %}
+              </td>
+            </tr>
+
+            <!-- Cierre -->
+            <tr>
+              <td
+                class="pad"
+                style="
+                  padding: 8px 38px 36px;
+                  font-family: Menlo, Monaco, Consolas, monospace;
+                "
+              >
+                <p
+                  style="
+                    margin: 0;
+                    color: #777777;
+                    font-size: 12px;
+                    line-height: 21px;
+                  "
+                >
+                  Si alguien convierte esto en una startup, al menos que cite la
+                  fuente.
+                </p>
+              </td>
+            </tr>
+
+            <!-- Footer -->
+            <tr>
+              <td
+                class="pad"
+                style="
+                  padding: 20px 38px;
+                  border-top: 1px solid #30343d;
+                  font-family: Menlo, Monaco, Consolas, monospace;
+                  font-size: 12px;
+                  line-height: 21px;
+                  color: #777777;
+                "
+              >
+                <p style="margin: 0 0 14px">
+                  IADev <span style="color: #4fc3f7">/</span>
+                  <a
+                    href="https://iadev.blog"
+                    style="color: #999999; text-decoration: none"
+                  >
+                    iadev.blog
+                  </a>
+                </p>
+
+                <p style="margin: 0 0 12px">
+                  Recibes este correo porque te suscribiste a las novedades de
+                  IADev.
+                </p>
+
+                <p style="margin: 0">
+                  <a
+                    href="{{ unsubscribe }}"
+                    style="
+                      display: inline-block;
+                      padding: 6px 0;
+                      color: #999999;
+                      text-decoration: underline;
+                    "
+                  >
+                    Darme de baja
+                  </a>
+                </p>
+              </td>
+            </tr>
+          </table>
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

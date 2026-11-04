@@ -1,5 +1,4 @@
 import { describe, expect, test } from 'bun:test'
-
 import SubscribeToNewsletter from '@/core/logic/newsletter/application/SubscribeToNewsletter'
 import type { SubscriptionResult } from '@/core/logic/newsletter/domain/SubscriptionResult'
 import { SubscriptionStatus } from '@/core/logic/newsletter/domain/SubscriptionStatus'
