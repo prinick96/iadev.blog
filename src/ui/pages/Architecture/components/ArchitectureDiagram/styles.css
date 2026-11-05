@@ -1,0 +1,353 @@
+.architecture-diagram {
+  min-inline-size: 0;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0.25rem;
+  background: var(--color-panel-background);
+  overflow: clip;
+}
+
+.architecture-diagram [hidden] {
+  display: none;
+}
+
+.architecture-diagram__controls {
+  border-block-end: 1px solid var(--color-border);
+}
+
+.architecture-diagram__views {
+  display: flex;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  background: var(--color-surface);
+}
+
+.architecture-diagram__tab {
+  flex: 0 0 auto;
+  min-block-size: 2.25rem;
+  padding: 0.375rem 1rem;
+  border: 0;
+  border-inline-end: 1px solid var(--color-border);
+  border-radius: 0;
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  line-height: 1.65;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.architecture-diagram__tab:hover {
+  background: var(--color-panel-hover);
+  color: var(--color-text);
+}
+
+.architecture-diagram__tab[aria-pressed="true"] {
+  background: var(--color-background);
+  color: var(--color-text);
+}
+
+.architecture-diagram__tab:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -2px;
+}
+
+.architecture-diagram__control {
+  min-block-size: 2.5rem;
+  padding: 0.375rem 0.625rem;
+  border: 1px solid var(--color-border);
+  border-radius: 0.25rem;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  cursor: pointer;
+}
+
+.architecture-diagram__control:hover {
+  background: var(--color-surface-hover);
+}
+
+.architecture-diagram__control:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.architecture-diagram__control:focus-visible,
+.architecture-diagram__text-button:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.architecture-diagram__viewport {
+  position: relative;
+  min-inline-size: 0;
+}
+
+.architecture-diagram__toolbar {
+  position: absolute;
+  z-index: 1;
+  inset-block-end: 0.75rem;
+  inset-inline-end: 0.75rem;
+  display: flex;
+  align-items: center;
+  padding: 0.25rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0.375rem;
+  background: var(--color-surface);
+}
+
+.architecture-diagram__control--icon {
+  display: inline-flex;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.5rem;
+  padding: 0;
+  border: 0;
+}
+
+.architecture-diagram__control-icon {
+  inline-size: 1.125rem;
+  block-size: 1.125rem;
+}
+
+.architecture-diagram__zoom {
+  min-inline-size: 3.5rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.architecture-diagram__canvas {
+  min-inline-size: 0;
+  background: var(--color-background);
+}
+
+.architecture-diagram[data-ready="true"] .architecture-diagram__canvas {
+  block-size: clamp(26rem, 65svh, 42rem);
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+.architecture-diagram__canvas:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -3px;
+}
+
+.architecture-diagram[data-dragging="true"] .architecture-diagram__canvas {
+  cursor: grabbing;
+}
+
+.architecture-diagram__svg {
+  display: block;
+  inline-size: 100%;
+  block-size: auto;
+  overflow: hidden;
+}
+
+.architecture-diagram[data-ready="true"] .architecture-diagram__svg {
+  block-size: 100%;
+}
+
+.architecture-diagram__connection {
+  color: var(--color-text-muted);
+}
+
+.architecture-diagram__connection--primary {
+  color: var(--color-accent);
+}
+
+.architecture-diagram__edge {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+}
+
+.architecture-diagram__arrow {
+  fill: var(--color-text-muted);
+}
+
+.architecture-diagram__edge-label {
+  fill: var(--color-text);
+  stroke: var(--color-background);
+  stroke-width: 7px;
+  stroke-linejoin: round;
+  paint-order: stroke;
+  font-size: 11px;
+}
+
+.architecture-diagram__node {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  inline-size: 100%;
+  block-size: 100%;
+  gap: 0.375rem;
+  padding: 0.625rem 0.875rem;
+  border: 1px solid var(--color-border-strong);
+  border-radius: 0.25rem;
+  background: var(--color-panel-background);
+  color: var(--color-text);
+  text-align: start;
+  cursor: pointer;
+}
+
+.architecture-diagram__node:hover {
+  border-color: var(--color-text-muted);
+  background: var(--color-panel-hover);
+}
+
+.architecture-diagram__node:focus-visible,
+.architecture-diagram__node[aria-pressed="true"] {
+  outline: 2px solid var(--color-accent);
+  outline-offset: -3px;
+  border-color: var(--color-accent);
+}
+
+.architecture-diagram__node-title {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.architecture-diagram__node-description {
+  color: var(--color-text-muted);
+  font-size: 10px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.architecture-diagram__node[data-dimmed="true"],
+.architecture-diagram__connection[data-dimmed="true"] {
+  opacity: 0.2;
+}
+
+.architecture-diagram__node[data-dimmed="true"]:focus-visible {
+  opacity: 1;
+}
+
+.architecture-diagram__help {
+  margin: 0;
+  padding: 0.625rem 0.875rem;
+  border-block: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  font-size: var(--font-size-2xs);
+}
+
+.architecture-diagram__details {
+  min-block-size: 7rem;
+  padding: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.architecture-diagram__detail-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.5rem 1rem;
+}
+
+.architecture-diagram__detail-title {
+  margin: 0 0 0.5rem;
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.architecture-diagram__detail-description {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+.architecture-diagram__detail-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem 2rem;
+  margin-block-start: 1rem;
+}
+
+.architecture-diagram__detail-label {
+  margin: 0 0 0.5rem;
+  color: var(--color-text);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
+}
+
+.architecture-diagram__list {
+  display: grid;
+  gap: 0.5rem;
+  margin: 0;
+  padding-inline-start: 1rem;
+  color: var(--color-text-muted);
+  font-size: var(--font-size-xs);
+}
+
+.architecture-diagram__text-button {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--color-accent);
+  font-size: var(--font-size-xs);
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+  cursor: pointer;
+}
+
+.architecture-diagram__text-button:hover {
+  color: var(--color-text);
+}
+
+.architecture-diagram__sr-only {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.architecture-diagram__fallback {
+  padding: 1rem 2rem;
+  font-size: var(--font-size-sm);
+}
+
+.architecture-diagram:fullscreen {
+  display: flex;
+  flex-direction: column;
+  inline-size: 100%;
+  block-size: 100%;
+  border: 0;
+  border-radius: 0;
+  overflow-y: auto;
+}
+
+.architecture-diagram:fullscreen .architecture-diagram__viewport {
+  flex: 1 0 20rem;
+  min-block-size: 0;
+}
+
+.architecture-diagram:fullscreen .architecture-diagram__canvas {
+  block-size: 100%;
+}
+
+@media (max-width: 47.999rem) {
+  .architecture-diagram__detail-columns {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@media (pointer: coarse) {
+  .architecture-diagram__tab {
+    min-block-size: 2.75rem;
+  }
+
+  .architecture-diagram__control--icon {
+    inline-size: 2.75rem;
+    min-block-size: 2.75rem;
+  }
+}

@@ -6,6 +6,7 @@ test('marks only home as the current page at the root path', () => {
   assert.deepEqual(getFooterNavigationState('/'), {
     homeCurrent: 'page',
     categoriesCurrent: undefined,
+    architectureCurrent: undefined,
     publishingGuideCurrent: undefined,
     cookiesCurrent: undefined,
     privacyCurrent: undefined,
@@ -17,6 +18,7 @@ test('preserves the home fallback for an empty pathname', () => {
   assert.deepEqual(getFooterNavigationState(''), {
     homeCurrent: 'page',
     categoriesCurrent: undefined,
+    architectureCurrent: undefined,
     publishingGuideCurrent: undefined,
     cookiesCurrent: undefined,
     privacyCurrent: undefined,
@@ -29,6 +31,7 @@ test('marks the categories index as the current page with or without a trailing 
     assert.deepEqual(getFooterNavigationState(pathname), {
       homeCurrent: undefined,
       categoriesCurrent: 'page',
+      architectureCurrent: undefined,
       publishingGuideCurrent: undefined,
       cookiesCurrent: undefined,
       privacyCurrent: undefined,
@@ -42,6 +45,21 @@ test('marks category detail pages as the current location with or without a trai
     assert.deepEqual(getFooterNavigationState(pathname), {
       homeCurrent: undefined,
       categoriesCurrent: 'location',
+      architectureCurrent: undefined,
+      publishingGuideCurrent: undefined,
+      cookiesCurrent: undefined,
+      privacyCurrent: undefined,
+      legalNoticeCurrent: undefined,
+    })
+  }
+})
+
+test('marks only architecture as the current page with or without a trailing slash', () => {
+  for (const pathname of ['/arquitectura', '/arquitectura/']) {
+    assert.deepEqual(getFooterNavigationState(pathname), {
+      homeCurrent: undefined,
+      categoriesCurrent: undefined,
+      architectureCurrent: 'page',
       publishingGuideCurrent: undefined,
       cookiesCurrent: undefined,
       privacyCurrent: undefined,
@@ -55,6 +73,7 @@ test('marks only the publishing guide as the current page with or without a trai
     assert.deepEqual(getFooterNavigationState(pathname), {
       homeCurrent: undefined,
       categoriesCurrent: undefined,
+      architectureCurrent: undefined,
       publishingGuideCurrent: 'page',
       cookiesCurrent: undefined,
       privacyCurrent: undefined,
@@ -68,6 +87,7 @@ test('marks only cookies as the current page with or without a trailing slash', 
     assert.deepEqual(getFooterNavigationState(pathname), {
       homeCurrent: undefined,
       categoriesCurrent: undefined,
+      architectureCurrent: undefined,
       publishingGuideCurrent: undefined,
       cookiesCurrent: 'page',
       privacyCurrent: undefined,
@@ -81,6 +101,7 @@ test('marks only privacy as the current page with or without a trailing slash', 
     assert.deepEqual(getFooterNavigationState(pathname), {
       homeCurrent: undefined,
       categoriesCurrent: undefined,
+      architectureCurrent: undefined,
       publishingGuideCurrent: undefined,
       cookiesCurrent: undefined,
       privacyCurrent: 'page',
@@ -94,6 +115,7 @@ test('marks only the legal notice as the current page with or without a trailing
     assert.deepEqual(getFooterNavigationState(pathname), {
       homeCurrent: undefined,
       categoriesCurrent: undefined,
+      architectureCurrent: undefined,
       publishingGuideCurrent: undefined,
       cookiesCurrent: undefined,
       privacyCurrent: undefined,
@@ -107,6 +129,7 @@ test('leaves all links inactive on unrelated pages including paginated home page
     assert.deepEqual(getFooterNavigationState(pathname), {
       homeCurrent: undefined,
       categoriesCurrent: undefined,
+      architectureCurrent: undefined,
       publishingGuideCurrent: undefined,
       cookiesCurrent: undefined,
       privacyCurrent: undefined,
@@ -119,6 +142,11 @@ test('does not match routes that only share a navigation prefix', () => {
   for (const pathname of [
     '/categories-other/',
     '/categoriesexample/',
+    '/arquitectura-other',
+    '/arquitectura-other/',
+    '/arquitecturaexample/',
+    '/arquitectura/example',
+    '/arquitectura/example/',
     '/guia-publicar-other/',
     '/guia-publicar/example/',
     '/politica-de-cookies-other',
@@ -140,6 +168,7 @@ test('does not match routes that only share a navigation prefix', () => {
     assert.deepEqual(getFooterNavigationState(pathname), {
       homeCurrent: undefined,
       categoriesCurrent: undefined,
+      architectureCurrent: undefined,
       publishingGuideCurrent: undefined,
       cookiesCurrent: undefined,
       privacyCurrent: undefined,

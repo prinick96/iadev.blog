@@ -1,5 +1,6 @@
 ---
 import { GITHUB_REPOSITORY_URL } from '@/core/constants/github'
+import ArchitectureIcon from '@/ui/components/icons/ArchitectureIcon/index.astro'
 import CategoriesIcon from '@/ui/components/icons/CategoriesIcon/index.astro'
 import CloudflareIcon from '@/ui/components/icons/CloudflareIcon/index.astro'
 import CookieIcon from '@/ui/components/icons/CookieIcon/index.astro'
@@ -18,8 +19,15 @@ import { paths } from '@/ui/routes/paths'
 import '@/ui/layouts/BaseLayout/components/Footer/styles.css'
 
 const { commits } = Astro.props
-const { homeCurrent, categoriesCurrent, publishingGuideCurrent, cookiesCurrent, privacyCurrent, legalNoticeCurrent } =
-  getFooterNavigationState(Astro.url.pathname)
+const {
+  homeCurrent,
+  categoriesCurrent,
+  architectureCurrent,
+  publishingGuideCurrent,
+  cookiesCurrent,
+  privacyCurrent,
+  legalNoticeCurrent,
+} = getFooterNavigationState(Astro.url.pathname)
 ---
 
 <footer class="footer">
@@ -75,6 +83,14 @@ const { homeCurrent, categoriesCurrent, publishingGuideCurrent, cookiesCurrent, 
       aria-current={categoriesCurrent}
     >
       <CategoriesIcon class="footer__icon" />
+    </FooterLink>
+    <FooterLink
+      href={paths.architecture}
+      label="Arquitectura del blog"
+      tooltipId="footer-architecture-tooltip"
+      aria-current={architectureCurrent}
+    >
+      <ArchitectureIcon class="footer__icon" />
     </FooterLink>
     <FooterLink
       href={paths.cookies}
