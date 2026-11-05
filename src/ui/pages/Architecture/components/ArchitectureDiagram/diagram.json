@@ -1,0 +1,890 @@
+{
+  "revision": "96b3c45b0acad3bfedbc4f7c39e84a1876e55b37",
+  "bounds": {
+    "x": 0,
+    "y": 0,
+    "width": 1160,
+    "height": 2608
+  },
+  "nodes": [
+    {
+      "id": "content",
+      "label": "Contenido local validado",
+      "sublabel": "Artículos, autores y categorías",
+      "tag": "Los artículos se escriben en Markdown y los autores y categorías se definen en JSON. Content Collections carga estos archivos y valida sus metadatos y referencias antes de generar las páginas.",
+      "x": 40,
+      "y": 40,
+      "width": 260,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/content.config.ts",
+          "line": 7,
+          "end_line": 30
+        },
+        {
+          "path": "src/content.config.ts",
+          "line": 33,
+          "end_line": 65
+        }
+      ]
+    },
+    {
+      "id": "adapters",
+      "label": "Adaptadores · infra/",
+      "sublabel": "Lectura de Content Collections",
+      "tag": "AstroPostsRepository obtiene los artículos de las colecciones de Astro y los devuelve tal como se cargaron. La conversión a entidades y el orden del listado pertenecen a los casos de uso.",
+      "x": 450,
+      "y": 40,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/posts/infra/astro/PostsRepository.astro.ts",
+          "line": 1,
+          "end_line": 12
+        }
+      ]
+    },
+    {
+      "id": "ports",
+      "label": "Puertos · interfaces/",
+      "sublabel": "Contratos de acceso a datos",
+      "tag": "Definen las operaciones que necesita la aplicación sin vincularla a un proveedor. IPostsRepository permite listar artículos; los gateways de newsletter permiten solicitar suscripciones y campañas.",
+      "x": 860,
+      "y": 40,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/posts/infra/interfaces/IPostsRepository.ts",
+          "line": 1,
+          "end_line": 7
+        },
+        {
+          "path": "src/core/logic/newsletter/infra/interfaces/INewsletterCampaignGateway.ts",
+          "line": 1,
+          "end_line": 8
+        }
+      ]
+    },
+    {
+      "id": "routes",
+      "label": "Astro build · src/pages/",
+      "sublabel": "Generación de rutas y páginas",
+      "tag": "Astro ejecuta los servicios, enumera las rutas y compone las páginas durante el build. Las entradas de src/pages conectan los datos de la aplicación con los componentes de presentación.",
+      "x": 40,
+      "y": 270,
+      "width": 260,
+      "height": 80,
+      "sources": [
+        {
+          "path": "package.json",
+          "line": 11,
+          "end_line": 20
+        },
+        {
+          "path": "astro.config.mjs",
+          "line": 9,
+          "end_line": 23
+        },
+        {
+          "path": "src/pages/posts/[...slug].astro",
+          "line": 1,
+          "end_line": 47
+        }
+      ]
+    },
+    {
+      "id": "composition",
+      "label": "Composición · services/",
+      "sublabel": "Repositorios y casos de uso",
+      "tag": "Cada funcionalidad conecta sus dependencias en services/index.ts: crea los adaptadores y los inyecta en los casos de uso. Las rutas consumen estas instancias sin tener que construir repositorios ni clientes HTTP.",
+      "x": 450,
+      "y": 270,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/posts/services/index.ts",
+          "line": 1,
+          "end_line": 8
+        },
+        {
+          "path": "src/core/logic/newsletter/services/index.ts",
+          "line": 1,
+          "end_line": 17
+        }
+      ]
+    },
+    {
+      "id": "application",
+      "label": "Casos de uso · execute()",
+      "sublabel": "Conversión y reglas de aplicación",
+      "tag": "ConvertPost transforma los datos de origen en un artículo con metadatos y métricas. GetPosts ordena el listado por fecha de publicación y GetPostDetails resuelve su autor y categorías. Estas operaciones no dependen de Astro.",
+      "x": 860,
+      "y": 270,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/posts/application/GetPosts.ts",
+          "line": 1,
+          "end_line": 20
+        },
+        {
+          "path": "src/core/logic/posts/application/ConvertPost.ts",
+          "line": 7,
+          "end_line": 22
+        },
+        {
+          "path": "src/core/logic/posts/application/GetPostDetails.ts",
+          "line": 7,
+          "end_line": 15
+        }
+      ]
+    },
+    {
+      "id": "static_paths",
+      "label": "1 · Enumerar artículos",
+      "sublabel": "Carga posts, autores y categorías",
+      "tag": "getStaticPaths obtiene los artículos, autores y categorías en paralelo. Antes de devolver las rutas, espera al registro de novedades y al intento de campaña si las notificaciones están activadas.",
+      "x": 40,
+      "y": 500,
+      "width": 260,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/pages/posts/[...slug].astro",
+          "line": 17,
+          "end_line": 43
+        },
+        {
+          "path": "src/core/logic/posts/application/GetPostSources.ts",
+          "line": 1,
+          "end_line": 12
+        },
+        {
+          "path": "src/core/constants/turso.ts",
+          "line": 1,
+          "end_line": 3
+        }
+      ]
+    },
+    {
+      "id": "register",
+      "label": "2 · RegisterNewPosts",
+      "sublabel": "Detecta artículos no registrados",
+      "tag": "Consulta los identificadores guardados en Turso e inserta los que todavía no existen. Devuelve únicamente los IDs realmente insertados y cierra la conexión al terminar. Se ejecuta cuando están configuradas la URL y las credenciales de Turso.",
+      "x": 450,
+      "y": 500,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/post-notifications/application/RegisterNewPosts.ts",
+          "line": 1,
+          "end_line": 28
+        },
+        {
+          "path": "src/core/logic/post-notifications/infra/interfaces/IPostNotificationsRepository.ts",
+          "line": 1,
+          "end_line": 6
+        }
+      ]
+    },
+    {
+      "id": "domain",
+      "label": "Dominio · domain/",
+      "sublabel": "Datos y tipos del blog",
+      "tag": "PostSource representa el contenido de origen, Post reúne los metadatos y métricas del artículo y PostDetails incorpora el autor y las categorías resueltos. El cuerpo Markdown se conserva aparte para renderizarlo en Astro.",
+      "x": 860,
+      "y": 500,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/posts/domain/Post.ts",
+          "line": 1,
+          "end_line": 13
+        },
+        {
+          "path": "src/core/logic/posts/domain/PostSource.ts",
+          "line": 1,
+          "end_line": 15
+        },
+        {
+          "path": "src/core/logic/posts/application/GetPostDetails.ts",
+          "line": 7,
+          "end_line": 15
+        }
+      ]
+    },
+    {
+      "id": "ci",
+      "label": "CI GitHub · pull_request",
+      "sublabel": "Tipos, tests y build en cada PR",
+      "tag": "GitHub Actions instala las dependencias con el lockfile, comprueba el formato y los tipos, ejecuta los tests y construye el sitio en cada pull request. Este workflow valida los cambios; no publica el resultado en Pages.",
+      "x": 450,
+      "y": 730,
+      "width": 260,
+      "height": 80,
+      "sources": [
+        {
+          "path": ".github/workflows/pr-checks.yml",
+          "line": 3,
+          "end_line": 17
+        },
+        {
+          "path": ".github/workflows/pr-checks.yml",
+          "line": 19,
+          "end_line": 49
+        }
+      ]
+    },
+    {
+      "id": "turso",
+      "label": "Turso · registro persistente",
+      "sublabel": "IDs guardados entre builds",
+      "tag": "La tabla post_notifications guarda el identificador de cada artículo registrado. Su clave primaria y ON CONFLICT DO NOTHING evitan registrar dos veces el mismo ID. No almacena el contenido de los posts, los suscriptores ni el estado de entrega de los correos.",
+      "x": 860,
+      "y": 730,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/post-notifications/infra/turso/PostNotificationsRepository.ts",
+          "line": 20,
+          "end_line": 57
+        }
+      ]
+    },
+    {
+      "id": "github_api",
+      "label": "API GitHub · historial",
+      "sublabel": "Hasta 100 commits del repositorio",
+      "tag": "El servicio consulta los últimos commits de GitHub para incluir el historial en el HTML del blog. Reutiliza la consulta mientras vive su instancia, de modo que las páginas que la comparten no repiten la petición.",
+      "x": 860,
+      "y": 1190,
+      "width": 260,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/commits/infra/github/CommitsRepository.ts",
+          "line": 11,
+          "end_line": 23
+        },
+        {
+          "path": "src/core/logic/commits/application/GetCommits.ts",
+          "line": 7,
+          "end_line": 24
+        },
+        {
+          "path": "src/core/api/http/github.ts",
+          "line": 4,
+          "end_line": 8
+        }
+      ]
+    },
+    {
+      "id": "newsletter",
+      "label": "3 · SendNewPostsNewsletter",
+      "sublabel": "Prepara las novedades del correo",
+      "tag": "Selecciona los artículos recién registrados y prepara su título, descripción y URL absoluta. Si hay novedades, solicita una campaña a Brevo; si no las hay, termina sin llamar a la API. Un error de Brevo se registra sin detener la generación del sitio.",
+      "x": 450,
+      "y": 960,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/newsletter/application/SendNewPostsNewsletter.ts",
+          "line": 1,
+          "end_line": 40
+        },
+        {
+          "path": "src/ui/routes/getPostPath.ts",
+          "line": 1,
+          "end_line": 5
+        }
+      ]
+    },
+    {
+      "id": "brevo_campaign",
+      "label": "Brevo · API de campañas",
+      "sublabel": "Plantilla, campaña y envío",
+      "tag": "Obtiene la plantilla, crea una campaña con todos los artículos nuevos y solicita su envío inmediato a la lista de newsletter. Este proceso ocurre durante el build, antes de publicar las páginas en Cloudflare Pages.",
+      "x": 860,
+      "y": 960,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/newsletter/infra/brevo/BrevoNewsletterCampaignGateway.ts",
+          "line": 13,
+          "end_line": 46
+        },
+        {
+          "path": "src/core/api/http/brevo.ts",
+          "line": 1,
+          "end_line": 5
+        }
+      ]
+    },
+    {
+      "id": "render",
+      "label": "4 · Detalles y render Astro",
+      "sublabel": "Markdown y datos → páginas HTML",
+      "tag": "La ruta resuelve los datos de cada artículo y render(source) convierte su Markdown en contenido renderizable. SiteLayout obtiene el historial de commits y compone la página con los layouts y componentes del blog.",
+      "x": 40,
+      "y": 1190,
+      "width": 260,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/pages/posts/[...slug].astro",
+          "line": 35,
+          "end_line": 54
+        },
+        {
+          "path": "src/pages/_layouts/SiteLayout/index.astro",
+          "line": 1,
+          "end_line": 11
+        }
+      ]
+    },
+    {
+      "id": "presentation",
+      "label": "Presentación · src/ui/",
+      "sublabel": "Layouts y componentes Astro",
+      "tag": "La interfaz recibe los datos mediante props y el contenido renderizado mediante slots. Los componentes componen el HTML, los metadatos SEO y los estilos CSS con BEM, sin consultar directamente las colecciones de contenido.",
+      "x": 450,
+      "y": 1310,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/ui/pages/Post/index.astro",
+          "line": 15,
+          "end_line": 59
+        },
+        {
+          "path": "src/ui/layouts/BaseLayout/index.astro",
+          "line": 1,
+          "end_line": 53
+        },
+        {
+          "path": "src/ui/layouts/BaseLayout/components/SeoMetadata/index.astro",
+          "line": 24,
+          "end_line": 57
+        }
+      ]
+    },
+    {
+      "id": "compilers",
+      "label": "Markdown → HTML / SVG",
+      "sublabel": "Código, fórmulas y gráficos",
+      "tag": "Satteri procesa el Markdown, Shiki resalta el código, KaTeX genera las fórmulas y Vega convierte los gráficos a SVG. El resultado se calcula en el build: el navegador muestra el contenido sin ejecutar el motor de gráficos.",
+      "x": 40,
+      "y": 1420,
+      "width": 260,
+      "height": 80,
+      "sources": [
+        {
+          "path": "astro.config.mjs",
+          "line": 18,
+          "end_line": 23
+        },
+        {
+          "path": "src/ui/plugins/renderMath.ts",
+          "line": 23,
+          "end_line": 50
+        },
+        {
+          "path": "src/ui/plugins/renderVegaLiteCharts.ts",
+          "line": 120,
+          "end_line": 176
+        }
+      ]
+    },
+    {
+      "id": "dist",
+      "label": "5 · Artefactos · dist/",
+      "sublabel": "Páginas y recursos para publicar",
+      "tag": "dist reúne las páginas HTML, las hojas de estilo, el JavaScript de las interacciones y los archivos generados, como RSS e imágenes sociales. Esta salida estática es lo que se publica, sin un servidor Astro atendiendo cada visita.",
+      "x": 450,
+      "y": 1540,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "astro.config.mjs",
+          "line": 9,
+          "end_line": 23
+        },
+        {
+          "path": "README.md",
+          "line": 188,
+          "end_line": 190
+        }
+      ]
+    },
+    {
+      "id": "pages",
+      "label": "6 · Cloudflare Pages",
+      "sublabel": "Publicación y distribución del sitio",
+      "tag": "Cloudflare Pages publica el contenido de dist y lo sirve como archivos estáticos. Las visitas reciben las páginas ya generadas, sin ejecutar Astro ni consultar Turso para leer un artículo.",
+      "x": 860,
+      "y": 1540,
+      "width": 250,
+      "height": 80,
+      "sources": []
+    },
+    {
+      "id": "generators",
+      "label": "Generadores de rutas",
+      "sublabel": "RSS, sitemap, robots e imágenes",
+      "tag": "Generan los archivos que permiten descubrir y compartir el contenido: RSS, sitemap, robots.txt e imágenes sociales. Cuando un artículo no tiene imagen social propia, se crea un PNG con fuentes locales durante el build.",
+      "x": 40,
+      "y": 1770,
+      "width": 260,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/pages/rss.xml.ts",
+          "line": 7,
+          "end_line": 21
+        },
+        {
+          "path": "src/pages/social/[...image].png.ts",
+          "line": 19,
+          "end_line": 38
+        },
+        {
+          "path": "astro.config.mjs",
+          "line": 9,
+          "end_line": 17
+        }
+      ]
+    },
+    {
+      "id": "reader",
+      "label": "7 · Navegador del lector",
+      "sublabel": "Lectura e interacciones del sitio",
+      "tag": "El navegador recibe el HTML y los recursos ya preparados. El JavaScript se reserva para interacciones como el reloj, las preferencias de cookies, la suscripción y este visor; leer un artículo no dispara consultas a Turso ni campañas de correo.",
+      "x": 450,
+      "y": 1770,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "astro.config.mjs",
+          "line": 9,
+          "end_line": 17
+        },
+        {
+          "path": "src/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/index.astro",
+          "line": 92,
+          "end_line": 96
+        }
+      ]
+    },
+    {
+      "id": "r2",
+      "label": "Cloudflare R2",
+      "sublabel": "Almacenamiento de imágenes",
+      "tag": "Cloudflare R2 almacena y sirve imágenes de los artículos de forma independiente al despliegue de las páginas. Así, los recursos de los posts pueden mantenerse separados de los archivos que genera Astro.",
+      "x": 860,
+      "y": 1770,
+      "width": 250,
+      "height": 80,
+      "sources": []
+    },
+    {
+      "id": "subscription",
+      "label": "Alta newsletter · navegador",
+      "sublabel": "Formulario de suscripción",
+      "tag": "Coordina la validación del formulario, el estado de envío y los mensajes de respuesta. Invoca SubscribeToNewsletter desde el navegador para enviar el email y el token de Turnstile a Brevo, sin pasar por una API propia del blog.",
+      "x": 450,
+      "y": 2000,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/utils/initializeNewsletterForm.ts",
+          "line": 62,
+          "end_line": 96
+        },
+        {
+          "path": "src/core/logic/newsletter/services/index.ts",
+          "line": 6,
+          "end_line": 17
+        }
+      ]
+    },
+    {
+      "id": "turnstile",
+      "label": "Cloudflare Turnstile",
+      "sublabel": "Protección del formulario",
+      "tag": "El captcha se carga al abrir el diálogo de suscripción y proporciona un token para acompañar el alta. El formulario exige ese token antes de enviar los datos y permite repetir la comprobación si caduca o falla.",
+      "x": 860,
+      "y": 2000,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/components/NewsletterCaptcha/utils/loadNewsletterTurnstile.ts",
+          "line": 3,
+          "end_line": 38
+        },
+        {
+          "path": "src/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/components/NewsletterCaptcha/utils/initializeNewsletterCaptcha.ts",
+          "line": 27,
+          "end_line": 76
+        }
+      ]
+    },
+    {
+      "id": "brevo_form",
+      "label": "Brevo · formulario público",
+      "sublabel": "Recepción del alta por email",
+      "tag": "Recibe el email, el campo antispam y el token de Turnstile mediante un formulario público. La interfaz interpreta su respuesta para mostrar si falta confirmar el email, si la dirección no es válida o si el envío ha fallado.",
+      "x": 450,
+      "y": 2230,
+      "width": 250,
+      "height": 80,
+      "sources": [
+        {
+          "path": "src/core/logic/newsletter/infra/brevo/BrevoNewsletterSubscriptionGateway.ts",
+          "line": 9,
+          "end_line": 32
+        }
+      ]
+    },
+    {
+      "id": "dns",
+      "label": "Cloudflare DNS",
+      "sublabel": "Resolución del dominio del blog",
+      "tag": "Cloudflare gestiona los registros DNS de iadev.blog. Esta configuración permite resolver el dominio y acceder a los servicios del sitio.",
+      "x": 40,
+      "y": 2460,
+      "width": 260,
+      "height": 80,
+      "sources": []
+    },
+    {
+      "id": "analytics",
+      "label": "Cloudflare Analytics",
+      "sublabel": "Estadísticas de tráfico y uso",
+      "tag": "Centraliza las estadísticas de tráfico y uso del blog en Cloudflare para seguir la actividad del sitio.",
+      "x": 450,
+      "y": 2460,
+      "width": 250,
+      "height": 80,
+      "sources": []
+    }
+  ],
+  "connections": [
+    {
+      "id": "adapter-reads",
+      "from": "adapters",
+      "to": "content",
+      "label": "lee colecciones",
+      "path": "M 450 80 L 300 80",
+      "label_x": 375.0,
+      "label_y": 70.0,
+      "emphasis": false
+    },
+    {
+      "id": "adapter-contract",
+      "from": "adapters",
+      "to": "ports",
+      "label": "implementa",
+      "path": "M 700 80 L 860 80",
+      "label_x": 780.0,
+      "label_y": 70.0,
+      "emphasis": false
+    },
+    {
+      "id": "route-service",
+      "from": "routes",
+      "to": "composition",
+      "label": "consume servicios",
+      "path": "M 300 310 L 450 310",
+      "label_x": 375.0,
+      "label_y": 300.0,
+      "emphasis": false
+    },
+    {
+      "id": "service-adapter",
+      "from": "composition",
+      "to": "adapters",
+      "label": "instancia",
+      "path": "M 575 270 L 575 120",
+      "label_x": 575.0,
+      "label_y": 260.0,
+      "emphasis": false
+    },
+    {
+      "id": "service-usecase",
+      "from": "composition",
+      "to": "application",
+      "label": "inyecta",
+      "path": "M 700 310 L 860 310",
+      "label_x": 780.0,
+      "label_y": 300.0,
+      "emphasis": false
+    },
+    {
+      "id": "usecase-port",
+      "from": "application",
+      "to": "ports",
+      "label": "depende del contrato",
+      "path": "M 985 270 L 985 120",
+      "label_x": 985.0,
+      "label_y": 260.0,
+      "emphasis": false
+    },
+    {
+      "id": "usecase-domain",
+      "from": "application",
+      "to": "domain",
+      "label": "usa tipos propios",
+      "path": "M 985 350 L 985 500",
+      "label_x": 933.2,
+      "label_y": 428.0,
+      "emphasis": false
+    },
+    {
+      "id": "build-enumerates",
+      "from": "routes",
+      "to": "static_paths",
+      "label": "ejecuta",
+      "path": "M 170 350 L 170 500",
+      "label_x": 142.2,
+      "label_y": 428.0,
+      "emphasis": true
+    },
+    {
+      "id": "ci-build",
+      "from": "ci",
+      "to": "static_paths",
+      "label": "valida el build",
+      "path": "M 450 746 L 292 746 Q 284 746 284 738 L 284 580",
+      "label_x": 284.0,
+      "label_y": 653.0,
+      "emphasis": false
+    },
+    {
+      "id": "optional-registration",
+      "from": "static_paths",
+      "to": "register",
+      "label": "si Turso está activo",
+      "path": "M 300 531.95 L 450 531.95",
+      "label_x": 375.0,
+      "label_y": 521.95,
+      "emphasis": true
+    },
+    {
+      "id": "registration-sql",
+      "from": "register",
+      "to": "turso",
+      "label": "SQL · PK(source.id)",
+      "path": "M 700 540 L 772 540 Q 780 540 780 548 L 780 752.9 Q 780 760.9 788 760.9 L 860 760.9",
+      "label_x": 780.0,
+      "label_y": 640.45,
+      "emphasis": true
+    },
+    {
+      "id": "new-ids",
+      "from": "turso",
+      "to": "newsletter",
+      "label": "IDs insertados",
+      "path": "M 860 777 L 732 777 Q 724 777 724 785 L 724 985 Q 724 993 716 993 L 700 993",
+      "label_x": 724.0,
+      "label_y": 875.0,
+      "emphasis": true
+    },
+    {
+      "id": "campaign-call",
+      "from": "newsletter",
+      "to": "brevo_campaign",
+      "label": "si hay novedades",
+      "path": "M 700 1009.1 L 860 1009.1",
+      "label_x": 780.0,
+      "label_y": 999.1,
+      "emphasis": true
+    },
+    {
+      "id": "optional-join",
+      "from": "static_paths",
+      "to": "render",
+      "label": "continúa la generación",
+      "path": "M 170 580 L 170 1190",
+      "label_x": 111.0,
+      "label_y": 888.0,
+      "emphasis": true
+    },
+    {
+      "id": "campaign-join",
+      "from": "newsletter",
+      "to": "render",
+      "label": "tras intento de envío",
+      "path": "M 466 1040 L 466 1198 Q 466 1206 458 1206 L 300 1206",
+      "label_x": 383.0,
+      "label_y": 1196.0,
+      "emphasis": true
+    },
+    {
+      "id": "history",
+      "from": "render",
+      "to": "github_api",
+      "label": "consulta en build",
+      "path": "M 300 1230 L 860 1230",
+      "label_x": 580.0,
+      "label_y": 1220.0,
+      "emphasis": false
+    },
+    {
+      "id": "props-slots",
+      "from": "render",
+      "to": "presentation",
+      "label": "props + slots",
+      "path": "M 284 1270 L 284 1318 Q 284 1326 292 1326 L 450 1326",
+      "label_x": 367.0,
+      "label_y": 1316.0,
+      "emphasis": true
+    },
+    {
+      "id": "markdown",
+      "from": "render",
+      "to": "compilers",
+      "label": "render(source)",
+      "path": "M 170 1270 L 170 1420",
+      "label_x": 125.4,
+      "label_y": 1348.0,
+      "emphasis": false
+    },
+    {
+      "id": "html-output",
+      "from": "presentation",
+      "to": "dist",
+      "label": "emite HTML/CSS/JS",
+      "path": "M 575 1390 L 575 1540",
+      "label_x": 523.2,
+      "label_y": 1468.0,
+      "emphasis": true
+    },
+    {
+      "id": "compiled-content",
+      "from": "compilers",
+      "to": "dist",
+      "label": "contenido estático",
+      "path": "M 300 1484 L 458 1484 Q 466 1484 466 1492 L 466 1540",
+      "label_x": 466.0,
+      "label_y": 1502.0,
+      "emphasis": false
+    },
+    {
+      "id": "other-routes",
+      "from": "generators",
+      "to": "dist",
+      "label": "emite XML/PNG",
+      "path": "M 284 1770 L 284 1612 Q 284 1604 292 1604 L 450 1604",
+      "label_x": 367.0,
+      "label_y": 1594.0,
+      "emphasis": false
+    },
+    {
+      "id": "publish",
+      "from": "dist",
+      "to": "pages",
+      "label": "publica dist/",
+      "path": "M 700 1570.9 L 860 1570.9",
+      "label_x": 780.0,
+      "label_y": 1560.9,
+      "emphasis": true
+    },
+    {
+      "id": "serve",
+      "from": "pages",
+      "to": "reader",
+      "label": "sirve archivos",
+      "path": "M 860 1587 L 788 1587 Q 780 1587 780 1595 L 780 1795 Q 780 1803 772 1803 L 700 1803",
+      "label_x": 780.0,
+      "label_y": 1685.0,
+      "emphasis": true
+    },
+    {
+      "id": "images",
+      "from": "r2",
+      "to": "reader",
+      "label": "sirve imágenes",
+      "path": "M 860 1818.05 L 700 1818.05",
+      "label_x": 780.0,
+      "label_y": 1838.05,
+      "emphasis": false
+    },
+    {
+      "id": "optin",
+      "from": "reader",
+      "to": "subscription",
+      "label": "si se suscribe",
+      "path": "M 575 1850 L 575 2000",
+      "label_x": 530.4,
+      "label_y": 1928.0,
+      "emphasis": false
+    },
+    {
+      "id": "captcha",
+      "from": "subscription",
+      "to": "turnstile",
+      "label": "solicita token",
+      "path": "M 700 2040 L 860 2040",
+      "label_x": 780.0,
+      "label_y": 2030.0,
+      "emphasis": false
+    },
+    {
+      "id": "subscription-post",
+      "from": "subscription",
+      "to": "brevo_form",
+      "label": "EMAIL + token",
+      "path": "M 575 2080 L 575 2230",
+      "label_x": 532.8,
+      "label_y": 2158.0,
+      "emphasis": false
+    }
+  ],
+  "views": [
+    {
+      "id": "layers",
+      "label": "Capas y contratos",
+      "focus": ["content", "adapters", "ports", "routes", "composition", "application", "domain"],
+      "note": "Las rutas de Astro conectan la presentación con los casos de uso. El dominio define los datos, los puertos describen las operaciones y los adaptadores resuelven el acceso a cada servicio."
+    },
+    {
+      "id": "generation",
+      "label": "Generación estática",
+      "focus": ["routes", "static_paths", "render", "github_api", "presentation", "compilers", "generators", "dist"],
+      "note": "El build carga el contenido, aplica las reglas del blog y genera HTML, gráficos, imágenes sociales y feeds. Los componentes reciben los datos y el Markdown ya preparado, sin repetir ese trabajo en cada visita."
+    },
+    {
+      "id": "campaigns",
+      "label": "Turso y campaña Brevo",
+      "focus": ["static_paths", "register", "turso", "newsletter", "brevo_campaign", "render"],
+      "note": "Con las notificaciones activadas, Turso registra los artículos nuevos y Brevo recibe una campaña con sus enlaces antes de que termine el build. El registro evita repetir IDs entre builds, pero no guarda el estado de entrega del correo."
+    },
+    {
+      "id": "delivery",
+      "label": "Entrega y Cloudflare",
+      "focus": ["dist", "pages", "reader", "r2", "dns", "analytics"],
+      "note": "Pages sirve las páginas generadas, R2 almacena imágenes, DNS resuelve el dominio y Analytics reúne las estadísticas del blog. La lectura del contenido no necesita un servidor de aplicación."
+    },
+    {
+      "id": "subscription",
+      "label": "Suscripción en navegador",
+      "focus": ["reader", "subscription", "turnstile", "brevo_form"],
+      "note": "El formulario se ejecuta en el navegador: obtiene un token de Turnstile y envía la suscripción a Brevo. Es un flujo distinto del envío de campañas durante el build y no necesita un backend propio."
+    }
+  ]
+}

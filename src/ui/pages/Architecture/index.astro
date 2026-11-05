@@ -1,0 +1,21 @@
+---
+import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import ArchitectureDiagram from '@/ui/pages/Architecture/components/ArchitectureDiagram/index.astro'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/pages/Architecture/styles.css'
+---
+
+<article class="architecture">
+  <a class="architecture__back" href={paths.home}>
+    <ArrowLeftIcon class="architecture__back-icon" />
+    Inicio
+  </a>
+  <header class="architecture__header">
+    <h1 class="architecture__title">Arquitectura del blog</h1>
+    <p class="architecture__description">
+      Del Markdown a Cloudflare Pages: capas de código, generación de páginas y campañas de correo. El trabajo del build
+      no se repite en cada visita.
+    </p>
+  </header>
+  <ArchitectureDiagram />
+</article>

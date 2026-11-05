@@ -1,0 +1,231 @@
+---
+import { GITHUB_REPOSITORY_URL } from '@/core/constants/github'
+import FitViewIcon from '@/ui/components/icons/FitViewIcon/index.astro'
+import FullscreenIcon from '@/ui/components/icons/FullscreenIcon/index.astro'
+import MinusIcon from '@/ui/components/icons/MinusIcon/index.astro'
+import PlusIcon from '@/ui/components/icons/PlusIcon/index.astro'
+import diagram from '@/ui/pages/Architecture/components/ArchitectureDiagram/diagram.json'
+import type { Diagram } from '@/ui/pages/Architecture/components/ArchitectureDiagram/types'
+import '@/ui/pages/Architecture/components/ArchitectureDiagram/styles.css'
+
+const graph: Diagram = diagram
+---
+
+<section class="architecture-diagram" data-architecture-diagram aria-label="Mapa de arquitectura">
+  <div class="architecture-diagram__controls" data-diagram-controls hidden>
+    <div class="architecture-diagram__views" role="group" aria-label="Recorridos del diagrama">
+      {graph.views.map((view, index) => (
+        <button
+          class="architecture-diagram__tab"
+          type="button"
+          data-diagram-view={view.id}
+          data-focus-nodes={view.focus.join(' ')}
+          aria-pressed={index === 0 ? 'true' : 'false'}
+        >
+          {view.label}
+        </button>
+      ))}
+    </div>
+  </div>
+  <div class="architecture-diagram__viewport">
+    <div
+      class="architecture-diagram__canvas"
+      data-diagram-canvas
+      tabindex="0"
+      role="region"
+      aria-label="Visor del diagrama"
+      aria-describedby="architecture-diagram-help"
+    >
+      <svg
+        class="architecture-diagram__svg"
+        data-diagram-svg
+        data-diagram-width={graph.bounds.width}
+        viewBox={`${graph.bounds.x} ${graph.bounds.y} ${graph.bounds.width} ${graph.bounds.height}`}
+        width={graph.bounds.width}
+        height={graph.bounds.height}
+        role="group"
+        aria-labelledby="architecture-diagram-title"
+      >
+        <title id="architecture-diagram-title">Capas, generación y entrega de IADev</title>
+        <defs>
+          <marker
+            id="architecture-arrow"
+            viewBox="0 0 10 10"
+            refX="9"
+            refY="5"
+            markerWidth="7"
+            markerHeight="7"
+            orient="auto-start-reverse"
+          >
+            <path class="architecture-diagram__arrow" d="M 0 0 L 10 5 L 0 10 z" />
+          </marker>
+        </defs>
+        {graph.connections.map((connection) => (
+          <g
+            class:list={[
+              'architecture-diagram__connection',
+              { 'architecture-diagram__connection--primary': connection.emphasis },
+            ]}
+            data-connection-from={connection.from}
+            data-connection-to={connection.to}
+          >
+            <path class="architecture-diagram__edge" d={connection.path} marker-end="url(#architecture-arrow)" />
+            <text
+              class="architecture-diagram__edge-label"
+              x={connection.label_x}
+              y={connection.label_y}
+              text-anchor="middle"
+            >
+              {connection.label}
+            </text>
+          </g>
+        ))}
+        {graph.nodes.map((node) => (
+          <foreignObject x={node.x} y={node.y} width={node.width} height={node.height}>
+            <button
+              class="architecture-diagram__node"
+              type="button"
+              data-diagram-node={node.id}
+              data-node-bounds={`${node.x} ${node.y} ${node.width} ${node.height}`}
+              aria-pressed="false"
+              aria-controls={`architecture-detail-${node.id}`}
+            >
+              <span class="architecture-diagram__node-title">{node.label}</span>
+              <span class="architecture-diagram__node-description">{node.sublabel}</span>
+            </button>
+          </foreignObject>
+        ))}
+      </svg>
+    </div>
+    <div class="architecture-diagram__toolbar" data-diagram-toolbar role="group" aria-label="Controles del mapa" hidden>
+      <button
+        class="architecture-diagram__control architecture-diagram__control--icon"
+        type="button"
+        data-diagram-action="in"
+        aria-label="Acercar diagrama"
+        title="Acercar diagrama"
+      >
+        <PlusIcon class="architecture-diagram__control-icon" />
+      </button>
+      <button
+        class="architecture-diagram__control architecture-diagram__control--icon"
+        type="button"
+        data-diagram-action="out"
+        aria-label="Alejar diagrama"
+        title="Alejar diagrama"
+      >
+        <MinusIcon class="architecture-diagram__control-icon" />
+      </button>
+      <output class="architecture-diagram__zoom" data-diagram-zoom aria-label="Nivel de zoom">100 %</output>
+      <button
+        class="architecture-diagram__control architecture-diagram__control--icon"
+        type="button"
+        data-diagram-action="fit"
+        aria-label="Ajustar encuadre"
+        title="Ajustar encuadre"
+      >
+        <FitViewIcon class="architecture-diagram__control-icon" />
+      </button>
+      <button
+        class="architecture-diagram__control architecture-diagram__control--icon"
+        type="button"
+        data-diagram-action="fullscreen"
+        aria-label="Pantalla completa"
+        title="Pantalla completa"
+      >
+        <FullscreenIcon class="architecture-diagram__control-icon" />
+      </button>
+    </div>
+  </div>
+  <p class="architecture-diagram__help" id="architecture-diagram-help">
+    Arrastra el mapa para desplazarte y usa + o − para cambiar el zoom. También puedes pellizcar o usar Ctrl/⌘ + rueda.
+    Selecciona un bloque para ver qué hace y cómo se conecta. Con el visor enfocado, las flechas desplazan el mapa y 0
+    restaura el encuadre.
+  </p>
+  <div class="architecture-diagram__details" data-diagram-details>
+    <div data-diagram-overview>
+      {graph.views.map((view, index) => (
+        <div data-view-note={view.id} hidden={index !== 0}>
+          <h2 class="architecture-diagram__detail-title">{view.label}</h2>
+          <p class="architecture-diagram__detail-description">{view.note}</p>
+        </div>
+      ))}
+    </div>
+    {graph.nodes.map((node) => (
+      <section id={`architecture-detail-${node.id}`} data-node-panel={node.id} hidden>
+        <div class="architecture-diagram__detail-heading">
+          <h2 class="architecture-diagram__detail-title" data-diagram-detail-title tabindex="-1">
+            {node.label}
+          </h2>
+          <button class="architecture-diagram__text-button" type="button" data-diagram-action="clear">
+            Quitar selección
+          </button>
+        </div>
+        <p class="architecture-diagram__detail-description">{node.tag}</p>
+        <div class="architecture-diagram__detail-columns">
+          {graph.connections.some((connection) => connection.from === node.id || connection.to === node.id) && (
+            <div>
+              <h3 class="architecture-diagram__detail-label">Relaciones</h3>
+              <ul class="architecture-diagram__list">
+                {graph.connections
+                  .filter((connection) => connection.from === node.id || connection.to === node.id)
+                  .map((connection) => {
+                    const relatedId = connection.from === node.id ? connection.to : connection.from
+                    const relatedLabel = graph.nodes.find((entry) => entry.id === relatedId)?.label ?? relatedId
+
+                    return (
+                      <li>
+                        <span>{connection.from === node.id ? 'Hacia' : 'Desde'} </span>
+                        <button class="architecture-diagram__text-button" type="button" data-node-target={relatedId}>
+                          {relatedLabel}
+                        </button>
+                        <span> · {connection.label}</span>
+                      </li>
+                    )
+                  })}
+              </ul>
+            </div>
+          )}
+          {node.sources.length > 0 && (
+            <div>
+              <h3 class="architecture-diagram__detail-label">Archivos de implementación</h3>
+              <ul class="architecture-diagram__list">
+                {node.sources.map((source) => (
+                  <li>
+                    <a
+                      href={`${GITHUB_REPOSITORY_URL}blob/${graph.revision}/${source.path}#L${source.line}-L${source.end_line ?? source.line}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {source.path}:{source.line}–{source.end_line ?? source.line}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </section>
+    ))}
+  </div>
+  <p class="architecture-diagram__sr-only" data-diagram-status role="status" aria-live="polite"></p>
+  <noscript>
+    <p class="architecture-diagram__help">
+      El mapa y la lista de componentes están disponibles sin JavaScript. Actívalo para usar el zoom, desplazar el mapa
+      y consultar los detalles de cada bloque.
+    </p>
+    <ul class="architecture-diagram__fallback">
+      {graph.nodes.map((node) => (
+        <li>
+          <strong>{node.label}</strong>: {node.sublabel}. {node.tag}.
+        </li>
+      ))}
+    </ul>
+  </noscript>
+</section>
+
+<script>
+import { initializeArchitectureDiagram } from '@/ui/pages/Architecture/components/ArchitectureDiagram/utils/initializeArchitectureDiagram'
+
+initializeArchitectureDiagram()
+</script>
