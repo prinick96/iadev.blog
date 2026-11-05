@@ -2,6 +2,7 @@
 import Button from '@/ui/components/Button/index.astro'
 import CloseIcon from '@/ui/components/icons/CloseIcon/index.astro'
 import NewsletterCaptcha from '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/components/NewsletterCaptcha/index.astro'
+import { paths } from '@/ui/routes/paths'
 import '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/styles.css'
 ---
 
@@ -57,6 +58,13 @@ import '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/st
           <span data-newsletter-submitting hidden>Enviando…</span>
         </Button>
       </fieldset>
+      <p class="newsletter-dialog__privacy" id="newsletter-privacy">
+        Brayan Narváez es el responsable del tratamiento de tu email para avisarte de nuevos posts. Contacto:{' '}
+        <a href="mailto:public@iadev.blog">public@iadev.blog</a>. Al suscribirte y confirmar tu email consientes este
+        envío, con independencia de tu elección sobre el widget opcional. Brevo gestiona los envíos; puedes darte de
+        baja en cada email. Turnstile protege el formulario frente al abuso. Más información en la{' '}
+        <a href={paths.privacy}>política de privacidad</a>.
+      </p>
       <div
         class="newsletter-dialog__feedback"
         data-newsletter-feedback

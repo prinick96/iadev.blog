@@ -1,6 +1,7 @@
 ---
 import regularFont from '@/ui/assets/fonts/ibm-plex-mono/ibm-plex-mono-latin-400-normal.woff2?url'
 import BackToTop from '@/ui/layouts/BaseLayout/components/BackToTop/index.astro'
+import CookieConsent from '@/ui/layouts/BaseLayout/components/CookieConsent/index.astro'
 import Footer from '@/ui/layouts/BaseLayout/components/Footer/index.astro'
 import SaasIsDead from '@/ui/layouts/BaseLayout/components/SaasIsDead/index.astro'
 import SeoMetadata from '@/ui/layouts/BaseLayout/components/SeoMetadata/index.astro'
@@ -46,6 +47,7 @@ const {
       <Footer commits={commits} />
       <BackToTop />
       <SaasIsDead />
+      <CookieConsent />
     </div>
   </body>
 </html>

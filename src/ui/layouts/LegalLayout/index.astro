@@ -1,0 +1,28 @@
+---
+import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import MarkdownContent from '@/ui/components/MarkdownContent/index.astro'
+import type { Props } from '@/ui/layouts/LegalLayout/types'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/layouts/LegalLayout/styles.css'
+
+const { title } = Astro.props
+---
+
+<article class="legal-layout">
+  <a class="legal-layout__back" href={paths.home}>
+    <ArrowLeftIcon class="legal-layout__back-icon" />
+    Inicio
+  </a>
+  <header class="legal-layout__header">
+    <h1 class="legal-layout__title">{title}</h1>
+    <p class="legal-layout__updated">Última actualización: <time datetime="2026-11-05">5 de noviembre de 2026</time></p>
+  </header>
+  <MarkdownContent>
+    <slot />
+  </MarkdownContent>
+  <nav class="legal-layout__navigation" aria-label="Información legal">
+    <a href={paths.cookies}>Política de cookies</a>
+    <a href={paths.privacy}>Privacidad</a>
+    <a href={paths.legalNotice}>Aviso legal</a>
+  </nav>
+</article>
