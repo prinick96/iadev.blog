@@ -1,0 +1,61 @@
+---
+import Button from '@/ui/components/Button/index.astro'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/layouts/BaseLayout/components/CookieConsent/styles.css'
+---
+
+<div class="cookie-consent" data-cookie-consent>
+  <section class="cookie-consent__banner" aria-labelledby="cookie-consent-title" data-cookie-banner hidden>
+    <h2 class="cookie-consent__title" id="cookie-consent-title">Cookies y almacenamiento local</h2>
+    <p class="cookie-consent__description">
+      Utilizamos tecnologías necesarias para proteger el sitio, si lo permites, también cargaremos un widget de
+      terceros, que recuerda que has minimizado su mensaje. Rechazarlo no impide leer el blog ni suscribirte.{' '}
+      <a href={paths.cookies}>Política de cookies</a>.
+    </p>
+    <div class="cookie-consent__actions">
+      <Button class="cookie-consent__action" data-cookie-accept>Aceptar</Button>
+      <Button class="cookie-consent__action" data-cookie-reject>Rechazar</Button>
+      <Button class="cookie-consent__action" data-cookie-configure>Configurar</Button>
+    </div>
+  </section>
+
+  <dialog
+    class="cookie-consent__dialog"
+    id="cookie-preferences"
+    aria-labelledby="cookie-preferences-title"
+    aria-describedby="cookie-preferences-description"
+  >
+    <h2 class="cookie-consent__title" id="cookie-preferences-title">Preferencias de cookies</h2>
+    <p id="cookie-preferences-description">
+      Tú decides si se carga el contenido opcional. Puedes cambiar tu elección desde el pie de cualquier página.
+    </p>
+    <h3 class="cookie-consent__heading">Seguridad necesaria</h3>
+    <ul>
+      <li>Cloudflare protege el acceso y Turnstile evita envíos automatizados en la newsletter.</li>
+      <li>Este panel no controla sus comprobaciones ni la cookie de seguridad <strong>cf_clearance</strong>.</li>
+    </ul>
+    <p class="cookie-consent__feedback" role="status" aria-live="polite" data-cookie-feedback hidden></p>
+    <form data-cookie-form>
+      <label class="cookie-consent__option">
+        <input type="checkbox" name="widget" data-cookie-widget />
+        <span>Permitir el widget externo «SaaS is dead»</span>
+      </label>
+      <p>
+        Autoriza descargar su código e imágenes desde saasisdead.si y recordar la minimización durante 14 días. El
+        proveedor recibe datos técnicos de la conexión, como tu dirección IP. Tu elección se recuerda 180 días.
+      </p>
+      <p><a href={paths.cookies}>Política de cookies</a> · <a href={paths.privacy}>Privacidad</a></p>
+      <div class="cookie-consent__actions">
+        <Button class="cookie-consent__action" type="submit">Guardar preferencias</Button>
+        <Button class="cookie-consent__action" data-cookie-cancel>Cancelar</Button>
+      </div>
+    </form>
+  </dialog>
+  <p class="cookie-consent__feedback" role="status" aria-live="polite" data-cookie-feedback hidden></p>
+</div>
+
+<script>
+import { initializeCookieConsent } from '@/ui/layouts/BaseLayout/components/CookieConsent/utils/initializeCookieConsent'
+
+initializeCookieConsent()
+</script>

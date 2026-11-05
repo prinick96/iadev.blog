@@ -1,5 +1,6 @@
 .site-shell {
   --footer-height: 1.625rem;
+
   display: flex;
   flex-direction: column;
   min-block-size: 100svh;
@@ -31,6 +32,10 @@
 .site-shell__main--centered {
   display: grid;
   place-items: center;
+}
+
+.site-document:has(.cookie-consent__dialog[open]) {
+  overflow: hidden;
 }
 
 @media (prefers-reduced-motion: no-preference) {

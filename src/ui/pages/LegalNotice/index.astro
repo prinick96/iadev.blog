@@ -1,0 +1,88 @@
+---
+import LegalLayout from '@/ui/layouts/LegalLayout/index.astro'
+import { paths } from '@/ui/routes/paths'
+---
+
+<LegalLayout title="Aviso legal">
+  <h2>Titular del sitio</h2>
+  <p>
+    <strong>iadev.blog</strong>{' '}
+    es un blog de titularidad y gestión de <strong>Brayan Narváez</strong>, en España, abierto a colaboraciones de
+    cualquier persona. Puedes contactar en{' '}
+    <a href="mailto:public@iadev.blog">public@iadev.blog</a>{' '}
+    y conocer su web personal en <a href="https://bnarvaez.dev/">bnarvaez.dev</a>.
+  </p>
+  <p>
+    Este sitio publica artículos y opiniones personales. No está monetizado, no incluye publicidad ni vende productos o
+    servicios. Leerlo o suscribirse a sus avisos no constituye la contratación de un servicio comercial.
+  </p>
+
+  <h2>Colaboraciones y revisión previa</h2>
+  <p>
+    Cualquier persona puede proponer artículos siguiendo la <a href={paths.publishingGuide}>guía para escribir</a>.
+    Todas las propuestas deben ser revisadas y validadas por Brayan Narváez antes de integrarse y publicarse. Tener
+    acceso de colaboración al repositorio no permite aprobar ni publicar una aportación por cuenta propia.
+  </p>
+  <p>
+    La revisión previa no convierte al titular en autor de las aportaciones ajenas ni supone una garantía de exactitud
+    de todas sus afirmaciones. Cada artículo conserva la firma elegida por quien lo aporta y los derechos de autor que
+    le correspondan.
+  </p>
+
+  <h2>Contenido y opiniones de sus autores</h2>
+  <p>
+    Los textos pueden utilizar sátira, ironía y humor. Las opiniones son personales de sus respectivos autores y no
+    representan necesariamente al titular del blog, a empleadores, clientes o entidades mencionadas. El tono satírico no
+    convierte las afirmaciones en asesoramiento profesional: contrasta la información técnica y valora su idoneidad
+    antes de aplicarla a tu caso.
+  </p>
+  <p>
+    Se procura publicar información útil y corregir los errores detectados, pero los contenidos pueden quedar
+    desactualizados. Si encuentras un error o consideras que una publicación afecta a tus derechos, escribe al contacto
+    indicado para que pueda revisarse.
+  </p>
+
+  <h2>Autoría y licencias</h2>
+  <p>
+    Los contenidos originales pertenecen a sus respectivos autores. Salvo que un artículo, archivo o licencia aplicable
+    indique otra cosa, no se concede una licencia general de reutilización por el mero hecho de publicarlos. Puedes
+    enlazar las publicaciones y utilizarlas dentro de los límites y excepciones previstos por la normativa aplicable.
+    Para otros usos, consulta al autor o al titular de los derechos.
+  </p>
+  <p>
+    Las marcas, imágenes, fragmentos de código, bibliotecas y demás materiales de terceros conservan sus titulares y
+    licencias. Su aparición en el blog no implica patrocinio, afiliación ni transferencia de derechos. Las licencias
+    específicas de esos materiales prevalecen en su ámbito.
+  </p>
+
+  <h2>Enlaces y servicios externos</h2>
+  <p>
+    Los enlaces externos se ofrecen como referencia. El contenido, la disponibilidad y las condiciones de esos sitios
+    corresponden a sus responsables y pueden cambiar. El blog no controla todos sus cambios ni los tratamientos de datos
+    que se realicen al visitarlos.
+  </p>
+  <p>
+    La distribución y seguridad del sitio, la newsletter y el widget opcional utilizan servicios de terceros. Sus
+    implicaciones se describen en la <a href={paths.privacy}>política de privacidad</a> y en la{' '}
+    <a href={paths.cookies}>política de cookies</a>.
+  </p>
+
+  <h2>Uso del sitio y responsabilidad</h2>
+  <p>
+    Utiliza el sitio respetando la ley y los derechos de terceros. No intentes comprometer su seguridad, suplantar
+    identidades ni utilizar el formulario para envíos abusivos. El acceso puede verse afectado por mantenimiento,
+    incidencias técnicas o medidas de seguridad.
+  </p>
+  <p>
+    La responsabilidad por el contenido y el funcionamiento del sitio se determina conforme a la legislación aplicable y
+    a las circunstancias de cada caso. Este aviso no excluye las responsabilidades que legalmente correspondan al
+    titular ni limita derechos irrenunciables de quienes lo visitan.
+  </p>
+
+  <h2>Contacto y cambios</h2>
+  <p>
+    Para consultas sobre este aviso, autoría o uso del contenido, escribe a{' '}
+    <a href="mailto:public@iadev.blog">public@iadev.blog</a>. Si cambia el funcionamiento del blog, este texto se
+    actualizará para reflejarlo. La fecha de revisión figura al principio de la página.
+  </p>
+</LegalLayout>

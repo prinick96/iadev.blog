@@ -1,0 +1,100 @@
+---
+import Button from '@/ui/components/Button/index.astro'
+import LegalLayout from '@/ui/layouts/LegalLayout/index.astro'
+import { paths } from '@/ui/routes/paths'
+---
+
+<LegalLayout title="Política de cookies">
+  <p>
+    Este blog abierto a colaboraciones con revisión previa no utiliza analítica, publicidad ni monetización. Sí utiliza
+    servicios de seguridad y, solo si lo aceptas, un widget externo. Aquí se explica qué se guarda en tu navegador:
+    también el almacenamiento local cuenta, aunque no se llame cookie.
+  </p>
+
+  <h2>Quién es responsable</h2>
+  <p>
+    El responsable de iadev.blog es Brayan Narváez, en España. Puedes escribir a{' '}
+    <a href="mailto:public@iadev.blog">public@iadev.blog</a>. Consulta la{' '}
+    <a href={paths.privacy}>política de privacidad</a>{' '}
+    para conocer los tratamientos de datos y tus derechos.
+  </p>
+
+  <h2>Seguridad técnica: Cloudflare y Turnstile</h2>
+  <p>
+    Cloudflare protege el acceso al sitio y Turnstile ayuda a evitar envíos automatizados en la suscripción a la
+    newsletter. Estas funciones técnicas de seguridad no se activan ni desactivan con la elección sobre el widget
+    opcional.
+  </p>
+  <p>
+    Cloudflare puede emitir la cookie <code>cf_clearance</code> para recordar que el navegador ha superado una
+    comprobación de seguridad. Es una cookie técnica gestionada en la infraestructura de Cloudflare, no una cookie
+    publicitaria. Tiene el atributo <code>HttpOnly</code>: el JavaScript de la página no puede leerla ni borrarla. El
+    panel de preferencias de este blog no controla su emisión ni su duración.
+  </p>
+  <p>
+    Su duración depende de la configuración y de las comprobaciones de Cloudflare; no hay un plazo único que podamos
+    atribuir a todas las visitas. Puedes consultar la fecha de expiración efectiva en las herramientas de almacenamiento
+    de tu navegador. Borrarla o bloquearla puede provocar nuevas comprobaciones o impedir el acceso.
+  </p>
+
+  <h2>Tu elección: iadev_cookie_consent_v1</h2>
+  <p>
+    El blog guarda tu elección en <code>localStorage</code>, bajo la clave <code>iadev_cookie_consent_v1</code>. No es
+    una cookie que se envíe automáticamente con cada petición. El registro contiene la versión <code>1</code>, la
+    selección del widget (<code>widget</code>), el momento de guardado (<code>savedAt</code>) y el vencimiento (<code
+      >expiresAt</code
+    >). Sirve únicamente para aplicar y recordar tus preferencias.
+  </p>
+  <p>
+    Tanto aceptar como rechazar se recuerda durante exactamente <strong>180 días desde que guardas la elección</strong>.
+    Una nueva elección inicia un nuevo plazo y sustituye la anterior. Al cargar una página, si el registro ha vencido,
+    se solicita una nueva elección. El mero paso del tiempo no implica que el navegador elimine físicamente el registro.
+  </p>
+
+  <h2>Widget opcional: SaaS is dead</h2>
+  <p>
+    El widget externo de <a href="https://saasisdead.si/">SaaS is dead</a> solo se carga si lo aceptas. En ese caso, el
+    navegador descarga <code>https://saasisdead.si/reaper/v1.js</code> y puede realizar conexiones adicionales para
+    cargar imágenes externas del widget. Esas conexiones comunican al servidor de destino datos técnicos como la
+    dirección IP y las cabeceras del navegador. Rechazar el widget no impide leer el blog ni suscribirse a la
+    newsletter.
+  </p>
+  <p>
+    Al minimizarlo, el código del proveedor guarda una marca de tiempo en <code>localStorage</code> con la clave{' '}
+    <code>saasisdead_reaper_v1_dismissed</code>. El widget considera esa marca válida durante{' '}
+    <strong>14 días</strong>{' '}
+    para recordar la minimización. Su código no borra automáticamente la clave al terminar ese plazo: deja de
+    considerarla vigente. La retirada del consentimiento desde este blog sí elimina esa clave.
+  </p>
+
+  <h2>Cambiar o retirar el consentimiento</h2>
+  <p>
+    Puedes volver a abrir las preferencias y rechazar el widget en cualquier momento. La retirada desactiva el widget en
+    esa página y elimina su marca local de minimización. La última elección guardada se aplica al cargar otras páginas;
+    las pestañas que ya estaban abiertas no se sincronizan. Recárgalas para aplicar la elección guardada. Retirar el
+    consentimiento no afecta a la licitud de las conexiones anteriores ni deshace datos ya transmitidos a un tercero.
+  </p>
+  <p>
+    <Button type="button" data-cookie-preferences hidden>Configurar cookies</Button>
+  </p>
+  <p>
+    El control de preferencias se muestra cuando JavaScript y el gestor de consentimiento están disponibles. Sin
+    JavaScript, el widget opcional no se carga. Puedes consultar o borrar las cookies y el almacenamiento local desde la
+    configuración de privacidad de tu navegador, buscando los datos de <strong>iadev.blog</strong>. Borrar los datos del
+    sitio también borra tu elección, por lo que tendrás que decidir de nuevo en la siguiente visita con JavaScript.
+  </p>
+  <p>
+    Si bloqueas el almacenamiento local, puede que la elección no se conserve entre visitas. El bloqueo de recursos de
+    terceros o de mecanismos de seguridad también puede afectar al widget o a la verificación de la newsletter.
+  </p>
+
+  <h2>Más información</h2>
+  <p>
+    Puedes consultar la <a href="https://www.cloudflare.com/privacypolicy/">política de privacidad de Cloudflare</a> y
+    la{' '}
+    <a href="https://developers.cloudflare.com/fundamentals/reference/policies-compliances/cloudflare-cookies/"
+      >información de Cloudflare sobre sus cookies</a
+    >. Para cualquier duda sobre las preferencias de este blog, escribe a{' '}
+    <a href="mailto:public@iadev.blog">public@iadev.blog</a>.
+  </p>
+</LegalLayout>
