@@ -1,0 +1,10 @@
+---
+import type { Props } from '@/ui/components/Button/types'
+import '@/ui/components/Button/styles.css'
+
+const { type = 'button', class: className, ...attributes } = Astro.props
+---
+
+<button class:list={['button', className]} type={type} {...attributes}>
+  <slot />
+</button>

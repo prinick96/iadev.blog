@@ -1,0 +1,3 @@
+export const TURSO_DATABASE_URL = import.meta.env.TURSO_DATABASE_URL
+export const TURSO_AUTH_TOKEN = import.meta.env.TURSO_AUTH_TOKEN
+export const EXECUTE_POST_NOTIFICATIONS = Boolean(TURSO_DATABASE_URL && TURSO_AUTH_TOKEN)

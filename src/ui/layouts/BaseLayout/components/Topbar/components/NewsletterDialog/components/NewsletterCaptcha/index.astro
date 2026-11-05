@@ -1,0 +1,32 @@
+---
+import { BREVO_NEWSLETTER_TURNSTILE_SITE_KEY } from '@/core/constants/brevo'
+import Button from '@/ui/components/Button/index.astro'
+import '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/components/NewsletterCaptcha/styles.css'
+---
+
+<div class="newsletter-captcha" data-newsletter-captcha data-sitekey={BREVO_NEWSLETTER_TURNSTILE_SITE_KEY}></div>
+<input type="hidden" data-newsletter-captcha-token value="" />
+<div
+  class="newsletter-captcha__feedback"
+  data-newsletter-captcha-feedback
+  role="status"
+  aria-live="polite"
+  aria-atomic="true"
+  tabindex="-1"
+>
+  <p class="newsletter-captcha__message" data-newsletter-captcha-message="pending">
+    Completa la verificación de seguridad antes de suscribirte.
+  </p>
+  <p class="newsletter-captcha__message" data-newsletter-captcha-message="solved" hidden>
+    Verificación completada. Ya puedes suscribirte.
+  </p>
+  <p class="newsletter-captcha__message" data-newsletter-captcha-message="expired" hidden>
+    La verificación ha caducado. Vuelve a verificarte para continuar.
+  </p>
+  <p class="newsletter-captcha__message" data-newsletter-captcha-message="error" hidden>
+    No hemos podido completar la verificación. Comprueba tu conexión y vuelve a intentarlo.
+  </p>
+</div>
+<Button class="newsletter-captcha__retry" type="button" data-newsletter-captcha-retry hidden>
+  Reintentar verificación
+</Button>

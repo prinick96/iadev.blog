@@ -1,0 +1,10 @@
+---
+import type { Props } from '@/ui/layouts/BaseLayout/components/Topbar/components/TopbarLink/types'
+
+const { label, tooltip = label, tooltipId, ...attributes } = Astro.props
+---
+
+<a class="topbar__item" {...attributes} aria-label={label} aria-describedby={tooltipId}>
+  <slot />
+  <span class="topbar__tooltip" id={tooltipId} role="tooltip">{tooltip}</span>
+</a>

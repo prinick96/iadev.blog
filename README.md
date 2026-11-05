@@ -18,6 +18,14 @@ bun run dev
 - Abre `http://localhost:4321`.
 - Para entrar desde el móvil u otro dispositivo en la misma wifi, abre la URL `Network` que muestra Astro al arrancar (por ejemplo, `http://192.168.1.100:4321`). Desarrollo y previsualización escuchan en todas las interfaces de red: úsalos solo en redes de confianza y permite el acceso en el firewall si lo bloquea.
 
+### Registro de posts nuevos en build
+
+Configura `TURSO_DATABASE_URL` y `TURSO_AUTH_TOKEN` en el entorno del build, pero **NO** en un `.env` local (ver `.env.example`). Se usa el SDK oficial `@tursodatabase/serverless` para una base de datos remota [Turso](https://turso.tech/)
+
+Durante `bun run build`, el caso de uso `RegisterNewPosts` recibe todos los slugs de los posts, consulta los existentes y guarda únicamente los nuevos, el repositorio crea automáticamente la tabla `post_notifications` si no existe y usa el slug como llave primaria
+
+La primera ejecución sobre una tabla vacía siempre va a registrar **todos** los posts como nuevos, no se borran registros si se elimina un artículo, y cambiar un slug cuenta como un post nuevo, esto es algo que me sirve a mi pero puede que no se ajuste a tus necesidades, así que cuidado.
+
 ## Cómo añadir autor, avatar y categorías
 
 Incluye el artículo y todos los cambios de autor, avatar, categorías y thumbnail en la misma PR. No necesitas un comité editorial; sí que las referencias existan.

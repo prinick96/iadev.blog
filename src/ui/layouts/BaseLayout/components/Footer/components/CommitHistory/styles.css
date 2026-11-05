@@ -1,6 +1,4 @@
 .commit-history {
-  --commit-history-background: #18191d;
-  --commit-history-hover: #222427;
   position: fixed;
   inset: 0 auto var(--footer-height) 0;
   inline-size: min(28rem, 100%);
@@ -12,7 +10,7 @@
   border: 0;
   border-inline-end: 1px solid var(--color-border);
   border-block-end: 1px solid var(--color-border);
-  background: var(--commit-history-background);
+  background: var(--color-panel-background);
   color: var(--color-text);
   font-size: var(--font-size-sm);
 }
@@ -48,8 +46,8 @@
   margin: 0 0 -1px;
   padding: 0.25rem 1rem;
   border-inline-end: 1px solid var(--color-border);
-  border-block-end: 1px solid var(--commit-history-background);
-  background: var(--commit-history-background);
+  border-block-end: 1px solid var(--color-panel-background);
+  background: var(--color-panel-background);
   font-family: system-ui, sans-serif;
   font-size: var(--font-size-md);
   font-weight: 500;
@@ -72,7 +70,7 @@
 
 .commit-history__close:hover,
 .commit-history__close:focus-visible {
-  background: var(--commit-history-hover);
+  background: var(--color-panel-hover);
 }
 
 .commit-history__close:focus-visible,
@@ -142,7 +140,7 @@
 
 .commit-history__commit:hover,
 .commit-history__commit:focus-visible {
-  background: var(--commit-history-hover);
+  background: var(--color-panel-hover);
   text-decoration: none;
 }
 

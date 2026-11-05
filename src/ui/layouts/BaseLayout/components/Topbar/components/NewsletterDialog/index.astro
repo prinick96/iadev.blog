@@ -1,0 +1,88 @@
+---
+import Button from '@/ui/components/Button/index.astro'
+import CloseIcon from '@/ui/components/icons/CloseIcon/index.astro'
+import NewsletterCaptcha from '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/components/NewsletterCaptcha/index.astro'
+import '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/styles.css'
+---
+
+<dialog
+  class="newsletter-dialog"
+  id="newsletter-dialog"
+  closedby="any"
+  aria-labelledby="newsletter-title"
+  aria-describedby="newsletter-description"
+>
+  <header class="newsletter-dialog__header">
+    <h2 class="newsletter-dialog__title" id="newsletter-title">Newsletter</h2>
+    <button
+      class="newsletter-dialog__close"
+      type="button"
+      commandfor="newsletter-dialog"
+      command="close"
+      aria-label="Cerrar newsletter"
+    >
+      <CloseIcon class="newsletter-dialog__close-icon" />
+    </button>
+  </header>
+  <div class="newsletter-dialog__body">
+    <p class="newsletter-dialog__description" id="newsletter-description">
+      Suscríbete para saber cuándo se publican nuevos posts, no te llegará otra cosa que no sean posts nuevos.
+    </p>
+    <form id="newsletter-form" aria-busy="false">
+      <fieldset class="newsletter-dialog__fields" data-newsletter-fields disabled>
+        <label class="newsletter-dialog__label" for="newsletter-email"
+          >Introduce el email dónde quieres que te avise</label
+        >
+        <input
+          class="newsletter-dialog__input"
+          id="newsletter-email"
+          name="EMAIL"
+          type="email"
+          autocomplete="email"
+          inputmode="email"
+          placeholder="tu@email.com"
+          aria-describedby="newsletter-email-hint newsletter-email-error newsletter-privacy"
+          required
+          autofocus
+        />
+        <p class="newsletter-dialog__hint" id="newsletter-email-hint">
+          Te enviaremos un email para que confirmes la suscripción.
+        </p>
+        <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" hidden />
+
+        <NewsletterCaptcha />
+
+        <Button class="newsletter-dialog__submit" type="submit" disabled>
+          <span data-newsletter-submit-label>Suscribirme</span>
+          <span data-newsletter-submitting hidden>Enviando…</span>
+        </Button>
+      </fieldset>
+      <div
+        class="newsletter-dialog__feedback"
+        data-newsletter-feedback
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+        tabindex="-1"
+      >
+        <p class="newsletter-dialog__message" id="newsletter-email-error" data-newsletter-invalid hidden>
+          Introduce una dirección de email válida e inténtalo de nuevo.
+        </p>
+        <p class="newsletter-dialog__message" data-newsletter-error hidden>
+          No hemos podido enviar la solicitud. Inténtalo de nuevo en unos minutos.
+        </p>
+        <p class="newsletter-dialog__message newsletter-dialog__message--success" data-newsletter-success hidden>
+          <strong>Revisa tu correo.</strong>{' '}
+          Abre el email de confirmación y pulsa su enlace para completar la suscripción. Si no lo ves, revisa también la
+          carpeta de <strong>spam</strong>.
+        </p>
+      </div>
+    </form>
+  </div>
+</dialog>
+
+<script>
+import { initializeNewsletterForm } from '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/utils/initializeNewsletterForm'
+
+initializeNewsletterForm()
+</script>

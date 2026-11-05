@@ -1,0 +1,32 @@
+---
+import MailIcon from '@/ui/components/icons/MailIcon/index.astro'
+import RssIcon from '@/ui/components/icons/RssIcon/index.astro'
+import Clock from '@/ui/layouts/BaseLayout/components/Topbar/components/Clock/index.astro'
+import NewsletterDialog from '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/index.astro'
+import TopbarLink from '@/ui/layouts/BaseLayout/components/Topbar/components/TopbarLink/index.astro'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/layouts/BaseLayout/components/Topbar/styles.css'
+---
+
+<div class="topbar">
+  <div class="topbar__group">
+    <button
+      class="topbar__item"
+      type="button"
+      commandfor="newsletter-dialog"
+      command="show-modal"
+      aria-label="Suscripción al newsletter"
+      aria-haspopup="dialog"
+      aria-controls="newsletter-dialog"
+      aria-describedby="topbar-newsletter-tooltip"
+    >
+      <MailIcon class="topbar__icon" />
+      <span class="topbar__tooltip" id="topbar-newsletter-tooltip" role="tooltip">Suscribete al newsletter</span>
+    </button>
+    <TopbarLink href={paths.rss} label="RSS" tooltipId="topbar-rss-tooltip" target="_blank" rel="noopener noreferrer">
+      <RssIcon class="topbar__icon" />
+    </TopbarLink>
+  </div>
+  <Clock />
+</div>
+<NewsletterDialog />

@@ -5,7 +5,7 @@ import CloudflareIcon from '@/ui/components/icons/CloudflareIcon/index.astro'
 import GitHistoryIcon from '@/ui/components/icons/GitHistoryIcon/index.astro'
 import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
 import HomeIcon from '@/ui/components/icons/HomeIcon/index.astro'
-import RssIcon from '@/ui/components/icons/RssIcon/index.astro'
+
 import WritePostIcon from '@/ui/components/icons/WritePostIcon/index.astro'
 import CommitHistory from '@/ui/layouts/BaseLayout/components/Footer/components/CommitHistory/index.astro'
 import FooterLink from '@/ui/layouts/BaseLayout/components/Footer/components/FooterLink/index.astro'
@@ -55,9 +55,7 @@ const { homeCurrent, categoriesCurrent, publishingGuideCurrent } = getFooterNavi
     >
       <CategoriesIcon class="footer__icon" />
     </FooterLink>
-    <FooterLink href={paths.rss} label="RSS" tooltipId="footer-rss-tooltip" target="_blank" rel="noopener noreferrer">
-      <RssIcon class="footer__icon" />
-    </FooterLink>
+
     <FooterLink
       href={GITHUB_REPOSITORY_URL}
       label="Repositorio"
