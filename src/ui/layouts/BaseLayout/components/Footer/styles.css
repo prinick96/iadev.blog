@@ -113,6 +113,13 @@
   }
 }
 
+@media (max-width: 47.999rem) {
+  .footer {
+    justify-content: center;
+    gap: 0.125rem;
+  }
+}
+
 @media (pointer: coarse) {
   .footer__item {
     inline-size: 2.75rem;
