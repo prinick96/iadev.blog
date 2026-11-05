@@ -20,14 +20,15 @@ class BrevoNewsletterCampaignGateway implements INewsletterCampaignGateway {
   }
 
   async createCampaign(posts: readonly NewsletterPost[], template: NewsletterTemplate): Promise<number> {
-    const sender = template.sender.email
-      ? { email: template.sender.email, name: template.sender.name }
-      : { id: Number(template.sender.id), name: template.sender.name }
+    const { email, name, id } = template.sender
+    const { subject } = template
+    const sender = email ? { email, name } : { id: Number(id), name }
+
     const { data } = await this.client.post<{ id: number }>(
       'https://api.brevo.com/v3/emailCampaigns',
       {
-        name: template.subject,
-        subject: template.subject,
+        name: subject,
+        subject,
         sender,
         recipients: { listIds: [this.config.list_id] },
         templateId: this.config.template_id,
