@@ -1,11 +1,12 @@
-import type { SubscriptionResult } from '@/core/logic/newsletter/domain/SubscriptionResult'
 import { SubscriptionStatus } from '@/core/logic/newsletter/domain/SubscriptionStatus'
 import { subscribeToNewsletterService } from '@/core/logic/newsletter/services/index'
+import { initializeNewsletterCaptcha } from '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/components/NewsletterCaptcha/utils/initializeNewsletterCaptcha'
 
 export function initializeNewsletterForm(): void {
   const form = document.querySelector<HTMLFormElement>('#newsletter-form')
+  const dialog = document.querySelector<HTMLDialogElement>('#newsletter-dialog')
 
-  if (!form || form.dataset.newsletterReady === 'true') {
+  if (!form || !dialog || form.dataset.newsletterReady === 'true') {
     return
   }
 
@@ -18,6 +19,7 @@ export function initializeNewsletterForm(): void {
   const invalidEmail = form.querySelector<HTMLElement>('[data-newsletter-invalid]')!
   const error = form.querySelector<HTMLElement>('[data-newsletter-error]')!
   const success = form.querySelector<HTMLElement>('[data-newsletter-success]')!
+  const captcha = initializeNewsletterCaptcha(form, dialog)
 
   const clearFeedback = (): void => {
     email.removeAttribute('aria-invalid')
@@ -70,18 +72,25 @@ export function initializeNewsletterForm(): void {
       return
     }
 
-    const input = { email: email.value, email_address_check: honeypot.value }
-    let result: SubscriptionResult
-    setSubmitting(true)
+    const captchaToken = captcha.getToken()
 
-    try {
-      result = await subscribeToNewsletterService.execute(input)
-      showResult(result.status)
-    } finally {
-      setSubmitting(false)
+    if (captchaToken.trim() === '') {
+      form.querySelector<HTMLElement>('[data-newsletter-captcha-feedback]')!.focus()
+      return
     }
 
-    focusResult(result.status)
+    setSubmitting(true)
+
+    const status = await subscribeToNewsletterService.execute({
+      email: email.value,
+      email_address_check: honeypot.value,
+      captcha_token: captchaToken,
+    })
+
+    setSubmitting(false)
+    showResult(status)
+    captcha.reset()
+    focusResult(status)
   })
   form.dataset.newsletterReady = 'true'
   fields.disabled = false

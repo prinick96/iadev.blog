@@ -14,6 +14,7 @@ class BrevoNewsletterSubscriptionGateway implements INewsletterSubscriptionGatew
     body.set('EMAIL', input.email)
     body.set('locale', 'es')
     body.set('email_address_check', input.email_address_check)
+    body.set('cf-turnstile-response', input.captcha_token)
 
     const { data: result } = await this.client.post<BrevoSubscriptionResponse>(
       BREVO_NEWSLETTER_FORM_URL + '?isAjax=1',

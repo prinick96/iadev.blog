@@ -4,7 +4,7 @@ import type { SubscriptionResult } from '@/core/logic/newsletter/domain/Subscrip
 import { SubscriptionStatus } from '@/core/logic/newsletter/domain/SubscriptionStatus'
 import BrevoNewsletterSubscriptionGatewayMock from '@/core/logic/newsletter/infra/brevo/mocks/BrevoNewsletterSubscriptionGateway.mock'
 
-const input = { email: 'Reader@example.com', email_address_check: '' }
+const input = { email: 'Reader@example.com', email_address_check: '', captcha_token: 'verified-token' }
 
 const results: SubscriptionResult[] = [
   { status: SubscriptionStatus.ConfirmationRequired },
@@ -20,7 +20,7 @@ describe('SubscribeToNewsletter', () => {
 
     const result = await new SubscribeToNewsletter(gateway).execute(source)
 
-    expect(result).toEqual({ status: SubscriptionStatus.ConfirmationRequired })
+    expect(result).toBe(SubscriptionStatus.ConfirmationRequired)
     expect(gateway.subscribe).toHaveBeenCalledTimes(1)
     expect(gateway.subscribe).toHaveBeenCalledWith({ ...input, email: 'Reader@Example.COM' })
     expect(source).toEqual(snapshot)
@@ -31,7 +31,7 @@ describe('SubscribeToNewsletter', () => {
 
     const result = await new SubscribeToNewsletter(gateway).execute({ ...input, email })
 
-    expect(result).toEqual({ status: SubscriptionStatus.InvalidEmail })
+    expect(result).toBe(SubscriptionStatus.InvalidEmail)
     expect(gateway.subscribe).not.toHaveBeenCalled()
   })
 
@@ -40,26 +40,38 @@ describe('SubscribeToNewsletter', () => {
 
     const result = await new SubscribeToNewsletter(gateway).execute({ ...input, email_address_check: honeypot })
 
-    expect(result).toEqual({ status: SubscriptionStatus.Error })
+    expect(result).toBe(SubscriptionStatus.Error)
     expect(gateway.subscribe).not.toHaveBeenCalled()
   })
 
   test('returns a generic error for a filled honeypot even when the email is blank', async () => {
     const gateway = new BrevoNewsletterSubscriptionGatewayMock()
 
-    const result = await new SubscribeToNewsletter(gateway).execute({ email: '', email_address_check: 'bot' })
+    const result = await new SubscribeToNewsletter(gateway).execute({ ...input, email: '', email_address_check: 'bot' })
 
-    expect(result).toEqual({ status: SubscriptionStatus.Error })
+    expect(result).toBe(SubscriptionStatus.Error)
     expect(gateway.subscribe).not.toHaveBeenCalled()
   })
 
-  test.each(results)('returns the gateway result unchanged: %j', async (response) => {
+  test.each(['', ' ', '\t\n'])(
+    'rejects a blank captcha token without calling the gateway: %j',
+    async (captcha_token) => {
+      const gateway = new BrevoNewsletterSubscriptionGatewayMock()
+
+      const result = await new SubscribeToNewsletter(gateway).execute({ ...input, captcha_token })
+
+      expect(result).toBe(SubscriptionStatus.Error)
+      expect(gateway.subscribe).not.toHaveBeenCalled()
+    }
+  )
+
+  test.each(results)('returns the gateway status directly: %j', async (response) => {
     const gateway = new BrevoNewsletterSubscriptionGatewayMock()
     gateway.subscribe.mockResolvedValue(response)
 
     const result = await new SubscribeToNewsletter(gateway).execute(input)
 
-    expect(result).toBe(response)
+    expect(result).toBe(response.status)
     expect(gateway.subscribe).toHaveBeenCalledTimes(1)
     expect(gateway.subscribe).toHaveBeenCalledWith(input)
   })
@@ -70,7 +82,7 @@ describe('SubscribeToNewsletter', () => {
 
     const result = await new SubscribeToNewsletter(gateway).execute({ ...input, email: 'not-an-email' })
 
-    expect(result).toEqual({ status: SubscriptionStatus.InvalidEmail })
+    expect(result).toBe(SubscriptionStatus.InvalidEmail)
     expect(gateway.subscribe).toHaveBeenCalledWith({ ...input, email: 'not-an-email' })
   })
 
@@ -78,7 +90,7 @@ describe('SubscribeToNewsletter', () => {
     const gateway = new BrevoNewsletterSubscriptionGatewayMock()
     gateway.subscribe.mockRejectedValue(new Error('Unexpected failure'))
 
-    expect(await new SubscribeToNewsletter(gateway).execute(input)).toEqual({ status: SubscriptionStatus.Error })
+    expect(await new SubscribeToNewsletter(gateway).execute(input)).toBe(SubscriptionStatus.Error)
     expect(gateway.subscribe).toHaveBeenCalledTimes(1)
   })
 
@@ -88,7 +100,7 @@ describe('SubscribeToNewsletter', () => {
       throw new Error('Unexpected failure')
     })
 
-    expect(await new SubscribeToNewsletter(gateway).execute(input)).toEqual({ status: SubscriptionStatus.Error })
+    expect(await new SubscribeToNewsletter(gateway).execute(input)).toBe(SubscriptionStatus.Error)
     expect(gateway.subscribe).toHaveBeenCalledTimes(1)
   })
 })

@@ -1,8 +1,9 @@
 import { afterEach, beforeEach, describe, expect, type Mock, mock, spyOn, test } from 'bun:test'
 import type { SubscribeToNewsletterInput } from '@/core/logic/newsletter/domain/Inputs'
-import type { SubscriptionResult } from '@/core/logic/newsletter/domain/SubscriptionResult'
+
 import { SubscriptionStatus } from '@/core/logic/newsletter/domain/SubscriptionStatus'
 import { subscribeToNewsletterService } from '@/core/logic/newsletter/services/index'
+import * as newsletterCaptcha from '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/components/NewsletterCaptcha/utils/initializeNewsletterCaptcha'
 import { initializeNewsletterForm } from '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/utils/initializeNewsletterForm'
 
 class ElementMock {
@@ -58,6 +59,7 @@ class FormMock extends ElementMock {
     '[data-newsletter-invalid]': this.invalidEmail,
     '[data-newsletter-error]': this.error,
     '[data-newsletter-success]': this.success,
+    '[data-newsletter-captcha-feedback]': this.feedback,
   }
   private listeners: SubmitListener[] = []
 
@@ -84,13 +86,21 @@ class FormMock extends ElementMock {
 
 const originalDocumentDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'document')
 let executeSpy: Mock<typeof subscribeToNewsletterService.execute>
+let captchaSpy: Mock<typeof newsletterCaptcha.initializeNewsletterCaptcha>
+const getToken = mock(() => 'verified-token')
+const resetCaptcha = mock(() => {})
 const querySelectorMock = mock<(selector: string) => FormMock | null>(() => null)
 
 beforeEach(() => {
+  getToken.mockReset()
+  getToken.mockReturnValue('verified-token')
+  resetCaptcha.mockClear()
+  captchaSpy = spyOn(newsletterCaptcha, 'initializeNewsletterCaptcha')
+  captchaSpy.mockReturnValue({ getToken, reset: resetCaptcha })
   querySelectorMock.mockReset()
   querySelectorMock.mockReturnValue(null)
   executeSpy = spyOn(subscribeToNewsletterService, 'execute')
-  executeSpy.mockResolvedValue({ status: SubscriptionStatus.Error })
+  executeSpy.mockResolvedValue(SubscriptionStatus.Error)
   Object.defineProperty(globalThis, 'document', {
     configurable: true,
     value: { querySelector: querySelectorMock },
@@ -98,6 +108,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
+  captchaSpy.mockRestore()
   executeSpy.mockRestore()
   if (originalDocumentDescriptor) {
     Object.defineProperty(globalThis, 'document', originalDocumentDescriptor)
@@ -187,7 +198,7 @@ describe('initializeNewsletterForm', () => {
 
   test('immediately disables fields and shows busy labels while blocking duplicate pending submissions', async () => {
     const form = new FormMock()
-    const pendingSubscription = Promise.withResolvers<SubscriptionResult>()
+    const pendingSubscription = Promise.withResolvers<SubscriptionStatus>()
     executeSpy.mockReturnValue(pendingSubscription.promise)
     querySelectorMock.mockReturnValue(form)
     initializeNewsletterForm()
@@ -209,7 +220,7 @@ describe('initializeNewsletterForm', () => {
     expect(form.fields.disabled).toBe(true)
     expect(form.getAttribute('aria-busy')).toBe('true')
 
-    pendingSubscription.resolve({ status: SubscriptionStatus.Error })
+    pendingSubscription.resolve(SubscriptionStatus.Error)
     await submission
 
     expect(form.fields.disabled).toBe(false)
@@ -221,7 +232,7 @@ describe('initializeNewsletterForm', () => {
   test('clears the form and shows confirmation without allowing another send after success', async () => {
     const form = new FormMock()
     form.email.value = 'reader@example.com'
-    executeSpy.mockResolvedValue({ status: SubscriptionStatus.ConfirmationRequired })
+    executeSpy.mockResolvedValue(SubscriptionStatus.ConfirmationRequired)
     querySelectorMock.mockReturnValue(form)
     initializeNewsletterForm()
 
@@ -252,7 +263,7 @@ describe('initializeNewsletterForm', () => {
   test('marks invalid email and re-enables the input before focusing it', async () => {
     const form = new FormMock()
     form.email.value = 'invalid@example.com'
-    executeSpy.mockResolvedValue({ status: SubscriptionStatus.InvalidEmail })
+    executeSpy.mockResolvedValue(SubscriptionStatus.InvalidEmail)
     form.email.focus.mockImplementation(() => {
       expect(form.fields.disabled).toBe(false)
       expect(form.getAttribute('aria-busy')).toBe('false')
@@ -277,21 +288,25 @@ describe('initializeNewsletterForm', () => {
 
   test('clears invalid email feedback before retrying with the corrected email', async () => {
     const form = new FormMock()
-    executeSpy.mockResolvedValueOnce({ status: SubscriptionStatus.InvalidEmail })
+    executeSpy.mockResolvedValueOnce(SubscriptionStatus.InvalidEmail)
     querySelectorMock.mockReturnValue(form)
     initializeNewsletterForm()
     await form.submit()
     form.email.value = 'corrected@example.com'
-    const pendingSubscription = Promise.withResolvers<SubscriptionResult>()
+    const pendingSubscription = Promise.withResolvers<SubscriptionStatus>()
     executeSpy.mockReturnValueOnce(pendingSubscription.promise)
 
     const retry = form.submit()
 
     expect(form.email.getAttribute('aria-invalid')).toBeNull()
     expect(form.invalidEmail.hidden).toBe(true)
-    expect(executeSpy).toHaveBeenLastCalledWith({ email: 'corrected@example.com', email_address_check: '' })
+    expect(executeSpy).toHaveBeenLastCalledWith({
+      email: 'corrected@example.com',
+      email_address_check: '',
+      captcha_token: 'verified-token',
+    })
 
-    pendingSubscription.resolve({ status: SubscriptionStatus.ConfirmationRequired })
+    pendingSubscription.resolve(SubscriptionStatus.ConfirmationRequired)
     await retry
 
     expect(form.success.hidden).toBe(false)
@@ -316,7 +331,7 @@ describe('initializeNewsletterForm', () => {
     expect(form.fields.hidden).toBe(false)
     expect(form.fields.disabled).toBe(false)
     expect(form.reset).not.toHaveBeenCalled()
-    const pendingSubscription = Promise.withResolvers<SubscriptionResult>()
+    const pendingSubscription = Promise.withResolvers<SubscriptionStatus>()
     executeSpy.mockReturnValueOnce(pendingSubscription.promise)
 
     const retry = form.submit()
@@ -324,19 +339,68 @@ describe('initializeNewsletterForm', () => {
     expect(form.error.hidden).toBe(true)
     expect(form.email.value).toBe('reader@example.com')
     expect(executeSpy).toHaveBeenCalledTimes(2)
-    expect(executeSpy).toHaveBeenLastCalledWith({ email: 'reader@example.com', email_address_check: '' })
+    expect(executeSpy).toHaveBeenLastCalledWith({
+      email: 'reader@example.com',
+      email_address_check: '',
+      captcha_token: 'verified-token',
+    })
 
-    pendingSubscription.resolve({ status: SubscriptionStatus.ConfirmationRequired })
+    pendingSubscription.resolve(SubscriptionStatus.ConfirmationRequired)
     await retry
 
     expect(form.success.hidden).toBe(false)
     expect(form.error.hidden).toBe(true)
   })
 
-  test('passes the email and honeypot to the service unchanged', async () => {
+  test.each(['', ' ', '\t\n'])('blocks an empty captcha token locally: %j', async (token) => {
+    const form = new FormMock()
+    querySelectorMock.mockReturnValue(form)
+    getToken.mockReturnValue(token)
+    initializeNewsletterForm()
+
+    await form.submit()
+
+    expect(executeSpy).not.toHaveBeenCalled()
+    expect(resetCaptcha).not.toHaveBeenCalled()
+    expect(form.feedback.focus).toHaveBeenCalledTimes(1)
+    expect(form.fields.disabled).toBe(false)
+  })
+
+  test('resets the token and preserves email when the use case returns an error status', async () => {
+    const form = new FormMock()
+    form.email.value = 'reader@example.com'
+    querySelectorMock.mockReturnValue(form)
+    executeSpy.mockResolvedValue(SubscriptionStatus.Error)
+    initializeNewsletterForm()
+
+    await form.submit()
+
+    expect(form.error.hidden).toBe(false)
+    expect(form.email.value).toBe('reader@example.com')
+    expect(form.fields.disabled).toBe(false)
+    expect(form.feedback.focus).toHaveBeenCalledTimes(1)
+    expect(resetCaptcha).toHaveBeenCalledTimes(1)
+  })
+
+  test.each([SubscriptionStatus.ConfirmationRequired, SubscriptionStatus.InvalidEmail, SubscriptionStatus.Error])(
+    'resets the token after each attempted request: %s',
+    async (status) => {
+      const form = new FormMock()
+      querySelectorMock.mockReturnValue(form)
+      executeSpy.mockResolvedValue(status)
+      initializeNewsletterForm()
+
+      await form.submit()
+
+      expect(resetCaptcha).toHaveBeenCalledTimes(1)
+    }
+  )
+
+  test('passes the email, honeypot and captcha token to the service unchanged', async () => {
     const input: SubscribeToNewsletterInput = {
       email: '  Reader@example.com  ',
       email_address_check: '  unsolicited robot biography  ',
+      captcha_token: 'verified-token',
     }
     const form = new FormMock()
     form.email.value = input.email

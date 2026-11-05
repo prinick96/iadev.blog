@@ -1,5 +1,7 @@
 ---
+import Button from '@/ui/components/Button/index.astro'
 import CloseIcon from '@/ui/components/icons/CloseIcon/index.astro'
+import NewsletterCaptcha from '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/components/NewsletterCaptcha/index.astro'
 import '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/styles.css'
 ---
 
@@ -48,10 +50,12 @@ import '@/ui/layouts/BaseLayout/components/Topbar/components/NewsletterDialog/st
         </p>
         <input type="text" name="email_address_check" value="" tabindex="-1" autocomplete="off" hidden />
 
-        <button class="newsletter-dialog__submit" type="submit">
+        <NewsletterCaptcha />
+
+        <Button class="newsletter-dialog__submit" type="submit" disabled>
           <span data-newsletter-submit-label>Suscribirme</span>
           <span data-newsletter-submitting hidden>Enviando…</span>
-        </button>
+        </Button>
       </fieldset>
       <div
         class="newsletter-dialog__feedback"

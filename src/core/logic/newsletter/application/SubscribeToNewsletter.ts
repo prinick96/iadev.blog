@@ -1,26 +1,28 @@
 import type { SubscribeToNewsletterInput } from '@/core/logic/newsletter/domain/Inputs'
-import type { SubscriptionResult } from '@/core/logic/newsletter/domain/SubscriptionResult'
+
 import { SubscriptionStatus } from '@/core/logic/newsletter/domain/SubscriptionStatus'
 import type { INewsletterSubscriptionGateway } from '@/core/logic/newsletter/infra/interfaces/INewsletterSubscriptionGateway'
 
 class SubscribeToNewsletter {
   constructor(private readonly gateway: INewsletterSubscriptionGateway) {}
 
-  async execute(input: SubscribeToNewsletterInput): Promise<SubscriptionResult> {
-    if (input.email_address_check !== '') {
-      return { status: SubscriptionStatus.Error }
+  async execute(input: SubscribeToNewsletterInput): Promise<SubscriptionStatus> {
+    if (input.email_address_check !== '' || input.captcha_token.trim() === '') {
+      return SubscriptionStatus.Error
     }
 
     const email = input.email.trim()
 
     if (email === '') {
-      return { status: SubscriptionStatus.InvalidEmail }
+      return SubscriptionStatus.InvalidEmail
     }
 
     try {
-      return await this.gateway.subscribe({ ...input, email })
+      const { status } = await this.gateway.subscribe({ ...input, email })
+
+      return status
     } catch {
-      return { status: SubscriptionStatus.Error }
+      return SubscriptionStatus.Error
     }
   }
 }
