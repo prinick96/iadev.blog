@@ -15,7 +15,8 @@ const { title, description, editable = false } = Astro.props
   <strong class="life-demo__title">{title}</strong>
   <p class="life-demo__description">{description}</p>
   <p id="life-instructions" class="life-demo__instructions">
-    {editable && 'Pulsa una celda para cambiar su estado. Con el tablero enfocado, usa las flechas para moverte y la barra espaciadora para activar o desactivar la celda.'}
+    {editable &&
+      'Pulsa una celda para cambiar su estado. Con el tablero enfocado, usa las flechas para moverte y la barra espaciadora para activar o desactivar la celda.'}
   </p>
   <canvas
     class="life-demo__world"
