@@ -10,6 +10,7 @@ import GetPostDetails from '@/core/logic/posts/application/GetPostDetails'
 import { getPostSourcesService } from '@/core/logic/posts/services/index'
 import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
 import type { Props } from '@/pages/posts/_types'
+import GameOfLifeDemos from '@/ui/assets/posts/el-juego-de-la-vida/index.astro'
 import { site } from '@/ui/config/site'
 import Post from '@/ui/pages/Post/index.astro'
 import { getPostPath } from '@/ui/routes/getPostPath'
@@ -51,4 +52,5 @@ const { Content } = await render(source)
   <Post {...details}>
     <Content />
   </Post>
+  {source.id === 'el-juego-de-la-vida' && <GameOfLifeDemos />}
 </SiteLayout>

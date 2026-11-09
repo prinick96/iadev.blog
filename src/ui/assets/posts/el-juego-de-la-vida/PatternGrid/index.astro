@@ -1,0 +1,18 @@
+---
+import Board from '@/ui/assets/posts/el-juego-de-la-vida/Board/index.astro'
+---
+
+<template id="life-pattern-grid-template">
+  <Board title="Paso 2: patrones" description="Carga un patrón para observar cómo se distribuyen sus células vivas.">
+    <label class="life-demo__field">
+      <span>Patrón</span>
+      <select class="life-demo__select" data-pattern>
+        <option value="block">Bloque</option>
+        <option value="blinker">Blinker</option>
+        <option value="glider" selected>Glider</option>
+      </select>
+    </label>
+    <button class="life-demo__button" type="button" data-action="load">Cargar patrón</button>
+    <button class="life-demo__button" type="button" data-action="clear">Vaciar</button>
+  </Board>
+</template>

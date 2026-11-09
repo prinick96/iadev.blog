@@ -23,5 +23,10 @@
     "id": "machine-learning",
     "name": "Machine Learning",
     "description": "Explorar conceptos de Machine Learning, ejemplos prácticos, todo lo que pueda caber en varios posts."
+  },
+  {
+    "id": "a-life",
+    "name": "Vida Artificial",
+    "description": "Así como el ML intenta recrear la inteligencia biológica, la Vida Artificial intenta recrear y simular los procesos y comportamientos de los seres vivos."
   }
 ]

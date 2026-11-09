@@ -1,0 +1,39 @@
+---
+import stylesheet from '@/ui/assets/posts/el-juego-de-la-vida/Board/styles.css?url'
+
+type Props = {
+  title: string
+  description: string
+  editable?: boolean
+}
+
+const { title, description, editable = false } = Astro.props
+---
+
+<link rel="stylesheet" href={stylesheet} />
+<section class="life-demo" aria-label={title}>
+  <strong class="life-demo__title">{title}</strong>
+  <p class="life-demo__description">{description}</p>
+  <p id="life-instructions" class="life-demo__instructions">
+    {editable &&
+      'Pulsa una celda para cambiar su estado. Con el tablero enfocado, usa las flechas para moverte y la barra espaciadora para activar o desactivar la celda.'}
+  </p>
+  <canvas
+    class="life-demo__world"
+    width="720"
+    height="480"
+    data-world
+    tabindex={editable ? 0 : undefined}
+    aria-describedby="life-instructions"
+  >
+    Tu navegador necesita canvas.
+  </canvas>
+  {Astro.slots.has('default') && (
+    <div class="life-demo__controls">
+      <slot />
+    </div>
+  )}
+  <output data-status class="life-demo__status" aria-live="polite" aria-atomic="true">
+    Generación: 0 · Células vivas: 0
+  </output>
+</section>
