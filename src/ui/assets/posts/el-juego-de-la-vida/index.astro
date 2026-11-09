@@ -1,0 +1,22 @@
+---
+import CompleteGame from '@/ui/assets/posts/el-juego-de-la-vida/CompleteGame/index.astro'
+import EmptyGrid from '@/ui/assets/posts/el-juego-de-la-vida/EmptyGrid/index.astro'
+import Generations from '@/ui/assets/posts/el-juego-de-la-vida/Generations/index.astro'
+import PatternGrid from '@/ui/assets/posts/el-juego-de-la-vida/PatternGrid/index.astro'
+---
+
+<EmptyGrid />
+<PatternGrid />
+<Generations />
+<CompleteGame />
+
+<script>
+if (document.querySelector('#life-empty-grid-template')) {
+  await Promise.all([
+    import('@/ui/assets/posts/el-juego-de-la-vida/EmptyGrid/register'),
+    import('@/ui/assets/posts/el-juego-de-la-vida/PatternGrid/register'),
+    import('@/ui/assets/posts/el-juego-de-la-vida/Generations/register'),
+    import('@/ui/assets/posts/el-juego-de-la-vida/CompleteGame/register'),
+  ])
+}
+</script>

@@ -1,0 +1,24 @@
+---
+import Board from '@/ui/assets/posts/el-juego-de-la-vida/Board/index.astro'
+---
+
+<template id="life-generations-template">
+  <Board
+    title="Paso 3: las generaciones"
+    description="Avanza una generación manualmente y observa qué células sobreviven, nacen o desaparecen."
+    editable
+  >
+    <label class="life-demo__field">
+      <span>Patrón</span>
+      <select class="life-demo__select" data-pattern>
+        <option value="block">Bloque</option>
+        <option value="blinker" selected>Blinker</option>
+        <option value="glider">Glider</option>
+      </select>
+    </label>
+    <button class="life-demo__button" type="button" data-action="load">Cargar patrón</button>
+    <button class="life-demo__button" type="button" data-action="clear">Vaciar</button>
+    <button class="life-demo__button" type="button" data-action="step">Un paso</button>
+    <button class="life-demo__button" type="button" data-action="reset">Reiniciar</button>
+  </Board>
+</template>
