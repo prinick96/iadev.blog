@@ -1,0 +1,58 @@
+---
+import ButtonLink from '@/ui/components/ButtonLink/index.astro'
+import BlueskyIcon from '@/ui/components/icons/BlueskyIcon/index.astro'
+import FacebookIcon from '@/ui/components/icons/FacebookIcon/index.astro'
+import HackerNewsIcon from '@/ui/components/icons/HackerNewsIcon/index.astro'
+import LineIcon from '@/ui/components/icons/LineIcon/index.astro'
+import LinkedInIcon from '@/ui/components/icons/LinkedInIcon/index.astro'
+import MailIcon from '@/ui/components/icons/MailIcon/index.astro'
+import MessageIcon from '@/ui/components/icons/MessageIcon/index.astro'
+import PinterestIcon from '@/ui/components/icons/PinterestIcon/index.astro'
+import RedditIcon from '@/ui/components/icons/RedditIcon/index.astro'
+import TelegramIcon from '@/ui/components/icons/TelegramIcon/index.astro'
+import ThreadsIcon from '@/ui/components/icons/ThreadsIcon/index.astro'
+import TumblrIcon from '@/ui/components/icons/TumblrIcon/index.astro'
+import ViberIcon from '@/ui/components/icons/ViberIcon/index.astro'
+import WhatsAppIcon from '@/ui/components/icons/WhatsAppIcon/index.astro'
+import XIcon from '@/ui/components/icons/XIcon/index.astro'
+import type { Props } from '@/ui/components/Share/components/ShareLink/types'
+import '@/ui/components/Share/components/ShareLink/styles.css'
+
+const { destination, label, group, href, external } = Astro.props.link
+const icons = {
+  x: XIcon,
+  bluesky: BlueskyIcon,
+  facebook: FacebookIcon,
+  linkedin: LinkedInIcon,
+  threads: ThreadsIcon,
+  reddit: RedditIcon,
+  pinterest: PinterestIcon,
+  hackerNews: HackerNewsIcon,
+  tumblr: TumblrIcon,
+  whatsapp: WhatsAppIcon,
+  telegram: TelegramIcon,
+  viber: ViberIcon,
+  line: LineIcon,
+  email: MailIcon,
+  sms: MessageIcon,
+}
+const Icon = icons[destination]
+const prefix = group === 'social' ? 'Compartir en' : 'Compartir por'
+const action = `${prefix} ${label}`
+const accessibleLabel = group === 'social' ? `${action} (se abre en otra pestaña)` : action
+const tooltip = external ? action : `${action} (requiere una aplicación compatible)`
+---
+
+<li class="share-link">
+  <ButtonLink
+    iconOnly
+    href={href}
+    data-share-destination={destination}
+    target={external ? '_blank' : undefined}
+    rel={external ? 'noopener noreferrer' : undefined}
+    aria-label={accessibleLabel}
+    title={tooltip}
+  >
+    <Icon class="share-link__icon" />
+  </ButtonLink>
+</li>

@@ -1,0 +1,17 @@
+---
+import SiteLayout from '@/pages/_layouts/SiteLayout/index.astro'
+import certificateImage from '@/ui/assets/social/certificado.png'
+import Certificate from '@/ui/pages/Certificate/index.astro'
+---
+
+<SiteLayout
+  title="Certificado de scroll completado"
+  description="Tu certificado editable por llegar al final de un post, sin examen, sin proyecto final y sin validez académica, lo que importa es tu confianza."
+  socialImage={{
+    image: certificateImage,
+    alt: 'Certificado de scroll completado de IADev.blog, listo para el postureo en Linkedin.',
+  }}
+  showHeader={false}
+>
+  <Certificate />
+</SiteLayout>

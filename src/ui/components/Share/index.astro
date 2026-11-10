@@ -1,0 +1,46 @@
+---
+import ShareLink from '@/ui/components/Share/components/ShareLink/index.astro'
+import type { Props } from '@/ui/components/Share/types'
+import { getShareLinks } from '@/ui/components/Share/utils/getShareLinks'
+import '@/ui/components/Share/styles.css'
+
+const {
+  url,
+  title,
+  intro = 'El algoritmo ya ha leído suficiente.\nPásaselo a una persona.',
+  id = 'share',
+  live = false,
+} = Astro.props
+
+const links = getShareLinks(url, title)
+const groups = [
+  { id: 'social', label: 'Redes sociales' },
+  { id: 'messaging', label: 'Mensajería' },
+]
+---
+
+<section id={id} class="share" data-share data-share-live={live || undefined} aria-labelledby={`${id}-title`}>
+  <h2 class="share__title" id={`${id}-title`}>Compártelo</h2>
+  <p class="share__intro">{intro}</p>
+
+  {groups.map((group) => (
+    <>
+      <h3 class="share__heading" id={`${id}-${group.id}`}>
+        {group.label}
+      </h3>
+      <ul class="share__list" aria-labelledby={`${id}-${group.id}`}>
+        {links
+          .filter((link) => link.group === group.id)
+          .map((link) => (
+            <ShareLink link={link} />
+          ))}
+      </ul>
+    </>
+  ))}
+</section>
+
+<script>
+import { initializeShare } from '@/ui/components/Share/utils/initializeShare'
+
+initializeShare()
+</script>

@@ -11,10 +11,16 @@ export type Props = {
   title?: string
   description?: string
   article?: ArticleMetadata
+  socialImage?: SocialImageOverride
   noIndex?: boolean
 }
 
 export type SocialImageSource = Pick<ImageMetadata, 'src' | 'width' | 'height' | 'format'>
+
+export type SocialImageOverride = {
+  image: SocialImageSource
+  alt: string
+}
 
 export type SocialImage = {
   url: string

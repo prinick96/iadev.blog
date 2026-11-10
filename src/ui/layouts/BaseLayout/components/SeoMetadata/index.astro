@@ -10,12 +10,13 @@ import { serializeStructuredData } from '@/ui/layouts/BaseLayout/components/SeoM
 import { paths } from '@/ui/routes/paths'
 import { getPostSocialImage } from '@/ui/utils/getPostSocialImage'
 
-const { title, description = site.description, article, noIndex = false } = Astro.props
+const { title, description = site.description, article, socialImage, noIndex = false } = Astro.props
 const { pageTitle, socialTitle, canonical, image, structuredData } = getSeoMetadata({
   pathname: Astro.url.pathname,
   title,
   description,
   article,
+  socialImage,
   fallbackImage: blogImage,
   articleImage: article ? getPostSocialImage(POST_SOCIAL_IMAGES, article.post.id) : undefined,
 })

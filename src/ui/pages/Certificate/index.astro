@@ -1,0 +1,122 @@
+---
+import { Image } from 'astro:assets'
+import certificatePet from '@/ui/assets/pet/yeah.svg'
+import BackLink from '@/ui/components/BackLink/index.astro'
+import Share from '@/ui/components/Share/index.astro'
+import { site } from '@/ui/config/site'
+import { CERTIFICATE_LIMITS, DEFAULT_CERTIFICATE } from '@/ui/pages/Certificate/constants'
+import { getCertificateUrl } from '@/ui/pages/Certificate/utils/getCertificateUrl'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/pages/Certificate/styles.css'
+
+const shareUrl = getCertificateUrl(new URL(paths.certificate, site.url), DEFAULT_CERTIFICATE).href
+---
+
+<section class="certificate-page" data-certificate aria-labelledby="certificate-heading">
+  <BackLink class="certificate-page__back" href={paths.home}>Inicio</BackLink>
+  <article class="certificate" aria-labelledby="certificate-heading">
+    <header class="certificate__header">
+      <a class="certificate__brand" href={paths.home} aria-label="IADev.blog · Inicio"
+        >IADev.blog <span aria-hidden="true">▮</span></a
+      >
+      <p class="certificate__disclaimer">Sátira · Acreditación inventada</p>
+      <p class="certificate__department">Departamento de titulación instantánea</p>
+    </header>
+
+    <div class="certificate__body">
+      <div class="certificate__details">
+        <h1 class="certificate__heading" id="certificate-heading">CERTIFICADO</h1>
+        <p class="certificate__subtitle">DE SCROLL COMPLETADO</p>
+
+        <label class="certificate__label" for="certificate-title">Se concede el título de</label>
+        <textarea
+          class="certificate__field certificate__field--title"
+          id="certificate-title"
+          name="title"
+          data-certificate-field="title"
+          maxlength={CERTIFICATE_LIMITS.title}
+          rows="1"
+          spellcheck="false"
+          aria-describedby="certificate-help"
+          readonly
+        >{DEFAULT_CERTIFICATE.title}</textarea>
+
+        <label class="certificate__visually-hidden" for="certificate-name">Nombre de la persona</label>
+        <input
+          class="certificate__field certificate__field--name"
+          id="certificate-name"
+          name="name"
+          data-certificate-field="name"
+          type="text"
+          value={DEFAULT_CERTIFICATE.name}
+          placeholder="[ TU NOMBRE AQUÍ ]"
+          autocomplete="name"
+          maxlength={CERTIFICATE_LIMITS.name}
+          aria-describedby="certificate-help"
+          readonly
+        />
+
+        <label class="certificate__visually-hidden" for="certificate-description">Motivo del certificado</label>
+        <textarea
+          class="certificate__field certificate__field--description"
+          id="certificate-description"
+          name="description"
+          data-certificate-field="description"
+          maxlength={CERTIFICATE_LIMITS.description}
+          rows="2"
+          aria-describedby="certificate-help"
+          readonly
+        >{DEFAULT_CERTIFICATE.description}</textarea>
+
+        <dl class="certificate__requirements">
+          <div class="certificate__requirement">
+            <dt>Examen</dt>
+            <dd>Ninguno.</dd>
+          </div>
+          <div class="certificate__requirement">
+            <dt>Proyecto final</dt>
+            <dd>Ninguno.</dd>
+          </div>
+          <div class="certificate__requirement">
+            <dt>Conocimientos</dt>
+            <dd>Sin comprobar.</dd>
+          </div>
+        </dl>
+
+        <p class="certificate__seniority">Nivel Senior: si has ejecutado los comandos.</p>
+        <p class="certificate__expiry">Caduca cuando aparezca la siguiente etiqueta de moda.</p>
+      </div>
+
+      <aside class="certificate__authority" aria-label="Entidad certificadora inventada">
+        <div class="certificate__seal">
+          <strong class="certificate__percentage">100 %</strong>
+          <span class="certificate__scroll">SCROLL</span>
+          <span class="certificate__exams">0 EXÁMENES</span>
+        </div>
+        <Image class="certificate__pet" src={certificatePet} alt="" width={360} height={360} />
+        <div class="certificate__signature">
+          <p class="certificate__committee">COMITÉ DE HUMO</p>
+          <p class="certificate__approval">Aprobado por exceso de confianza.</p>
+        </div>
+      </aside>
+    </div>
+
+    <footer class="certificate__footer">
+      <p>El título te lo llevas por leer, el criterio lo pones tú.</p>
+      <small>Sin validez académica ni profesional</small>
+    </footer>
+  </article>
+  <Share
+    id="certificate-share"
+    url={shareUrl}
+    title={DEFAULT_CERTIFICATE.title}
+    intro={'El comité ya ha firmado.\n Comparte tu mérito sin verificar.'}
+    live
+  />
+</section>
+
+<script>
+import { initializeCertificate } from '@/ui/pages/Certificate/utils/initializeCertificate'
+
+initializeCertificate()
+</script>

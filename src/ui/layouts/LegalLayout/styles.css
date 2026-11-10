@@ -4,24 +4,7 @@
 }
 
 .legal-layout__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   margin-block-end: 1.25rem;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  text-decoration: none;
-}
-
-.legal-layout__back:hover,
-.legal-layout__back:focus-visible {
-  color: var(--color-accent);
-}
-
-.legal-layout__back-icon {
-  flex-shrink: 0;
-  inline-size: 1rem;
-  block-size: 1rem;
 }
 
 .legal-layout__header {

@@ -1,5 +1,5 @@
 ---
-import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import BackLink from '@/ui/components/BackLink/index.astro'
 import MarkdownContent from '@/ui/components/MarkdownContent/index.astro'
 import type { Props } from '@/ui/layouts/LegalLayout/types'
 import { paths } from '@/ui/routes/paths'
@@ -9,10 +9,7 @@ const { title } = Astro.props
 ---
 
 <article class="legal-layout">
-  <a class="legal-layout__back" href={paths.home}>
-    <ArrowLeftIcon class="legal-layout__back-icon" />
-    Inicio
-  </a>
+  <BackLink class="legal-layout__back" href={paths.home}>Inicio</BackLink>
   <header class="legal-layout__header">
     <h1 class="legal-layout__title">{title}</h1>
     <p class="legal-layout__updated">Última actualización: <time datetime="2026-11-05">5 de noviembre de 2026</time></p>

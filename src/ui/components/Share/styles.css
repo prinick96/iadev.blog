@@ -1,40 +1,42 @@
-.post-share {
+.share {
   margin-block-start: 1.75rem;
   padding-block-start: 1.75rem;
   border-block-start: 1px solid var(--color-border);
+  font-size: var(--font-size-md);
+  font-weight: 400;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
 }
 
-.post-share .post-share__title {
+.share .share__title {
   margin-block: 0 0.75rem;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 
-.post-share .post-share__intro {
+.share .share__intro {
   margin-block: 0 1.5rem;
+  white-space: pre-line;
 }
 
-.post-share .post-share__heading {
+.share .share__heading {
   margin-block: 1.5rem 0.625rem;
   color: var(--color-text-muted);
   font-size: var(--font-size-sm);
   font-weight: 400;
+  line-height: 1.4;
   letter-spacing: normal;
+  text-wrap: balance;
 }
 
-.post-share .post-share__list {
+.share .share__list {
   display: flex;
   flex-wrap: wrap;
   gap: 0.5rem;
   margin: 0;
   padding: 0;
   list-style: none;
-}
-
-.post-share__item + .post-share__item {
-  margin-block-start: 0;
-}
-
-.post-share__icon {
-  flex-shrink: 0;
-  inline-size: 1rem;
-  block-size: 1rem;
 }

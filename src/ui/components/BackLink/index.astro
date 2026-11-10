@@ -1,0 +1,12 @@
+---
+import type { Props } from '@/ui/components/BackLink/types'
+import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import '@/ui/components/BackLink/styles.css'
+
+const { href, class: className } = Astro.props
+---
+
+<a class:list={['back-link', className]} href={href}>
+  <ArrowLeftIcon class="back-link__icon" />
+  <slot />
+</a>
