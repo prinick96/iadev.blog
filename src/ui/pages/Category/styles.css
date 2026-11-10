@@ -1,24 +1,6 @@
 .category__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   margin-inline-start: var(--post-gutter);
   margin-block-end: 1.25rem;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  text-decoration: none;
-}
-
-.category__back:hover,
-.category__back:focus-visible {
-  color: var(--color-accent);
-  text-decoration: none;
-}
-
-.category__back-icon {
-  flex-shrink: 0;
-  inline-size: 1rem;
-  block-size: 1rem;
 }
 
 .category__header {

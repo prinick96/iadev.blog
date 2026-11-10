@@ -1,5 +1,5 @@
 ---
-import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import BackLink from '@/ui/components/BackLink/index.astro'
 import type { Props } from '@/ui/pages/Categories/types'
 import { getCategoryPath } from '@/ui/routes/getCategoryPath'
 import { paths } from '@/ui/routes/paths'
@@ -9,10 +9,7 @@ const { archives } = Astro.props
 ---
 
 <div class="categories">
-  <a class="categories__back" href={paths.home}>
-    <ArrowLeftIcon class="categories__back-icon" />
-    Inicio
-  </a>
+  <BackLink class="categories__back" href={paths.home}>Inicio</BackLink>
   <header class="categories__header">
     <h1 class="categories__title">Categorías</h1>
   </header>

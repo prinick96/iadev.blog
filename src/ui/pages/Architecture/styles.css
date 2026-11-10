@@ -3,24 +3,7 @@
 }
 
 .architecture__back {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
   margin-block-end: 1.25rem;
-  color: var(--color-text-muted);
-  font-size: var(--font-size-sm);
-  text-decoration: none;
-}
-
-.architecture__back:hover,
-.architecture__back:focus-visible {
-  color: var(--color-accent);
-  text-decoration: none;
-}
-
-.architecture__back-icon {
-  inline-size: 1rem;
-  block-size: 1rem;
 }
 
 .architecture__header {

@@ -2,6 +2,7 @@ export const paths = {
   home: '/',
   categories: '/categories/',
   architecture: '/arquitectura/',
+  certificate: '/certificado/',
   publishingGuide: '/guia-publicar/',
   cookies: '/politica-de-cookies/',
   privacy: '/privacidad/',

@@ -28,5 +28,10 @@
     "id": "a-life",
     "name": "Vida Artificial",
     "description": "Así como el ML intenta recrear la inteligencia biológica, la Vida Artificial intenta recrear y simular los procesos y comportamientos de los seres vivos."
+  },
+  {
+    "id": "ia-resources",
+    "name": "Recursos de IA",
+    "description": "Para linkedin profiles AI Engineers / Prompt Engineers / Context Engineer / Humo Engineer y también para personas normales que quieren sacarle mejor provecho a la IA."
   }
 ]

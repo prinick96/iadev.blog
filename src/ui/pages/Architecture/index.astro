@@ -1,15 +1,12 @@
 ---
-import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import BackLink from '@/ui/components/BackLink/index.astro'
 import ArchitectureDiagram from '@/ui/pages/Architecture/components/ArchitectureDiagram/index.astro'
 import { paths } from '@/ui/routes/paths'
 import '@/ui/pages/Architecture/styles.css'
 ---
 
 <article class="architecture">
-  <a class="architecture__back" href={paths.home}>
-    <ArrowLeftIcon class="architecture__back-icon" />
-    Inicio
-  </a>
+  <BackLink class="architecture__back" href={paths.home}>Inicio</BackLink>
   <header class="architecture__header">
     <h1 class="architecture__title">Arquitectura del blog</h1>
     <p class="architecture__description">

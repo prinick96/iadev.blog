@@ -2,7 +2,7 @@ import { describe, expect, test } from 'bun:test'
 import type { Author } from '@/core/logic/authors/domain/Author'
 import type { Post } from '@/core/logic/posts/domain/Post'
 import { site } from '@/ui/config/site'
-import type { SocialImageSource } from '@/ui/layouts/BaseLayout/components/SeoMetadata/types'
+import type { SocialImageOverride, SocialImageSource } from '@/ui/layouts/BaseLayout/components/SeoMetadata/types'
 import { getSeoMetadata } from '@/ui/layouts/BaseLayout/components/SeoMetadata/utils/getSeoMetadata'
 
 const siteTitle = `${site.title} - ${site.subtitle}`
@@ -146,6 +146,84 @@ describe('getSeoMetadata', () => {
 
     expect(result.image.url).toBe(new URL(fallbackImage.src, site.url).href)
     expect(result.image.type).toBe('image/png')
+  })
+
+  test('uses a social image override instead of the fallback image', () => {
+    const socialImage: SocialImageOverride = {
+      image: { src: '/_astro/certificate.png', width: 1600, height: 900, format: 'png' },
+      alt: 'Certificado de experiencia no facturada por suscripción.',
+    }
+    const result = getSeoMetadata({
+      pathname: '/certificate/',
+      title: 'Certificado',
+      description: 'Experiencia certificada.',
+      socialImage,
+      fallbackImage,
+    })
+    const url = new URL(socialImage.image.src, site.url).href
+
+    expect(result.image).toEqual({ url, type: 'image/png', width: 1600, height: 900, alt: socialImage.alt })
+    expect(result.structuredData['@graph'][1]).toMatchObject({
+      primaryImageOfPage: { url, width: 1600, height: 900, caption: socialImage.alt },
+    })
+  })
+
+  test.each<SocialImageSource | undefined>([
+    undefined,
+    { src: '/_astro/article.original.jpg', width: 1440, height: 720, format: 'jpg' },
+  ])('prefers the social image override over generated and original article images (%j)', (articleImage) => {
+    const socialImage: SocialImageOverride = {
+      image: { src: '/_astro/article.override.webp', width: 1800, height: 1200, format: 'webp' },
+      alt: 'Imagen elegida para compartir el artículo.',
+    }
+    const result = getSeoMetadata({
+      pathname: '/posts/example/',
+      title: post.title,
+      description: post.description,
+      article: { post, author },
+      articleImage,
+      socialImage,
+      fallbackImage,
+    })
+    const url = new URL(socialImage.image.src, site.url).href
+    const expectedImage = { url, width: 1800, height: 1200, caption: socialImage.alt }
+
+    expect(result.image).toEqual({ url, type: 'image/webp', width: 1800, height: 1200, alt: socialImage.alt })
+    expect(result.structuredData['@graph'][1]).toMatchObject({ primaryImageOfPage: expectedImage })
+    expect(result.structuredData['@graph'][2]).toMatchObject({ image: expectedImage })
+  })
+
+  test('preserves absolute override image URLs and an explicitly empty alt', () => {
+    const socialImage: SocialImageOverride = {
+      image: { src: 'https://images.example.com/certificate.png', width: 1600, height: 900, format: 'png' },
+      alt: '',
+    }
+    const result = getSeoMetadata({
+      pathname: '/certificate/',
+      description: site.description,
+      socialImage,
+      fallbackImage,
+    })
+
+    expect(result.image).toEqual({
+      url: socialImage.image.src,
+      type: 'image/png',
+      width: 1600,
+      height: 900,
+      alt: '',
+    })
+  })
+
+  test('does not modify the social image override', () => {
+    const socialImage: SocialImageOverride = {
+      image: { src: '/_astro/certificate.webp', width: 1600, height: 900, format: 'webp' },
+      alt: 'Certificado de experiencia.',
+    }
+    const before = structuredClone(socialImage)
+
+    getSeoMetadata({ pathname: '/certificate/', description: site.description, socialImage, fallbackImage })
+
+    expect(socialImage).toStrictEqual(before)
   })
 
   test('preserves encoded canonical paths', () => {

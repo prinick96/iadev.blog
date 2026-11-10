@@ -1,5 +1,5 @@
 ---
-import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import BackLink from '@/ui/components/BackLink/index.astro'
 import MarkdownContent from '@/ui/components/MarkdownContent/index.astro'
 import PostMetrics from '@/ui/components/PostMetrics/index.astro'
 import PostThumbnail from '@/ui/components/PostThumbnail/index.astro'
@@ -18,10 +18,7 @@ const postUrl = new URL(Astro.url.pathname, site.url).href
 
 <article class="post">
   <div class="post__intro">
-    <a class="post__back" href={paths.home}>
-      <ArrowLeftIcon class="post__back-icon" />
-      Inicio
-    </a>
+    <BackLink href={paths.home}>Inicio</BackLink>
   </div>
   <header class="post__header">
     <div class="post__heading">

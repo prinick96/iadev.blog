@@ -1,0 +1,9 @@
+.share-link + .share-link {
+  margin-block-start: 0;
+}
+
+.share-link__icon {
+  flex-shrink: 0;
+  inline-size: 1rem;
+  block-size: 1rem;
+}

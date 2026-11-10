@@ -1,5 +1,5 @@
 ---
-import ArrowLeftIcon from '@/ui/components/icons/ArrowLeftIcon/index.astro'
+import BackLink from '@/ui/components/BackLink/index.astro'
 import PostList from '@/ui/components/PostList/index.astro'
 import type { Props } from '@/ui/pages/Category/types'
 import { paths } from '@/ui/routes/paths'
@@ -11,10 +11,7 @@ const {
 ---
 
 <div class="category">
-  <a class="category__back" href={paths.categories}>
-    <ArrowLeftIcon class="category__back-icon" />
-    Todas las categorías
-  </a>
+  <BackLink class="category__back" href={paths.categories}>Todas las categorías</BackLink>
   <header class="category__header">
     <div class="category__heading">
       <h1 class="category__title">{category.name}</h1>
