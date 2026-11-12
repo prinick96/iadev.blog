@@ -8,7 +8,7 @@ Blog estático con Astro y artículos en Markdown, con un autor por artículo, a
 
 ## En local
 
-Requisitos: Node.js 24 y Bun 1.3.14 o superior, **espera, qué? ve al final y tienes el prompt para vibecoders**
+Requisitos: Node.js 24 y Bun 1.4.4 o superior, **espera, qué? ve al final y tienes el prompt para vibecoders**
 
 ```sh
 bun install --frozen-lockfile
@@ -252,7 +252,7 @@ Actúa como un ingeniero senior con 15 años de experiencia en herramientas que 
 Quiero arrancar este blog en local. Yo pongo la visión; tú lees el README.
 
 Revisa las instrucciones del repositorio, package.json y Makefile antes de ejecutar nada.
-Comprueba que tengo Node.js 24 y Bun 1.3.14 o superior. Usa Bun y respeta bun.lock.
+Comprueba que tengo Node.js 24 y Bun 1.4.4 o superior. Usa Bun y respeta bun.lock.
 Instala las dependencias con bun install --frozen-lockfile y dime cómo iniciar el blog con bun run dev.
 Explícame dónde editar los artículos Markdown y cómo comprobar y compilar los cambios con los comandos existentes.
 Si algo falla, diagnostica la causa: no borres el lockfile ni actualices medio ecosistema para mostrar un título.
