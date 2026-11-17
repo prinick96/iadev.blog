@@ -1,10 +1,15 @@
 ---
 import type { Props } from '@/ui/layouts/BaseLayout/components/Footer/components/FooterLink/types'
 
-const { label, tooltip = label, tooltipId, tooltipAlign = 'end', ...attributes } = Astro.props
+const { label, tooltip = label, tooltipId, tooltipAlign = 'end', desktopOnly = false, ...attributes } = Astro.props
 ---
 
-<a class="footer__item" {...attributes} aria-label={label} aria-describedby={tooltipId}>
+<a
+  class:list={['footer__item', { 'footer__item--desktop': desktopOnly }]}
+  {...attributes}
+  aria-label={label}
+  aria-describedby={tooltipId}
+>
   <slot />
   <span
     class:list={['footer__tooltip', { 'footer__tooltip--start': tooltipAlign === 'start' }]}

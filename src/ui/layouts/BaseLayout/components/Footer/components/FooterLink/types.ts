@@ -6,5 +6,6 @@ export type Props = Pick<HTMLAttributes<'a'>, 'target' | 'rel' | 'aria-current'>
   tooltip?: string
   tooltipId: string
   tooltipAlign?: 'start' | 'end'
+  desktopOnly?: boolean
   'data-new-post'?: boolean
 }

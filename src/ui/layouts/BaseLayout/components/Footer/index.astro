@@ -13,6 +13,7 @@ import PrivacyIcon from '@/ui/components/icons/PrivacyIcon/index.astro'
 import WritePostIcon from '@/ui/components/icons/WritePostIcon/index.astro'
 import CommitHistory from '@/ui/layouts/BaseLayout/components/Footer/components/CommitHistory/index.astro'
 import FooterLink from '@/ui/layouts/BaseLayout/components/Footer/components/FooterLink/index.astro'
+import FooterOverflow from '@/ui/layouts/BaseLayout/components/Footer/components/FooterOverflow/index.astro'
 import type { Props } from '@/ui/layouts/BaseLayout/components/Footer/types'
 import { getFooterNavigationState } from '@/ui/layouts/BaseLayout/components/Footer/utils/getFooterNavigationState'
 import { paths } from '@/ui/routes/paths'
@@ -31,7 +32,7 @@ const {
 ---
 
 <footer class="footer">
-  <div class="footer__group">
+  <div class="footer__group footer__group--tools">
     <button
       class="footer__item footer__item--history"
       type="button"
@@ -46,7 +47,7 @@ const {
       >
     </button>
     <button
-      class="footer__item"
+      class="footer__item footer__item--desktop"
       type="button"
       aria-label="Preferencias de cookies"
       aria-describedby="footer-preferences-tooltip"
@@ -67,6 +68,7 @@ const {
       tooltipId="footer-new-post-tooltip"
       tooltipAlign="start"
       aria-current={publishingGuideCurrent}
+      desktopOnly
     >
       <WritePostIcon class="footer__icon" />
     </FooterLink>
@@ -89,6 +91,7 @@ const {
       label="Arquitectura del blog"
       tooltipId="footer-architecture-tooltip"
       aria-current={architectureCurrent}
+      desktopOnly
     >
       <ArchitectureIcon class="footer__icon" />
     </FooterLink>
@@ -97,6 +100,7 @@ const {
       label="Política de cookies"
       tooltipId="footer-cookies-tooltip"
       aria-current={cookiesCurrent}
+      desktopOnly
     >
       <CookieIcon class="footer__icon" />
     </FooterLink>
@@ -105,6 +109,7 @@ const {
       label="Política de privacidad"
       tooltipId="footer-privacy-tooltip"
       aria-current={privacyCurrent}
+      desktopOnly
     >
       <PrivacyIcon class="footer__icon" />
     </FooterLink>
@@ -113,6 +118,7 @@ const {
       label="Aviso legal"
       tooltipId="footer-legal-notice-tooltip"
       aria-current={legalNoticeCurrent}
+      desktopOnly
     >
       <LegalNoticeIcon class="footer__icon" />
     </FooterLink>
@@ -120,6 +126,7 @@ const {
       href={GITHUB_REPOSITORY_URL}
       label="Repositorio"
       tooltipId="footer-github-tooltip"
+      desktopOnly
       target="_blank"
       rel="noopener noreferrer"
     >
@@ -130,12 +137,14 @@ const {
       label="Cloudflare"
       tooltip="Anti bloqueos de LaLiga"
       tooltipId="footer-cloudflare-tooltip"
+      desktopOnly
       target="_blank"
       rel="noopener noreferrer"
     >
       <CloudflareIcon class="footer__icon" />
     </FooterLink>
   </nav>
+  <FooterOverflow />
 </footer>
 <CommitHistory commits={commits} />
 
