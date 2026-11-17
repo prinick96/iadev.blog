@@ -1,4 +1,5 @@
 ---
+import CopyButton from '@/ui/components/CopyButton/index.astro'
 import type { Props } from '@/ui/components/MarkdownContent/types'
 import '@/ui/components/MarkdownContent/styles.css'
 
@@ -6,5 +7,16 @@ const { class: className } = Astro.props
 ---
 
 <div class:list={['markdown-content', className]}>
+  <template data-code-copy-template>
+    <CopyButton label="Copiar código" />
+  </template>
   <slot />
 </div>
+
+<script>
+import { initializeCopyButtons } from '@/ui/components/CopyButton/utils/initializeCopyButtons'
+import { initializeCodeCopy } from '@/ui/components/MarkdownContent/utils/initializeCodeCopy'
+
+initializeCodeCopy()
+initializeCopyButtons()
+</script>
