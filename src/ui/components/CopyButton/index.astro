@@ -1,0 +1,17 @@
+---
+import type { Props } from '@/ui/components/CopyButton/types'
+import CopyIcon from '@/ui/components/icons/CopyIcon/index.astro'
+import '@/ui/components/CopyButton/styles.css'
+
+const { label } = Astro.props
+---
+
+<button class="copy-button" type="button" aria-label={label} title={label} data-copy-button hidden>
+  <CopyIcon class="copy-button__icon" />
+</button>
+
+<script>
+import { initializeCopyButtons } from '@/ui/components/CopyButton/utils/initializeCopyButtons'
+
+initializeCopyButtons()
+</script>
