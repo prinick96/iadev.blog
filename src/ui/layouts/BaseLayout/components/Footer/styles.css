@@ -115,8 +115,21 @@
 
 @media (max-width: 47.999rem) {
   .footer {
-    justify-content: center;
+    justify-content: flex-end;
     gap: 0.125rem;
+  }
+
+  .footer__group--tools {
+    order: 1;
+  }
+
+  .footer__item--desktop {
+    display: none;
+  }
+
+  .footer__tooltip--start {
+    inset-inline-start: auto;
+    inset-inline-end: 0;
   }
 }
 

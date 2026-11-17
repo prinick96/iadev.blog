@@ -1,0 +1,82 @@
+---
+import { GITHUB_REPOSITORY_URL } from '@/core/constants/github'
+import ArchitectureIcon from '@/ui/components/icons/ArchitectureIcon/index.astro'
+import CloudflareIcon from '@/ui/components/icons/CloudflareIcon/index.astro'
+import CookieIcon from '@/ui/components/icons/CookieIcon/index.astro'
+import GithubIcon from '@/ui/components/icons/GithubIcon/index.astro'
+import LegalNoticeIcon from '@/ui/components/icons/LegalNoticeIcon/index.astro'
+import MoreIcon from '@/ui/components/icons/MoreIcon/index.astro'
+import PreferencesIcon from '@/ui/components/icons/PreferencesIcon/index.astro'
+import PrivacyIcon from '@/ui/components/icons/PrivacyIcon/index.astro'
+import WritePostIcon from '@/ui/components/icons/WritePostIcon/index.astro'
+import { getFooterNavigationState } from '@/ui/layouts/BaseLayout/components/Footer/utils/getFooterNavigationState'
+import { paths } from '@/ui/routes/paths'
+import '@/ui/layouts/BaseLayout/components/Footer/components/FooterOverflow/styles.css'
+
+const { architectureCurrent, publishingGuideCurrent, cookiesCurrent, privacyCurrent, legalNoticeCurrent } =
+  getFooterNavigationState(Astro.url.pathname)
+---
+
+<div class="footer-overflow">
+  <button
+    class="footer__item footer-overflow__trigger"
+    type="button"
+    popovertarget="footer-overflow"
+    aria-label="Más opciones"
+  >
+    <MoreIcon class="footer__icon" />
+  </button>
+  <div class="footer-overflow__panel" id="footer-overflow" popover="auto">
+    <nav class="footer-overflow__group" aria-label="Opciones del blog">
+      <a class="footer-overflow__item" href={paths.publishingGuide} aria-current={publishingGuideCurrent}>
+        <WritePostIcon class="footer-overflow__icon" />
+        <span>Cómo escribir un post</span>
+      </a>
+      <a class="footer-overflow__item" href={paths.architecture} aria-current={architectureCurrent}>
+        <ArchitectureIcon class="footer-overflow__icon" />
+        <span>Arquitectura del blog</span>
+      </a>
+      <a class="footer-overflow__item" href={GITHUB_REPOSITORY_URL} target="_blank" rel="noopener noreferrer">
+        <GithubIcon class="footer-overflow__icon" />
+        <span>Repositorio del blog</span>
+      </a>
+    </nav>
+    <nav class="footer-overflow__group" aria-label="Legal y privacidad">
+      <a class="footer-overflow__item" href={paths.cookies} aria-current={cookiesCurrent}>
+        <CookieIcon class="footer-overflow__icon" />
+        <span>Política de cookies</span>
+      </a>
+      <a class="footer-overflow__item" href={paths.privacy} aria-current={privacyCurrent}>
+        <PrivacyIcon class="footer-overflow__icon" />
+        <span>Política de privacidad</span>
+      </a>
+      <a class="footer-overflow__item" href={paths.legalNotice} aria-current={legalNoticeCurrent}>
+        <LegalNoticeIcon class="footer-overflow__icon" />
+        <span>Aviso legal</span>
+      </a>
+      <button
+        class="footer-overflow__item"
+        type="button"
+        aria-haspopup="dialog"
+        aria-controls="cookie-preferences"
+        data-cookie-preferences
+        hidden
+      >
+        <PreferencesIcon class="footer-overflow__icon" />
+        <span>Preferencias de cookies</span>
+      </button>
+    </nav>
+    <nav class="footer-overflow__group" aria-label="Enlaces externos">
+      <a
+        class="footer-overflow__item"
+        href="https://one.one.one.one/"
+        title="Anti bloqueos de LaLiga"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <CloudflareIcon class="footer-overflow__icon" />
+        <span>Internet Libre</span>
+      </a>
+    </nav>
+  </div>
+</div>
